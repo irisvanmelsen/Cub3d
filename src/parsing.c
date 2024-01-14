@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:58:27 by iris              #+#    #+#             */
-/*   Updated: 2024/01/14 13:07:41 by iris             ###   ########.fr       */
+/*   Updated: 2024/01/15 00:41:01 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ int	parsing(int argc, char **argv)
 	map.content = read_map(fd);
 	if (!map.content)
 		return (-1);
+	int	i = 0;
+	while (map.content[i])
+	{
+		printf("%s\n", map.content[i]);
+		i++;
+	}
 	if (!has_map_errors(&map))
 	{
 		free_map_2d(map.content);

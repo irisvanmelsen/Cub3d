@@ -6,12 +6,11 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 00:37:23 by iris              #+#    #+#             */
-/*   Updated: 2024/01/14 21:38:01 by iris             ###   ########.fr       */
+/*   Updated: 2024/01/15 00:39:42 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
 
 char	*take_out_prefix_newlines(char *line, int id)
 {

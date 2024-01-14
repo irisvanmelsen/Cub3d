@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 23:37:15 by iris              #+#    #+#             */
-/*   Updated: 2024/01/01 23:55:23 by iris             ###   ########.fr       */
+/*   Updated: 2024/01/15 00:40:12 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	check_map_after_ff(char **map_after_ff)
 		while (map_after_ff[y][x])
 		{
 			if (map_after_ff[y][x] != '1' && map_after_ff[y][x] != '0')
-				return (1);
+				return (0);
 			x++;
 		}
 		y++;
 	}
-	return (0);
+	return (1);
 }

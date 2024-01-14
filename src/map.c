@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:37:01 by iris              #+#    #+#             */
-/*   Updated: 2024/01/14 13:33:24 by iris             ###   ########.fr       */
+/*   Updated: 2024/01/15 00:24:35 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	count_lines(char **content)
 
 void	map_init(t_map *map)
 {
-	map->length_x = ft_strlen(map->content[0]);
 	map->length_y = count_lines(map->content);
 	map->player_x = 0;
 	map->player_y = 0;

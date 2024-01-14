@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/01/14 21:31:56 by iris             ###   ########.fr       */
+/*   Updated: 2024/01/15 00:22:51 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_map
 {
 	char	**content;
 	char	**dup_content;
-	int		length_x;
 	int		length_y;
 	int		player_x;
 	int		player_y;
@@ -122,6 +121,5 @@ int			has_map_errors(t_map *map);
 //FREE.C
 
 void		free_map_2d(char **map_copy);
-
 
 #endif
