@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/01/07 17:50:53 by iris             ###   ########.fr       */
+/*   Updated: 2024/01/14 21:31:56 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <string.h>
 
 # include <MLX42.h>
 # include <libft.h>	
@@ -95,7 +96,7 @@ char		*ft_strjoin_free(char *s1, char *s2);
 
 //ELEMENTS.C
 
-char		*take_out_newlines(char *str);
+char		*take_out_prefix_newlines(char *line, int id);
 bool		check_elements_in_map(char **map);
 int			check_elements(char *line);
 bool		use_elements(char *path, int id, t_elements *element);

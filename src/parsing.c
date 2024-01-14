@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:58:27 by iris              #+#    #+#             */
-/*   Updated: 2024/01/07 18:11:05 by iris             ###   ########.fr       */
+/*   Updated: 2024/01/14 13:07:41 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	parsing(int argc, char **argv)
 	}
 	if (!parse_elements_in_map(map.content))
 		return (-1);
-	printf("hey!\n");
 	return (1);
 }
 

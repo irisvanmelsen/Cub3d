@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:58:37 by iris              #+#    #+#             */
-/*   Updated: 2024/01/07 18:41:33 by iris             ###   ########.fr       */
+/*   Updated: 2024/01/14 21:01:48 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ bool	get_north_path(t_textures *texture, char *path)
 		printf("Double element! NO should only be used once.\n");
 		return (false);
 	}
-	// path = "./path_to_the_north_texture";
+	path = "./textures/wall_bricks1.png";
 	printf("path: %s\n", path);
-	texture->north = mlx_load_png(path);
+	printf("length: %zu\n", ft_strlen(path));
+	texture->north = mlx_load_png("./textures/wall_bricks1.png");
 	if (!texture->north)
 		return (false);
 	return (true);

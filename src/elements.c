@@ -6,35 +6,31 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 00:37:23 by iris              #+#    #+#             */
-/*   Updated: 2024/01/07 18:40:33 by iris             ###   ########.fr       */
+/*   Updated: 2024/01/14 21:38:01 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-char	*take_out_newlines(char *str)
-{
-	int	i;
-	int	j;
 
-	i = 0;
-	if (str[i] == '\n')
-		return (false);
-	while (str[i] != '\0')
+char	*take_out_prefix_newlines(char *line, int id)
+{
+	size_t	prefix_len;
+
+	if (id == F || id == C)
+		prefix_len = 2;
+	else
+		prefix_len = 3;
+	// Move past the prefix
+	while (*line && prefix_len > 0)
 	{
-		if (str[i] == '\n')
-		{
-			j = i;
-			while (str[j] != '\0')
-			{
-				str[j] = str[j+1];
-				j++;
-			}
-		}
-		else
-			i++;
+		line++;
+		prefix_len--;
 	}
-	return (str);
+    // Remove any following spaces
+	while (*line == ' ')
+		line++;
+	return (line);
 }
 
 int	check_elements(char *line)
@@ -89,7 +85,6 @@ bool	use_elements(char *path, int id, t_elements *element)
 	texture_init(texture);
 	if (id == NO)
 	{
-		printf("check?\n");
 		if (!get_north_path(texture, path))
 			return (printf("Texture uploading of NO went wrong!\n"), false);
 		return (NO);
@@ -136,19 +131,24 @@ bool	parse_elements_in_map(char **map)
 
 	i = 0;
 	id = 0;
-	element = NULL;
+	element = malloc(sizeof(t_elements));
+	if (!element)
+		return (false);
+	element->ceiling_column = 0;
+	element->floor_column = 0;
 	while (i < 6)
 	{
-		str = take_out_newlines(map[i]);
-		if (!str)
-			return (false);
 		id = check_elements(str);
 		if (!id)
 		{
 			free_map_2d(map);
 			return (false);
 		}
+		str = take_out_prefix_newlines(map[i], id);
+		if (!str)
+			return (false);
 		use_elements(str, id, element);
+		printf("str: %s\n", str);
 		i++;
 	}
 	return (true);
