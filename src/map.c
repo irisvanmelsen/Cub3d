@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 22:37:01 by iris              #+#    #+#             */
-/*   Updated: 2024/01/15 00:24:35 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   map.c                                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 22:37:01 by iris          #+#    #+#                 */
+/*   Updated: 2024/01/15 00:24:35 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 char	**floodfill(char **content, int y, int x)
 {
-	if (content[y][x] != '1')
+	if (y >= 0 && x >= 0 && content && content[y] && content[y][x] \
+		&& content[y][x] != '1')
 	{
 		if (content[y][x] == 'N' || content[y][x] == 'S'
 		|| content[y][x] == 'E' || content[y][x] == 'W'
@@ -35,7 +36,7 @@ int	count_lines(char **content)
 	int	i;
 
 	i = 0;
-	while (content[i] != '\0')
+	while (content[i] != NULL)
 		i++;
 	return (i);
 }

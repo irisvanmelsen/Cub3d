@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 11:49:03 by ivan-mel          #+#    #+#             */
-/*   Updated: 2022/11/01 18:10:45 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_split.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/19 11:49:03 by ivan-mel      #+#    #+#                 */
+/*   Updated: 2022/11/01 18:10:45 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 int	ft_wordcount(char const *s, char c)
 {
 	int	i;
-	int	j;
 	int	count;
 
 	i = 0;
-	j = 0;
 	count = 0;
 	while (s[i] != '\0')
 	{
@@ -33,7 +31,7 @@ int	ft_wordcount(char const *s, char c)
 		}
 		if (s[i] == '\0')
 			return (count);
-	i++;
+		i++;
 	}
 	return (count);
 }
@@ -41,10 +39,8 @@ int	ft_wordcount(char const *s, char c)
 int	ft_wordlength(char const *s, char c)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (s[i] != '\0' && s[i] != c)
 	{
 		if (s[i] == c)
@@ -59,7 +55,7 @@ void	ft_free(char **array)
 	int	i;
 
 	i = 0;
-	while (array[i] != '\0')
+	while (array[i] != NULL)
 	{
 		free(array[i]);
 		i++;
@@ -96,11 +92,7 @@ void	ft_loopsplit(char const *s, char **array, char c)
 char	**ft_split(char const *s, char c)
 {
 	char	**array;
-	int		i;
-	int		index;
 
-	i = 0;
-	index = 0;
 	if (!s)
 		return (NULL);
 	array = ft_calloc(sizeof(char *), (ft_wordcount(s, c) + 1));

@@ -1,16 +1,16 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: iris <iris@student.42.fr>                  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
-#    Updated: 2024/01/07 18:05:48 by iris             ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: iris <iris@student.42.fr>                    +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
+#    Updated: 2024/01/07 18:05:48 by iris          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		:= 	cub3d
+NAME 		:= 	Cub3d
 LIBS		:=	./libft/libft.a
 HEADER		:=	-I libft -I include/cub3d.h -I MLX42/include/MLX42
 #MLX
@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	-Wall -Werror -Wextra
+FLAGS 		:=	-Wall -Werror -Wextra -fsanitize=address -g
 SRC			:=	main.c \
 				characters.c \
 				error.c \
@@ -30,7 +30,7 @@ SRC			:=	main.c \
 				paths.c \
 				elements.c \
 				elements_utils.c
-# SRCB		:=	
+# SRCB		:=
 
 #OBJB_FILES	=	${SRCB:.c=.o}
 OBJ_DIR		:=	./obj
@@ -57,16 +57,19 @@ White		=	"\033[0;37m"		# White
 OBJ		:= 	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 SRC		:=	$(addprefix $(SRC_DIR)/,$(SRC))
 
-all: libmlx ${NAME}
+all: libmlx $(NAME)
 
 libmlx:
 	@cmake $(MLX) -B $(MLX)/build && make -C $(MLX)/build
-	
+
+run: $(NAME)
+	./Cub3d maps/map.cub
+
 ${NAME}: ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
 	@${MAKE} -C libft
 # @${MAKE} -C ./MLX42/build
-	@${CC} $^ ${LIBS} ${LIBS_MLX} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
+	@${CC} $^ $(FLAGS) ${LIBS} ${LIBS_MLX} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_off}
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS) | $(OBJ_DIR)
@@ -90,7 +93,7 @@ clean:
 fclean: clean
 	@echo ${Yellow} Deleting ${NAME} ${Color_off}
 	@${MAKE} -C libft fclean
-	@${RM} ${MLX}/build 
+	@${RM} ${MLX}/build
 	@${RM} ${NAME}
 
 re: fclean all

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   elements.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/31 00:37:23 by iris              #+#    #+#             */
-/*   Updated: 2024/01/15 00:39:42 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   elements.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/31 00:37:23 by iris          #+#    #+#                 */
+/*   Updated: 2024/01/15 00:39:42 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,9 @@ bool	parse_elements_in_map(char **map)
 	element->floor_column = 0;
 	while (i < 6)
 	{
-		id = check_elements(str);
+		id = check_elements(str); //str gets checked before having a value?
 		if (!id)
-		{
-			free_map_2d(map);
 			return (false);
-		}
 		str = take_out_prefix_newlines(map[i], id);
 		if (!str)
 			return (false);

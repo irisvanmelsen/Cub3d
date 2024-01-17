@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 14:58:27 by iris              #+#    #+#             */
-/*   Updated: 2024/01/15 00:41:01 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parsing.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 14:58:27 by iris          #+#    #+#                 */
+/*   Updated: 2024/01/15 00:41:01 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,23 @@ int	parsing(int argc, char **argv)
 {
 	int		fd;
 	t_map	map;
+	int		i;
 
 	fd = is_input_correct(argc, argv[1]);
 	map.content = read_map(fd);
 	if (!map.content)
 		return (-1);
-	int	i = 0;
+	i = 0;
 	while (map.content[i])
 	{
 		printf("%s\n", map.content[i]);
 		i++;
 	}
-	if (!has_map_errors(&map))
+	if (!has_map_errors(&map) || !parse_elements_in_map(map.content))
 	{
 		free_map_2d(map.content);
 		return (-1);
 	}
-	if (!parse_elements_in_map(map.content))
-		return (-1);
 	return (1);
 }
 
