@@ -12,6 +12,9 @@
 
 #include "../include/cub3d.h"
 
+// remove geen new line meer?
+// id kan je hier in principe ook checken met line[i]
+
 char	*take_out_prefix_newlines(char *line, int id)
 {
 	size_t	prefix_len;
@@ -126,24 +129,22 @@ bool	parse_elements_in_map(char **map)
 	char		*str;
 	int			i;
 	int			id;
-	t_elements	*element;
+	t_elements	element;
 
 	i = 0;
 	id = 0;
-	element = malloc(sizeof(t_elements));
-	if (!element)
-		return (false);
-	element->ceiling_column = 0;
-	element->floor_column = 0;
+
+	element.ceiling_column = 0;
+	element.floor_column = 0;
 	while (i < 6)
 	{
-		id = check_elements(str); //str gets checked before having a value?
-		if (!id)
-			return (false);
 		str = take_out_prefix_newlines(map[i], id);
 		if (!str)
 			return (false);
-		use_elements(str, id, element);
+		id = check_elements(str); //str gets checked before having a value?
+		if (!id)
+			return (false);
+		use_elements(str, id, &element);
 		printf("str: %s\n", str);
 		i++;
 	}

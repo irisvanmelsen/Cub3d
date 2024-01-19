@@ -12,6 +12,8 @@
 
 #include "../include/cub3d.h"
 
+// kan zelfs makkelijker, zonder floodfill?
+
 char	**floodfill(char **content, int y, int x)
 {
 	if (y >= 0 && x >= 0 && content && content[y] && content[y][x] \

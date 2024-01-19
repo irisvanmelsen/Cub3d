@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   characters.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 23:59:29 by iris              #+#    #+#             */
-/*   Updated: 2024/01/15 00:40:43 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   characters.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 23:59:29 by iris          #+#    #+#                 */
+/*   Updated: 2024/01/15 00:40:43 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+// player count ipv character count
+// if > 1 dan zijn het er teveel
 
 int	check_characters(t_map *map)
 {
@@ -35,29 +38,11 @@ int	check_characters(t_map *map)
 		}
 		y++;
 	}
-	if (map->n_count > 1 || map->s_count > 1 
+	if (map->n_count > 1 || map->s_count > 1
 		|| map->e_count > 1 || map->w_count > 1)
 		return (0);
 	return (1);
 }
-
-// int	check_sides_wall(t_map *map)
-// {
-// 	int	y;
-
-// 	y = 6;
-// 	while (map->content[y])
-// 	{
-// 		printf("map->content[y]: %s\n", map->content[y]);
-// 		// printf("map->content[y][ - 1]: %c\n", map->content[y][map->length_x - 1]);
-// 		if (map->content[y][0] != '1' && map->content[y][0] != ' ')
-// 			return (0);
-// 		if (map->content[y][map->length_x - 1] != '1' && map->content[y][map->length_x - 1] != ' ')
-// 			return (0);
-// 		y++;
-// 	}
-// 	return (1);
-// }
 
 int	check_sides_wall(t_map *map)
 {
@@ -78,6 +63,16 @@ int	check_sides_wall(t_map *map)
 	}
 	return (1);
 }
+
+// walls moeten ook gecheckt worden op 0 in de 'gaps'
+
+// while (map[x][y])
+// {
+// 	if (map[x][y] == ' ')
+// 	{
+// 		if map(x + 1) | -1 of y + 1 || -1 == ' ' || '1')
+// 	}
+// }
 
 int	check_first_last_walls(t_map *map)
 {
