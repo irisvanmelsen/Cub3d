@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/01/15 00:22:51 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cub3d.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
+/*   Updated: 2024/01/15 00:22:51 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <string.h>
 
 # include <MLX42.h>
-# include <libft.h>	
+# include <libft.h>
 
 typedef enum e_identifier
 {
@@ -58,10 +58,6 @@ typedef struct s_map
 	int		length_y;
 	int		player_x;
 	int		player_y;
-	int		n_count;
-	int		s_count;
-	int		e_count;
-	int		w_count;
 }	t_map;
 
 //CHARACTERS.C

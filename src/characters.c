@@ -12,34 +12,30 @@
 
 #include "../include/cub3d.h"
 
-// player count ipv character count
-// if > 1 dan zijn het er teveel
+
 
 int	check_characters(t_map *map)
 {
 	int	x;
 	int	y;
+	int	player_count;
+	char c;
 
 	y = 6;
+	player_count = 0;
 	while (map->content[y])
 	{
 		x = 0;
 		while (map->content[y][x])
 		{
-			if (map->content[y][x] == 'N')
-				map->n_count++;
-			if (map->content[y][x] == 'S')
-				map->s_count++;
-			if (map->content[y][x] == 'E')
-				map->e_count++;
-			if (map->content[y][x] == 'W')
-				map->w_count++;
+			c = map->content[y][x]
+			if (c == 'N' || c == 'S' || c == 'E' c == 'W')
+				player_count++;
 			x++;
 		}
 		y++;
 	}
-	if (map->n_count > 1 || map->s_count > 1
-		|| map->e_count > 1 || map->w_count > 1)
+	if (player_count != 1)
 		return (0);
 	return (1);
 }
