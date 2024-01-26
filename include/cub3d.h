@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/01/15 00:22:51 by iris          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
+/*   Updated: 2024/01/26 17:06:38 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,23 @@ typedef struct s_map
 	char	**content;
 	char	**dup_content;
 	int		length_y;
+	int		length_x;
 	int		player_x;
 	int		player_y;
+	int		player_count;
 }	t_map;
 
 //CHARACTERS.C
 
 int			check_characters(t_map *map);
-int			check_sides_wall(t_map *map);
-int			check_first_last_walls(t_map *map);
+void		search_max_lengths(char **map, int *length_x, int *length_y);
+bool		is_player_char(char c);
+bool		find_player_pos(t_map *map);
 
 //MAP.C
 
-char		**floodfill(char **content, int y, int x);
-int			count_lines(char **content);
+bool		valid_char(char c);
+bool		floodfill(t_map *map, char **dup_map, int y, int x);
 void		map_init(t_map *map);
 char		**read_map(int fd);
 
@@ -111,7 +114,6 @@ bool		get_east_path(t_textures *texture, char *path);
 
 //ERROR.C
 
-int			check_errors(t_map *map);
 int			has_map_errors(t_map *map);
 
 //FREE.C

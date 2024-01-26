@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   characters.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 23:59:29 by iris          #+#    #+#                 */
-/*   Updated: 2024/01/15 00:40:43 by iris          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   characters.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 23:59:29 by iris              #+#    #+#             */
+/*   Updated: 2024/01/26 17:02:32 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-
 
 int	check_characters(t_map *map)
 {
@@ -28,8 +26,8 @@ int	check_characters(t_map *map)
 		x = 0;
 		while (map->content[y][x])
 		{
-			c = map->content[y][x]
-			if (c == 'N' || c == 'S' || c == 'E' c == 'W')
+			c = map->content[y][x];
+			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 				player_count++;
 			x++;
 		}
@@ -40,54 +38,54 @@ int	check_characters(t_map *map)
 	return (1);
 }
 
-int	check_sides_wall(t_map *map)
+void	search_max_lengths(char **map, int *length_x, int *length_y)
 {
-	int	y;
-	int	line_length;
+	int	i;
+	int	length;
+	int	length_next;
 
-	y = 6;
-	while (map->content[y])
+	i = 0;
+	length = 0;
+	length_next = 0;
+	while (map[i])
 	{
-		line_length = ft_strlen(map->content[y]);
-		if (line_length > 0 && (map->content[y][0] != '1' \
-			&& map->content[y][0] != ' '))
-			return (0);
-		if (line_length > 0 && (map->content[y][line_length - 1] != '1' \
-			&& map->content[y][line_length - 1] != ' '))
-			return (0);
-		y++;
+		length_next = ft_strlen(map[i]);
+		if (length < length_next)
+			length = length_next;
+		i++;
 	}
-	return (1);
+	*length_x = length;
+	*length_y = i;
 }
 
-// walls moeten ook gecheckt worden op 0 in de 'gaps'
+bool	is_player_char(char c)
+{
+	if ((c == 'N' || c == 'S' || c == 'E' || c == 'W'))
+		return (true);
+	return (false);
+}
 
-// while (map[x][y])
-// {
-// 	if (map[x][y] == ' ')
-// 	{
-// 		if map(x + 1) | -1 of y + 1 || -1 == ' ' || '1')
-// 	}
-// }
-
-int	check_first_last_walls(t_map *map)
+bool	find_player_pos(t_map *map)
 {
 	int	x;
+	int	y;
 
-	x = 0;
-	while (map->content[6][x])
+	y = 0;
+	while (map->content[y])
 	{
-		if (map->content[6][x] != '1')
-			return (1);
-		x++;
+		x = 0;
+		while (map->content[y][x])
+		{
+			if (is_player_char(map->content[y][x]))
+			{
+				map->player_x = x;
+				map->player_y = y;
+			}
+			x++;
+		}
+		y++;
 	}
-	x = 0;
-	while (map->content[map->length_y - 1][x])
-	{
-		if (map->content[map->length_y - 1][x] != '1' &&
-			map->content[map->length_y - 1][x] != ' ' )
-			return (0);
-		x++;
-	}
-	return (1);
+	if (!map->player_x || !map->player_y)
+		return (false);
+	return (true);
 }

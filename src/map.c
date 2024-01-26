@@ -1,57 +1,68 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   map.c                                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 22:37:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/01/15 00:24:35 by iris          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 22:37:01 by iris              #+#    #+#             */
+/*   Updated: 2024/01/26 17:58:31 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-// kan zelfs makkelijker, zonder floodfill?
+#define PASSED '2'
+#define VALID_CHARS "10NSEW2"
 
-char	**floodfill(char **content, int y, int x)
-{
-	if (y >= 0 && x >= 0 && content && content[y] && content[y][x] \
-		&& content[y][x] != '1')
-	{
-		if (content[y][x] == 'N' || content[y][x] == 'S'
-		|| content[y][x] == 'E' || content[y][x] == 'W'
-		|| content[y][x] == '0' || content[y][x] == ' ')
-			content[y][x] = '1';
-		else
-			return (content);
-		floodfill(content, y, x + 1);
-		floodfill(content, y, x - 1);
-		floodfill(content, y + 1, x);
-		floodfill(content, y - 1, x);
-	}
-	return (content);
-}
-
-int	count_lines(char **content)
+bool	valid_char(char c)
 {
 	int	i;
 
 	i = 0;
-	while (content[i] != NULL)
+	while (VALID_CHARS[i])
+	{
+		if (c == VALID_CHARS[i])
+			return (true);
 		i++;
-	return (i);
+	}
+	return (false);
+}
+
+bool	floodfill(t_map *map, char **dup_map, int y, int x)
+{
+	if (y < 0 || x < 0)
+		return (printf("1\n"),false);
+	if (y >= map->length_y || x >= map->length_x)
+		return (printf("0\n"), true);
+	if (!valid_char(map->content[y][x]))
+		return (true);
+	if (map->content[y][x] == '1' || map->content[y][x] == PASSED)
+	{
+		printf("char: %c\n", map->content[y][x]);
+		return (printf("2\n"),false);
+	}
+	if (map->content[y][x] == '0')
+	{
+		map->content[y][x] = PASSED;
+	}
+	if (floodfill(map, dup_map, y + 1, x))
+		return (printf("3\n"), true);
+	if (floodfill(map, dup_map, y - 1, x))
+		return (printf("4\n"), true);
+	if (floodfill(map, dup_map, y, x + 1))
+		return (printf("5\n"), true);
+	if (floodfill(map, dup_map, y, x - 1))
+		return (printf("6\n"), true);
+	return (printf("7\n"), false);
 }
 
 void	map_init(t_map *map)
 {
-	map->length_y = count_lines(map->content);
+	search_max_lengths(map->content, &map->length_x, &map->length_y);
 	map->player_x = 0;
 	map->player_y = 0;
-	map->n_count = 0;
-	map->s_count = 0;
-	map->e_count = 0;
-	map->w_count = 0;
+	map->player_count = 0;
 }
 
 char	**read_map(int fd)
