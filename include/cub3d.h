@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   cub3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
 /*   Updated: 2024/02/02 21:39:34 by iris          ########   odam.nl         */
@@ -21,7 +21,9 @@
 # include <stdio.h>
 
 # include <MLX42.h>
-# include <libft.h>
+# include "libft.h"
+# include "tmp_merlin.h"
+
 
 // SCREEN
 # define HEIGHT 900

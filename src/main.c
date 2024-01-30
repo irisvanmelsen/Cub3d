@@ -29,4 +29,5 @@ int	main(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
+
 	// print_2d_charray(map.content); map not 0 terminated?

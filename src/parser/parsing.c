@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
-int	parsing(int argc, char **argv)
+int	parsing(int argc, char **argv, t_map *map)
 {
 	int		fd;
-	t_map	map;
 	int		i;
 
 	fd = is_input_correct(argc, argv[1]);
@@ -23,14 +22,14 @@ int	parsing(int argc, char **argv)
 	if (!map.content)
 		return (-1);
 	i = 0;
-	while (map.content[i])
+	while (map->content[i])
 	{
-		printf("%s\n", map.content[i]);
+		printf("%s\n", map->content[i]);
 		i++;
 	}
 	if (!has_map_errors(&map) || !parse_elements_in_map(map.content))
 	{
-		free_map_2d(map.content);
+		free_map_2d(map->content);
 		return (-1);
 	}
 	return (1);

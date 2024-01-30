@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		:= 	cub3d
-LIBS		:=	./libft/libft.a
-HEADER		:=	-I libft -I include/cub3d.h -I MLX42/include/MLX42
-#MLX
+NAME 		:= 	Cub3d
+LIBFT_A :=	./libft/libft.a
+LIBFT_H	:=  ./libft/include/libft.h
+HEADERS		:=	 -I include -I MLX42/include/MLX42 -I libft/include
 MLX			:=	./MLX42
 MLX_A	:=	$(MLX)/build/libmlx42.a
 LIBFT_A :=	./libft/libft.a
@@ -33,12 +33,23 @@ SRC			:=	main.c \
 				parser/parsing_utils.c \
 				parser/paths.c \
 				parser/elements.c \
-				parser/elements_utils.c \
+				parser/elements_utils.c
+				characters.c \
+				error.c \
+				free.c \
+				map.c \
+				map_utils.c \
+				parsing.c \
+				parsing_utils.c \
+				paths.c \
+				elements.c \
+				elements_utils.c \
 				mlx.c
+# SRCB		:=
 
 OBJ_DIR		:=	./obj
 SRC_DIR 	:= 	./src
-
+# Reset
 
 OBJ		:= 	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 SRC		:=	$(addprefix $(SRC_DIR)/,$(SRC))
