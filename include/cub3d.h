@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/01/26 17:06:38 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cub3d.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
+/*   Updated: 2024/01/26 17:06:38 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <get_next_line.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdbool.h>
 # include <string.h>
+# include <stdio.h>
 
 # include <MLX42.h>
-# include <libft.h>
+# include "libft.h"
+# include "tmp_merlin.h"
+
 
 typedef enum e_identifier
 {
@@ -83,7 +85,7 @@ int			check_map_after_ff(char **map_after_ff);
 
 //PARSING.C
 
-int			parsing(int argc, char **argv);
+int			parsing(int argc, char **argv, t_map *map);
 int			is_input_correct(int argc, char *map);
 
 //PARSING_UTILS.C

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 21:53:03 by iris              #+#    #+#             */
-/*   Updated: 2024/01/01 23:21:50 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parsing_utils.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 21:53:03 by iris          #+#    #+#                 */
+/*   Updated: 2024/01/01 23:21:50 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
 size_t	ft_strlen_protect(char *s)
 {
@@ -69,4 +69,3 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	free(s2);
 	return (str3);
 }
-

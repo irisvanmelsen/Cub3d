@@ -1,83 +1,150 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/11 17:13:38 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/03/22 15:11:36 by ivan-mel         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: mde-cloe <mde-cloe@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2021/12/13 18:00:17 by mde-cloe      #+#    #+#                  #
+#    Updated: 2023/01/06 22:19:15 by mde-cloe      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-SRC			=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
-				ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c \
-				ft_lstnew_bonus.c ft_memchr.c ft_memcmp.c ft_memcpy.c \
-				ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c \
-				ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c \
-				ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c \
-				ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c \
-				ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
-				ft_tolower.c ft_toupper.c get_next_line.c get_next_line_utils.c \
-				hexafunctions.c printfunctions.c ft_printf.c
+#------General----------
 
-SRCB		=	ft_lstnew_bonus.c ft_lstadd_front_bonus.c \
-				ft_lstsize_bonus.c ft_lstlast_bonus.c \
-				ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
-				ft_lstclear_bonus.c ft_lstiter_bonus.c \
-				ft_lstmap_bonus.c 
+NAME			:= libft.a
+CC				?= gcc
+WARN_FLAGS		?= -Wall -Wextra -Werror
+INCLUDE_FLAGS 	?= -I include
 
-RM 			=	rm -f
+#----cfiles-----
 
-NAME 		= 	libft.a
+STRING 	:=	ft_split.c \
+			ft_strchr.c \
+			ft_strdup.c \
+			ft_strjoin.c \
+			ft_strlcat.c \
+			ft_strlcpy.c \
+			ft_strlen.c \
+			ft_strncmp.c \
+			ft_strcmp.c \
+			ft_strnstr.c \
+			ft_strrchr.c \
+			ft_strtrim.c \
+			ft_substr.c \
+			ft_tolower.c \
+			ft_toupper.c \
+			ft_strmapi.c \
+			ft_striteri.c \
+			ft_strrcmp.c \
+			ft_isalpha.c \
+			ft_isalnum.c \
+			ft_isascii.c \
+			ft_isdigit.c \
+			ft_isprint.c \
+			str_reverse.c \
+			str_switch.c \
+			ft_is_valid_nbr_str.c
 
-FLAGS 		=	-Wall -Werror -Wextra
+GNL			:=	get_next_line.c \
+				get_next_line_utils.c
 
-CC 			= 	gcc
+LIST  	:=	ft_lstnew_bonus.c \
+			ft_lstadd_front_bonus.c \
+			ft_lstsize_bonus.c \
+			ft_lstlast_bonus.c \
+			ft_lstadd_back_bonus.c \
+			ft_lstdelone_bonus.c \
+			ft_lstclear_bonus.c \
+			ft_lstiter_bonus.c \
+			ft_lstmap_bonus.c
 
-OBJ			=	${SRC:.c=.o}
+CONVERT	:=	ft_atoi.c \
+			ft_itoa.c
 
-OBJB		=	${SRCB:_bonus.c=_bonus.o}
+MEM 		:=	ft_memchr.c \
+				ft_memcmp.c \
+				ft_memcpy.c \
+				ft_memmove.c \
+				ft_memset.c \
+				ft_bzero.c \
+				ft_calloc.c \
+				ptrarr_len.c \
+				safe_alloc.c
 
-AR 			=	ar -rc
+PRINT 	:=	ft_putchar_fd.c \
+			ft_putstr_fd.c \
+			ft_putendl_fd.c \
+			ft_putnbr_fd.c \
+			print_2d_charray.c
 
-# Reset
-Color_Off	=	"\033[0m"			# Text Reset
+PRINTF	 :=	ft_printf.c \
+			char_printers.c \
+			hex_printers.c \
+			nbr_printers.c \
 
-# Regular Colors
-Black		=	"\033[0;30m"		# Black
-Red			=	"\033[0;31m"		# Red
-Green		=	"\033[0;32m"		# Green
-Yellow		=	"\033[0;33m"		# Yellow
-Blue		=	"\033[0;34m"		# Blue
-Purple		=	"\033[0;35m"		# Purple
-Cyan		=	"\033[0;36m"		# Cyan
-White		=	"\033[0;37m"		# White
+MISC :=		free_map.c \
+			error_exit.c \
+			free_array.c
 
-${NAME}: ${OBJ}
-	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@${AR} ${NAME} $?
-	@echo ${Green} Complete 😊 ${Color_off}
+GNLPATH = $(addprefix gnl/, $(GNL))
+PRINTFPATH = $(addprefix printf/, $(PRINTF))
 
-all:	${NAME}
+MEMPATH := $(addprefix mem/, $(MEM))
+MISCPATH := $(addprefix misc/, $(MISC))
+PRINTPATH := $(addprefix printing/, $(PRINT) $(PRINTFPATH))
+CONVERTPATH := $(addprefix convert/, $(CONVERT))
+STRINGPATH := $(addprefix string/, $(STRING) $(GNLPATH))
+LISTPATH := $(addprefix list/, $(LIST))
 
-%.o: %.c
-	@echo ${Blue} Compiling: $< ${Color_Off}
-	@${CC} ${FLAGS} -c $<
+#----other variables----
 
-bonus:	$(NAME) ${OBJB}
-	@echo ${Blue} Building ${NAME} with bonus ${Color_Off}
-	@${AR} ${NAME} $?
-	@echo ${Green} Bonus Complete 😊 ${Color_off}
+SRC_DIR := sources
+OBJ_DIR := objects
+
+SRC :=	$(addprefix $(SRC_DIR), $(addprefix /, $(MISCPATH)) $(addprefix /, $(PRINTPATH)) $(addprefix /, $(CONVERTPATH)) \
+$(addprefix /, $(MEMPATH)) $(addprefix /, $(LISTPATH)) $(addprefix /, $(STRINGPATH)))
+
+OBJ :=	$(addprefix $(OBJ_DIR), $(addprefix /, $(notdir $(SRC:.c=.o))))
+
+
+#-----------------targets---------------
+
+all: $(NAME)
+
+$(NAME): $(OBJ) | $(OBJ_DIR)
+	@printf "$(C_LORANGE)\n BUILDING LIBRARY \n"
+	@ar -rcs $@ $^
+	@printf "$(YELLOW) $@ $(GREEN)(DONE)$(C_RESET) \n"
+
+$(OBJ_DIR)/%.o : $(SRC_DIR)/*/%.c include/libft.h | $(OBJ_DIR)
+	@$(CC) -c $<  -o $@ $(WARN_FLAGS) $(INCLUDE_FLAGS)
+	@printf "$(BLUE) $(notdir $@) $(GREEN) (DONE) $(BLUE)$(C_RESET)\n"
+
+$(OBJ_DIR)/%.o : $(SRC_DIR)/*/*/%.c | $(OBJ_DIR)
+	@$(CC) -c $< -o $@ $(WARN_FLAGS) $(INCLUDE_FLAGS) && printf "$(BLUE) $(notdir $@) $(GREEN) (DONE) $(BLUE)$(C_RESET)\n"
+
+objects:
+	@mkdir $(OBJ_DIR)
+
+#-----extra-----------
 
 clean:
-	@echo ${Yellow} Cleaning ${Color_off}
-	@${RM} ${OBJ} ${OBJB}
+	@$(RM) -rf $(OBJ_DIR)
+	@printf "$(C_RED)Files cleaned\n$(C_RESET)"
 
 fclean: clean
-	@echo ${Yellow} Cleaning archive ${Color_off}
-	@${RM} ${NAME}
+	@rm -f $(NAME)
 
-re:	fclean all
+re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re bonus
+
+BLUE      = \e[34;01m
+GREEN     = \e[32;01m
+WHITE     = \e[31;37m
+YELLOW    = \e[33;01m
+RED       = \e[31;01m
+C_RESET	  = \e[0m
+C_LORANGE	= \e[38;2;255;192;128m
+C_RED		  = \e[38;2;255;0;0m

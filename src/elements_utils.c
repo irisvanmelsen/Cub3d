@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
 // this function returns the RGBA colour in hexadecimal notation
 // r shifts 24s bits to the left so first byte

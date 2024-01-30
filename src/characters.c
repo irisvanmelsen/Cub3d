@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   characters.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 23:59:29 by iris              #+#    #+#             */
-/*   Updated: 2024/01/26 17:02:32 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   characters.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 23:59:29 by iris          #+#    #+#                 */
+/*   Updated: 2024/01/26 17:02:32 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
 int	check_characters(t_map *map)
 {
-	int	x;
-	int	y;
-	int	player_count;
-	char c;
+	int		x;
+	int		y;
+	int		player_count;
+	char	c;
 
 	y = 6;
 	player_count = 0;
