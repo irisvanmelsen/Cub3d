@@ -11,11 +11,12 @@
 # **************************************************************************** #
 
 NAME 		:= 	Cub3d
+MLX			:=	./MLX42
+MLX_A	:=	$(MLX)/build/libmlx42.a
 LIBFT_A :=	./libft/libft.a
 LIBFT_H	:=  ./libft/include/libft.h
 HEADERS		:=	 -I include -I MLX42/include/MLX42 -I libft/include
-MLX			:=	./MLX42
-LIBS_MLX	:=	$(MLX)/build/libmlx42.a
+LINKFLAGS	:= -lglfw -ldl -pthread -lm
 
 RM 			:=	rm -rf
 FLAGS 		:=	-Wall -Werror -Wextra -fsanitize=address -g
@@ -31,27 +32,25 @@ SRC			:=	main.c \
 				elements.c \
 				elements_utils.c \
 				mlx.c
-# SRCB		:=
 
-#OBJB_FILES	=	${SRCB:.c=.o}
 OBJ_DIR		:=	./obj
 SRC_DIR 	:= 	./src
-# Reset
+
 
 OBJ		:= 	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 SRC		:=	$(addprefix $(SRC_DIR)/,$(SRC))
 
 all: $(NAME)
 
-$(LIBS_MLX):
+$(MLX_A):
 	@cmake $(MLX) -B $(MLX)/build && make -C $(MLX)/build
 
 run: $(NAME)
 	./Cub3d maps/map.cub
 
-$(NAME): $(OBJ) $(LIBFT_A) $(LIBS_MLX)
+$(NAME): $(OBJ) $(LIBFT_A) $(MLX_A)
 	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@$(CC) $^ $(FLAGS) $(HEADERS) -o ${NAME} ${LIBS_MLX} -lglfw -ldl -lm $(LIBFT_A)
+	@$(CC) $^ $(FLAGS) $(HEADERS) -o ${NAME} ${MLX_A} $(LINKFLAGS) $(LIBFT_A)
 	@echo ${Green} Complete 😊 ${Color_off}
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)

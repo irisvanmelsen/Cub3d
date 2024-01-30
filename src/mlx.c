@@ -14,5 +14,12 @@
 
 void mlx_time(void)
 {
+	mlx_t *mlx;
 
+	mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "EPIC", true);
+	while (1)
+	{
+		mlx_loop(mlx);
+	}
+	mlx_terminate(mlx);
 }
