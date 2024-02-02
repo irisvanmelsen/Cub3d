@@ -3,17 +3,14 @@
 /*                                                        ::::::::            */
 /*   elements.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/31 00:37:23 by iris          #+#    #+#                 */
-/*   Updated: 2024/01/15 00:39:42 by iris          ########   odam.nl         */
+/*   Updated: 2024/02/02 14:41:16 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-// remove geen new line meer?
-// id kan je hier in principe ook checken met line[i]
+#include "../include/cub3d.h"
 
 char	*take_out_prefix_newlines(char *line, int id)
 {
@@ -77,7 +74,7 @@ void	texture_init(t_textures *texture)
 	texture->east = NULL;
 }
 
-bool	use_elements(char *path, int id, t_elements *element)
+bool	use_elements(t_cub3d *cub3d, char *path, int id, t_elements *element)
 {
 	t_textures	*texture;
 
@@ -87,25 +84,25 @@ bool	use_elements(char *path, int id, t_elements *element)
 	texture_init(texture);
 	if (id == NO)
 	{
-		if (!get_north_path(texture, path))
+		if (!get_north_path(cub3d, texture, path))
 			return (printf("Texture uploading of NO went wrong!\n"), false);
 		return (NO);
 	}
 	else if (id == SO)
 	{
-		if (!get_south_path(texture, path))
+		if (!get_south_path(cub3d, texture, path))
 			return (printf("Texture uploading of SO went wrong!\n"), false);
 		return (SO);
 	}
 	else if (id == WE)
 	{
-		if (!get_west_path(texture, path))
+		if (!get_west_path(cub3d, texture, path))
 			return (printf("Texture uploading of WE went wrong!\n"), false);
 		return (WE);
 	}
 	else if (id == EA)
 	{
-		if (!get_east_path(texture, path))
+		if (!get_east_path(cub3d, texture, path))
 			return (printf("Texture uploading of EA went wrong!\n"), false);
 		return (EA);
 	}
@@ -124,7 +121,7 @@ bool	use_elements(char *path, int id, t_elements *element)
 	return (false);
 }
 
-bool	parse_elements_in_map(char **map)
+bool	parse_elements_in_map(t_cub3d *cub3d, char **map)
 {
 	char		*str;
 	int			i;
@@ -140,17 +137,11 @@ bool	parse_elements_in_map(char **map)
 	{
 		str = take_out_prefix_newlines(map[i], id);
 		if (!str)
-		{
-			printf("prefix newline fail\n");
 			return (false);
-		}
-		id = check_elements(str); //str gets checked before having a value?
+		id = check_elements(str);
 		if (!id)
-		{
-			printf("check elements fail\n");
 			return (false);
-		}
-		use_elements(str, id, &element);
+		use_elements(cub3d, str, id, &element);
 		printf("str: %s\n", str);
 		i++;
 	}

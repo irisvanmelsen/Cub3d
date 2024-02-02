@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
-#    Updated: 2024/01/26 14:33:56 by ivan-mel      ########   odam.nl          #
+#    Updated: 2024/02/02 14:35:37 by ivan-mel      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,16 +21,16 @@ LINKFLAGS	:= -lglfw -ldl -pthread -lm
 RM 			:=	rm -rf
 FLAGS 		:=	-Wall -Werror -Wextra -fsanitize=address -g
 SRC			:=	main.c \
-				characters.c \
-				error.c \
-				free.c \
-				map.c \
-				map_utils.c \
-				parsing.c \
-				parsing_utils.c \
-				paths.c \
-				elements.c \
-				elements_utils.c \
+				parser/characters.c \
+				parser/error.c \
+				parser/free.c \
+				parser/map.c \
+				parser/map_utils.c \
+				parser/parsing.c \
+				parser/parsing_utils.c \
+				parser/paths.c \
+				parser/elements.c \
+				parser/elements_utils.c \
 				mlx.c
 
 OBJ_DIR		:=	./obj
