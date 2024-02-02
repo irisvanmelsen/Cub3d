@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:37:01 by iris              #+#    #+#             */
-/*   Updated: 2024/01/26 17:58:31 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/02 13:14:38 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,26 @@ bool	valid_char(char c)
 bool	floodfill(t_map *map, char **dup_map, int y, int x)
 {
 	if (y < 0 || x < 0)
-		return (printf("1\n"),false);
+		return (false);
 	if (y >= map->length_y || x >= map->length_x)
-		return (printf("0\n"), true);
+		return (true);
 	if (!valid_char(map->content[y][x]))
 		return (true);
 	if (map->content[y][x] == '1' || map->content[y][x] == PASSED)
-	{
-		printf("char: %c\n", map->content[y][x]);
-		return (printf("2\n"),false);
-	}
+		return (false);
 	if (map->content[y][x] == '0')
 	{
 		map->content[y][x] = PASSED;
 	}
 	if (floodfill(map, dup_map, y + 1, x))
-		return (printf("3\n"), true);
+		return (true);
 	if (floodfill(map, dup_map, y - 1, x))
-		return (printf("4\n"), true);
+		return (true);
 	if (floodfill(map, dup_map, y, x + 1))
-		return (printf("5\n"), true);
+		return (true);
 	if (floodfill(map, dup_map, y, x - 1))
-		return (printf("6\n"), true);
-	return (printf("7\n"), false);
+		return (true);
+	return (false);
 }
 
 void	map_init(t_map *map)

@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/01/26 17:06:38 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:30:50 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@
 
 # include <MLX42.h>
 # include <libft.h>
+
+#define HEIGHT 900
+#define WIDTH 1600
+
+typedef	enum e_error
+{
+	ERROR_CHARACTER,
+	ERROR_MLX,
+	ERROR_IMAGE,
+} t_error;
 
 typedef enum e_identifier
 {
@@ -51,16 +61,34 @@ typedef struct s_textures
 	mlx_texture_t	*east;
 }	t_textures;
 
+typedef	struct s_player
+{
+	float	direction;
+	float	position_x;
+	float	position_y;
+	
+} t_player;
+
 typedef struct s_map
 {
-	char	**content;
-	char	**dup_content;
-	int		length_y;
-	int		length_x;
-	int		player_x;
-	int		player_y;
-	int		player_count;
+	char		**content;
+	char		**dup_content;
+	int			length_y;
+	int			length_x;
+	int			player_x;
+	int			player_y;
+	int			player_count;
 }	t_map;
+
+typedef	struct s_cub3d
+{
+	t_map		map;
+	t_player	player;
+	mlx_t		*mlx;
+	mlx_image_t	*image;
+} t_cub3d;
+
+/////////////////////////////PARSER////////////////////////////////////
 
 //CHARACTERS.C
 
@@ -97,8 +125,8 @@ char		*ft_strjoin_free(char *s1, char *s2);
 char		*take_out_prefix_newlines(char *line, int id);
 bool		check_elements_in_map(char **map);
 int			check_elements(char *line);
-bool		use_elements(char *path, int id, t_elements *element);
-bool		parse_elements_in_map(char **map);
+bool		use_elements(t_cub3d *cub3d, char *path, int id, t_elements *element);
+bool		parse_elements_in_map(t_cub3d *cub3d, char **map);
 
 //ELEMENTS_UTILS.C
 
@@ -107,17 +135,31 @@ bool		parse_colours(char *path, int id, t_elements *element);
 
 // PATHS.C
 
-bool		get_north_path(t_textures *texture, char *path);
-bool		get_south_path(t_textures *texture, char *path);
-bool		get_west_path(t_textures *texture, char *path);
-bool		get_east_path(t_textures *texture, char *path);
+bool		get_north_path(t_cub3d *cub3d, t_textures *texture, char *path);
+bool		get_south_path(t_cub3d *cub3d, t_textures *texture, char *path);
+bool		get_west_path(t_cub3d *cub3d, t_textures *texture, char *path);
+bool		get_east_path(t_cub3d *cub3d, t_textures *texture, char *path);
 
 //ERROR.C
 
 int			has_map_errors(t_map *map);
+char		*get_error_name(t_error error);
+int			print_error(char *str);
 
 //FREE.C
 
 void		free_map_2d(char **map_copy);
+
+/////////////////////////////SETUP////////////////////////////////////
+
+//CUB3D_SETUP.C
+
+void	position_setup(t_cub3d *cub3d);
+void	cub3d_setup(t_cub3d *cub3d);
+
+//MLX_SETUP.C
+
+void	mlx_window_setup();
+void	mlx_setup(t_cub3d *cub3d);
 
 #endif
