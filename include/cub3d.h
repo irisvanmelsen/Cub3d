@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/02/02 16:30:50 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/02 21:39:34 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,24 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <string.h>
+# include <math.h>
 
 # include <MLX42.h>
 # include <libft.h>
 
-#define HEIGHT 900
-#define WIDTH 1600
+// SCREEN
+# define HEIGHT 900
+# define WIDTH 1600
 
-typedef	enum e_error
+// MATH
+# define PI 3.1415926
+
+typedef enum e_error
 {
 	ERROR_CHARACTER,
 	ERROR_MLX,
 	ERROR_IMAGE,
-} t_error;
+}	t_error;
 
 typedef enum e_identifier
 {
@@ -61,13 +66,12 @@ typedef struct s_textures
 	mlx_texture_t	*east;
 }	t_textures;
 
-typedef	struct s_player
+typedef struct s_player
 {
 	float	direction;
-	float	position_x;
-	float	position_y;
-	
-} t_player;
+	float	view;
+
+}	t_player;
 
 typedef struct s_map
 {
@@ -80,13 +84,15 @@ typedef struct s_map
 	int			player_count;
 }	t_map;
 
-typedef	struct s_cub3d
+typedef struct s_cub3d
 {
 	t_map		map;
 	t_player	player;
 	mlx_t		*mlx;
-	mlx_image_t	*image;
-} t_cub3d;
+	mlx_image_t	*background;
+	mlx_image_t	*wall;
+	mlx_image_t	*minimap;
+}	t_cub3d;
 
 /////////////////////////////PARSER////////////////////////////////////
 
@@ -125,7 +131,8 @@ char		*ft_strjoin_free(char *s1, char *s2);
 char		*take_out_prefix_newlines(char *line, int id);
 bool		check_elements_in_map(char **map);
 int			check_elements(char *line);
-bool		use_elements(t_cub3d *cub3d, char *path, int id, t_elements *element);
+bool		use_elements(t_cub3d *cub3d, char *path, int id, \
+			t_elements *element);
 bool		parse_elements_in_map(t_cub3d *cub3d, char **map);
 
 //ELEMENTS_UTILS.C
