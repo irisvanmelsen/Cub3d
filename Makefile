@@ -3,14 +3,17 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: ivan-mel <ivan-mel@student.42.fr>            +#+                      #
+#    By: iris <iris@student.42.fr>                    +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
-#    Updated: 2024/02/02 14:35:37 by ivan-mel      ########   odam.nl          #
+#    Updated: 2024/02/02 20:05:50 by iris          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		:= 	Cub3d
+NAME 		:= 	cub3d
+LIBS		:=	./libft/libft.a
+HEADER		:=	-I libft -I include/cub3d.h -I MLX42/include/MLX42
+#MLX
 MLX			:=	./MLX42
 MLX_A	:=	$(MLX)/build/libmlx42.a
 LIBFT_A :=	./libft/libft.a
