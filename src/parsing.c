@@ -20,21 +20,18 @@ int	parsing(int argc, char **argv, t_map *map)
 	fd = is_input_correct(argc, argv[1]);
 	map->content = read_map(fd);
 	if (!map->content)
-		return (-1);
+		return (0);
 	i = 0;
-	while (map->content[i])
-	{
-		printf("%s\n", map->content[i]);
-		i++;
-	}
-	if (!has_map_errors(map) || !parse_elements_in_map(map->content))
+	if (!has_map_errors(map))
 	{
 		free_map_2d(map->content);
-		return (-1);
+		return (0);
 	}
+	print_2d_charray(map->content);
 	return (1);
 }
 
+//  !parse_elements_in_map(map->content))
 
 int	is_input_correct(int argc, char *map)
 {

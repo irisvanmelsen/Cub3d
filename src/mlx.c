@@ -12,14 +12,17 @@
 
 #include "cub3d.h"
 
-void mlx_time(void)
+void	mlx_time(t_map *map)
 {
-	mlx_t *mlx;
+	mlx_t	*mlx;
+	mlx_image_t *imgs[5];
+	mlx_texture_t	*texture[5];
 
 	mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "EPIC", true);
-	while (1)
-	{
-		mlx_loop(mlx);
-	}
+	texture[0] = mlx_load_png(map->content[0] + 3);
+	imgs[0] = mlx_texture_to_image(mlx, texture[0]);
+	mlx_image_to_window(mlx, imgs[0], SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+
+	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }

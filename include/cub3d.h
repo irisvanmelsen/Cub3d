@@ -122,4 +122,10 @@ int			has_map_errors(t_map *map);
 
 void		free_map_2d(char **map_copy);
 
+
+
+//mlx running
+
+void	mlx_time(t_map *map);
+
 #endif

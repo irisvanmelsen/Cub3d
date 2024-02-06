@@ -3,6 +3,7 @@
 	"files.associations": {
 		"cub3d.h": "c",
 		"limits.h": "c",
-		"tmp_merlin.h": "c"
+		"tmp_merlin.h": "c",
+		"cstdlib": "c"
 	}
 }

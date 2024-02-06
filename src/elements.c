@@ -140,10 +140,16 @@ bool	parse_elements_in_map(char **map)
 	{
 		str = take_out_prefix_newlines(map[i], id);
 		if (!str)
+		{
+			printf("prefix newline fail\n");
 			return (false);
+		}
 		id = check_elements(str); //str gets checked before having a value?
 		if (!id)
+		{
+			printf("check elements fail\n");
 			return (false);
+		}
 		use_elements(str, id, &element);
 		printf("str: %s\n", str);
 		i++;

@@ -14,7 +14,6 @@
 
 bool	get_north_path(t_textures *texture, char *path)
 {
-	printf("gets into function?\n");
 	if (texture->north)
 	{
 		printf("Double element! NO should only be used once.\n");
