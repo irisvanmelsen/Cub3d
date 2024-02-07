@@ -24,6 +24,7 @@ LINKFLAGS	:= -lglfw -ldl -pthread -lm
 RM 			:=	rm -rf
 FLAGS 		:=	-Wall -Werror -Wextra -fsanitize=address -g
 SRC			:=	main.c \
+				mlx.c \
 				parser/characters.c \
 				parser/error.c \
 				parser/free.c \
@@ -34,17 +35,6 @@ SRC			:=	main.c \
 				parser/paths.c \
 				parser/elements.c \
 				parser/elements_utils.c
-				characters.c \
-				error.c \
-				free.c \
-				map.c \
-				map_utils.c \
-				parsing.c \
-				parsing_utils.c \
-				paths.c \
-				elements.c \
-				elements_utils.c \
-				mlx.c
 # SRCB		:=
 
 OBJ_DIR		:=	./obj
@@ -73,7 +63,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 
 
 $(OBJ_DIR):
-	@mkdir -p $@
+	@mkdir -p $(OBJ_DIR)/parser
+
 
 $(LIBFT_A) : $(LIBFT_H)
 	@printf "$(C_GREEN)Compiling $(C_CYAN)LIBFT \n$(C_RESET)"

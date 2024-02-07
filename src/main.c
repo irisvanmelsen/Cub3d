@@ -18,7 +18,6 @@ int	main(int argc, char **argv)
 
 	if (!parsing(argc, argv, &map))
 	{
-	{
 		printf("Parser error\n");
 		return (EXIT_FAILURE);
 	}
@@ -29,8 +28,5 @@ int	main(int argc, char **argv)
 	mlx_time(&map);
 	return (EXIT_SUCCESS);
 }
-
-	// print_2d_charray(map.content); map not 0 terminated?
-
 
 	// print_2d_charray(map.content); map not 0 terminated?

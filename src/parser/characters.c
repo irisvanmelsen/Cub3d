@@ -19,7 +19,7 @@ int	check_characters(t_map *map)
 	int		player_count;
 	char	c;
 
-	y = 6;
+	y = 6; //doesnt work since it can be random amount of whitespace
 	player_count = 0;
 	while (map->content[y])
 	{

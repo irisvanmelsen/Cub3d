@@ -74,7 +74,7 @@ typedef struct s_player
 	float	position_x;
 	float	position_y;
 
-} t_player;
+}	t_player;
 
 typedef struct s_map
 {
@@ -152,7 +152,7 @@ bool		get_east_path(t_cub3d *cub3d, t_textures *texture, char *path);
 
 //ERROR.C
 
-int			has_map_errors(t_map *map);
+bool		has_map_errors(t_map *map);
 char		*get_error_name(t_error error);
 int			print_error(char *str);
 

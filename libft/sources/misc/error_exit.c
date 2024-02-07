@@ -19,10 +19,11 @@
  * @param str the msg
  * @param err_nbr the error code to exit with
  */
+// //fix colour codes first
 void	error_exit(char *str, int err_nbr)
 {
-	write(2, C_RED, ft_strlen(C_RED));
 	write(2, str, ft_strlen(str));
-	write(2, C_RESET, ft_strlen(C_RESET));
 	exit(err_nbr);
 }
+// 	write(2, C_RED, ft_strlen(C_RED));
+// 	write(2, C_RESET, ft_strlen(C_RESET));

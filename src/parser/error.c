@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	has_map_errors(t_map *map)
+bool	has_map_errors(t_map *map)
 {
 	char	**dup_map;
 
@@ -20,22 +20,29 @@ int	has_map_errors(t_map *map)
 	if (!check_characters(map))
 	{
 		printf("Invalid Amount of Characters!\n");
-		return (-1);
+		return (false);
 	}
 	dup_map = create_dup_map(map);
 	if (!dup_map)
 	{
 		printf("dup map failed\n");
-		return (-1);
+		return (false);
 	}
 	if (!find_player_pos(map))
 	{
 		printf("Not a Valid Map!\n");
 		free_map_2d(dup_map);
-		return(-1);
+		return(false);
 	}
 	free_map_2d(dup_map);
-	return (1);
+	return (true);
+}
+
+
+error_exit(char *msg)
+{
+	printf("%s\n");
+	exit(EXIT_FAILURE);
 }
 
 // floodfill(map, dup_map, map->player_y, map->player_x) removed for now cause not needed?
