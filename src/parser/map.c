@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:37:01 by iris              #+#    #+#             */
-/*   Updated: 2024/02/02 13:14:38 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:58:41 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ bool	floodfill(t_map *map, char **dup_map, int y, int x)
 		return (false);
 	if (y >= map->length_y || x >= map->length_x)
 		return (true);
-	if (!valid_char(map->content[y][x]))
+	if (!valid_char(map->input_content[y][x]))
 		return (true);
-	if (map->content[y][x] == '1' || map->content[y][x] == PASSED)
+	if (map->input_content[y][x] == '1' || map->input_content[y][x] == PASSED)
 		return (false);
-	if (map->content[y][x] == '0')
+	if (map->input_content[y][x] == '0')
 	{
-		map->content[y][x] = PASSED;
+		map->input_content[y][x] = PASSED;
 	}
 	if (floodfill(map, dup_map, y + 1, x))
 		return (true);
@@ -56,10 +56,31 @@ bool	floodfill(t_map *map, char **dup_map, int y, int x)
 
 void	map_init(t_map *map)
 {
-	search_max_lengths(map->content, &map->length_x, &map->length_y);
+	search_max_lengths(map->input_content, &map->length_x, &map->length_y);
 	map->player_x = 0;
 	map->player_y = 0;
 	map->player_count = 0;
+}
+
+char	**create_map(t_map *map)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	y = 6;
+	i = 0;
+	while (map->input_content[y])
+	{
+		x = 0;
+		while (map->input_content[y][x])
+		{
+			map->content[i][x] = map->input_content[y][x];
+			x++;
+		}
+		y++;
+		i++;
+	}
 }
 
 char	**read_map(int fd)

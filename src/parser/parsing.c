@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:58:27 by iris              #+#    #+#             */
-/*   Updated: 2024/02/02 16:51:04 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:58:45 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,21 @@ int	parsing(int argc, char **argv)
 	int		i;
 
 	fd = is_input_correct(argc, argv[1]);
-	map.content = read_map(fd);
-	if (!map.content)
+	map.input_content = read_map(fd);
+	if (!map.input_content)
 		return (0);
 	i = 0;
-	while (map.content[i])
+	while (map.input_content[i])
 	{
-		printf("%s\n", map.content[i]);
+		printf("%s\n", map.input_content[i]);
 		i++;
 	}
-	if (!has_map_errors(&map) || !parse_elements_in_map(&cub3d, map.content))
+	if (!has_map_errors(&map) || !parse_elements_in_map(&cub3d, map.input_content))
 	{
-		free_map_2d(map.content);
+		free_map_2d(map.input_content);
 		return (-1);
 	}
+	create_map(map);
 	return (1);
 }
 

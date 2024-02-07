@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 23:37:15 by iris              #+#    #+#             */
-/*   Updated: 2024/01/26 17:01:53 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/07 13:22:40 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**create_dup_map(t_map *map)
 		return (0);
 	while (i < map->length_y)
 	{
-		map->dup_content[i] = ft_strdup(map->content[i]);
+		map->dup_content[i] = ft_strdup(map->input_content[i]);
 		if (!map->dup_content[i])
 		{
 			free_map_2d(map->dup_content);

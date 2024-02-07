@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 23:59:29 by iris              #+#    #+#             */
-/*   Updated: 2024/01/26 17:02:32 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/07 13:22:43 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	check_characters(t_map *map)
 
 	y = 6;
 	player_count = 0;
-	while (map->content[y])
+	while (map->input_content[y])
 	{
 		x = 0;
-		while (map->content[y][x])
+		while (map->input_content[y][x])
 		{
-			c = map->content[y][x];
+			c = map->input_content[y][x];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 				player_count++;
 			x++;
@@ -71,12 +71,12 @@ bool	find_player_pos(t_map *map)
 	int	y;
 
 	y = 0;
-	while (map->content[y])
+	while (map->input_content[y])
 	{
 		x = 0;
-		while (map->content[y][x])
+		while (map->input_content[y][x])
 		{
-			if (is_player_char(map->content[y][x]))
+			if (is_player_char(map->input_content[y][x]))
 			{
 				map->player_x = x;
 				map->player_y = y;
