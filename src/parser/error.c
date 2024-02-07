@@ -37,12 +37,4 @@ bool	has_map_errors(t_map *map)
 	free_map_2d(dup_map);
 	return (true);
 }
-
-
-error_exit(char *msg)
-{
-	printf("%s\n");
-	exit(EXIT_FAILURE);
-}
-
 // floodfill(map, dup_map, map->player_y, map->player_x) removed for now cause not needed?

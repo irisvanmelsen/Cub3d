@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include "get_next_line.h"
 
 # define MAL_ERR "your malloc failed! D:"
 
