@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 00:37:23 by iris              #+#    #+#             */
-/*   Updated: 2024/02/02 14:41:16 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/08 15:36:27 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ char	*take_out_prefix_newlines(char *line, int id)
 		prefix_len = 2;
 	else
 		prefix_len = 3;
-	// Move past the prefix
 	while (*line && prefix_len > 0)
 	{
 		line++;
 		prefix_len--;
 	}
-    // Remove any following spaces
 	while (*line == ' ')
 		line++;
 	return (line);

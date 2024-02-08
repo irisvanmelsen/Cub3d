@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/02/07 17:28:28 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/08 15:42:22 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 
 // MATH
 # define PI 3.1415926
+# define HALF_SCREENSIZE HEIGHT / 2 * WIDTH
+# define TILE 10
 
 typedef enum e_error
 {
@@ -73,6 +75,11 @@ typedef struct s_player
 
 }	t_player;
 
+typedef struct s_colour
+{
+	int	floor;
+}	t_colour;
+
 typedef struct s_map
 {
 	char		**input_content;
@@ -89,11 +96,16 @@ typedef struct s_cub3d
 {
 	t_map		map;
 	t_player	player;
+	t_colour	colour;
 	mlx_t		*mlx;
 	mlx_image_t	*background;
 	mlx_image_t	*wall;
 	mlx_image_t	*minimap;
 }	t_cub3d;
+
+//CUBED.C
+
+int	cubed(int argc, char **argv);
 
 /////////////////////////////PARSER////////////////////////////////////
 
@@ -109,6 +121,7 @@ bool		find_player_pos(t_map *map);
 bool		valid_char(char c);
 bool		floodfill(t_map *map, char **dup_map, int y, int x);
 void		map_init(t_map *map);
+void		create_map(t_map *map);
 char		**read_map(int fd);
 
 //MAP_UTILS.C
@@ -118,7 +131,7 @@ int			check_map_after_ff(char **map_after_ff);
 
 //PARSING.C
 
-int			parsing(int argc, char **argv);
+int	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map);
 int			is_input_correct(int argc, char *map);
 
 //PARSING_UTILS.C
@@ -160,14 +173,17 @@ void		free_map_2d(char **map_copy);
 
 /////////////////////////////SETUP////////////////////////////////////
 
-//CUB3D_SETUP.C
-
-void	position_setup(t_cub3d *cub3d);
-void	cub3d_setup(t_cub3d *cub3d);
+//PIXEL_SETUP.C
+void	background_setup(t_cub3d *cub3d);
 
 //MLX_SETUP.C
 
 void	mlx_window_setup();
+void	mlx_image_setup(t_cub3d *cub3d);
 void	mlx_setup(t_cub3d *cub3d);
+
+//PLAYER_SETUP.C
+
+void	player_setup(t_cub3d *cub3d);
 
 #endif

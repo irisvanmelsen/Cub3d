@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cubed.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 14:46:06 by iris              #+#    #+#             */
-/*   Updated: 2024/02/08 15:21:57 by ivan-mel         ###   ########.fr       */
+/*   Created: 2024/02/08 15:20:50 by ivan-mel          #+#    #+#             */
+/*   Updated: 2024/02/08 15:32:56 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	main(int argc, char **argv)
+int	cubed(int argc, char **argv)
 {
-	if (!cubed(argc, argv))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	t_cub3d cub3d;
+	t_map	map;
+	
+	if (!parsing(argc, argv, &cub3d, &map))
+		return (-1);
+	mlx_setup(&cub3d);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:37:01 by iris              #+#    #+#             */
-/*   Updated: 2024/02/07 16:58:41 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/07 19:08:28 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	map_init(t_map *map)
 	map->player_count = 0;
 }
 
-char	**create_map(t_map *map)
+void	create_map(t_map *map)
 {
 	int	x;
 	int	y;
@@ -76,6 +76,7 @@ char	**create_map(t_map *map)
 		while (map->input_content[y][x])
 		{
 			map->content[i][x] = map->input_content[y][x];
+			printf("map->content[i][x: %c", map->content[i][x]);
 			x++;
 		}
 		y++;

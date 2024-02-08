@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:58:37 by iris              #+#    #+#             */
-/*   Updated: 2024/02/02 14:42:19 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/07 19:10:20 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	get_north_path(t_cub3d *cub3d, t_textures *texture, char *path)
 		printf("Double element! NO should only be used once.\n");
 		return (false);
 	}
-	texture->north = mlx_load_png("./textures/wall_bricks1.png");
+	texture->north = mlx_load_png(path);
 	if (!texture->north)
 		return (false);
 	cub3d->player.direction = NO;
