@@ -15,8 +15,9 @@
 int	main(int argc, char **argv)
 {
 	t_map	map;
+	t_cub3d data;
 
-	if (!parsing(argc, argv, &map))
+	if (!parsing(argc, argv, &map, &data))
 	{
 		printf("Parser error\n");
 		return (EXIT_FAILURE);

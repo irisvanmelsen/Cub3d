@@ -120,7 +120,7 @@ int			check_map_after_ff(char **map_after_ff);
 
 //PARSING.C
 
-int			parsing(int argc, char **argv, t_map *map);
+int			parsing(int argc, char **argv, t_map *map, t_cub3d	*cub3d);
 int			is_input_correct(int argc, char *map);
 
 //PARSING_UTILS.C

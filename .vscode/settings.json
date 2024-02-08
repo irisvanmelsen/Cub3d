@@ -7,5 +7,6 @@
 		"cstdlib": "c",
 		"libft.h": "c",
 		"stdlib.h": "c"
-	}
+	},
+	"cmake.sourceDirectory": "/home/mde-cloe/Desktop/PROJECTS/CUB3D/Cub3d/MLX42"
 }

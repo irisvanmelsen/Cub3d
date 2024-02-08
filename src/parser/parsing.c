@@ -12,26 +12,26 @@
 
 #include "cub3d.h"
 
-int	parsing(int argc, char **argv, t_map *map)
+int	parsing(int argc, char **argv, t_map *map, t_cub3d	*cub3d)
 {
-	t_cub3d	cub3d;
 	int		fd;
 	int		i;
 
+	(void)cub3d;
 	fd = is_input_correct(argc, argv[1]);
 	map->content = read_map(fd);
 	if (!map->content)
 		return (0);
 	i = 0;
 	print_2d_charray(map->content);
-	if (!has_map_errors(map) || !parse_elements_in_map(&cub3d, map->content))
+	if (!has_map_errors(map))
 	{
 		free_map_2d(map->content);
 		return (0);
 	}
 	return (1);
 }
-
+// !parse_elements_in_map(&cub3d, map->content) here till fixed
 
 int	is_input_correct(int argc, char *map)
 {
