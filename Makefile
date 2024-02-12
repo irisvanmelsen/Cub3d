@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
-#    Updated: 2024/02/08 15:27:25 by ivan-mel         ###   ########.fr        #
+#    Updated: 2024/02/12 16:19:08 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	-Wall -Werror -Wextra
+FLAGS 		:=	-Wall -Werror -Wextra -g -fsanitize=address
 SRC			:=	main.c \
 				cubed.c \
 				parser/characters.c \
@@ -33,7 +33,8 @@ SRC			:=	main.c \
 				parser/elements_utils.c \
 				setup/mlx_setup.c \
 				setup/pixel_setup.c \
-				setup/player_setup.c
+				setup/player_setup.c \
+				setup/movement_setup.c
 # SRCB		:=	
 
 #OBJB_FILES	=	${SRCB:.c=.o}
@@ -70,8 +71,7 @@ libmlx:
 ${NAME}: ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
 	@${MAKE} -C libft
-# @${MAKE} -C ./MLX42/build
-	@${CC} $^ ${LIBS} ${LIBS_MLX} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
+	@${CC} $^ ${LIBS} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_off}
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)

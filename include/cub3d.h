@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/02/08 15:42:22 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:50:31 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef enum e_error
 	ERROR_CHARACTER,
 	ERROR_MLX,
 	ERROR_IMAGE,
+	ERROR_ALLOCATION,
 }	t_error;
 
 typedef enum e_identifier
@@ -91,6 +92,8 @@ typedef struct s_map
 	int			player_y;
 	int			player_count;
 }	t_map;
+
+
 
 typedef struct s_cub3d
 {
@@ -174,12 +177,13 @@ void		free_map_2d(char **map_copy);
 /////////////////////////////SETUP////////////////////////////////////
 
 //PIXEL_SETUP.C
-void	background_setup(t_cub3d *cub3d);
+void	cub3d_memset(void *b, int colour, size_t len);
+int		background_setup(mlx_image_t *background);
 
 //MLX_SETUP.C
 
 void	mlx_window_setup();
-void	mlx_image_setup(t_cub3d *cub3d);
+int		mlx_image_setup(t_cub3d *cub3d);
 void	mlx_setup(t_cub3d *cub3d);
 
 //PLAYER_SETUP.C

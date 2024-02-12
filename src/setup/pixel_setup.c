@@ -6,32 +6,34 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 21:50:22 by iris              #+#    #+#             */
-/*   Updated: 2024/02/08 14:35:20 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:40:41 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-// void	int_memset(int *b, int c, size_t len)
-// {
-// 	unsigned char	*str;
-// 	unsigned char	s;
-// 	size_t			a;
+void	cub3d_memset(void *b, int colour, size_t len)
+{
+	size_t	i;
+	int		*img;
 
-// 	str = (unsigned char *)b;
-// 	s = (unsigned char)c;
-// 	a = 0;
-// 	while (a < len)
-// 	{
-// 		str[a] = s;
-// 		a++;
-// 	}
-// 	b = (void *)str;
-// 	return (b);
-// }
+	img = b;
+	i = 0;
+	while (i < len)
+	{
+		img[i] = colour;
+		i++;
+	}
+}
 
-// void	background_setup(t_cub3d *cub3d)
-// {
-// 		int_memset(*image, kleur, HALF_SCREENSIZE);
-// 		int_memset(*image + HALF_SCREENSIZE, kleur, HALF_SCREENSIZE);
-// }
+int	background_setup(mlx_image_t *background)
+{
+	if (!background)
+	{
+		print_error(get_error_name(ERROR_ALLOCATION));
+		return (-1);
+	}
+	cub3d_memset(background->pixels, 0xffff0000, HALF_SCREENSIZE);
+	cub3d_memset(background->pixels + HALF_SCREENSIZE * 4, 0xff0000ff, HALF_SCREENSIZE);
+	return (1);
+}
