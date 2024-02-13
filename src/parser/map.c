@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 22:37:01 by iris              #+#    #+#             */
-/*   Updated: 2024/02/07 19:08:28 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   map.c                                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 22:37:01 by iris          #+#    #+#                 */
+/*   Updated: 2024/02/07 19:08:28 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ bool	floodfill(t_map *map, char **dup_map, int y, int x)
 		return (false);
 	if (y >= map->length_y || x >= map->length_x)
 		return (true);
-	if (!valid_char(map->input_content[y][x]))
+	if (!valid_char(map->file_content[y][x]))
 		return (true);
-	if (map->input_content[y][x] == '1' || map->input_content[y][x] == PASSED)
+	if (map->file_content[y][x] == '1' || map->file_content[y][x] == PASSED)
 		return (false);
-	if (map->input_content[y][x] == '0')
+	if (map->file_content[y][x] == '0')
 	{
-		map->input_content[y][x] = PASSED;
+		map->file_content[y][x] = PASSED;
 	}
 	if (floodfill(map, dup_map, y + 1, x))
 		return (true);
@@ -54,12 +54,18 @@ bool	floodfill(t_map *map, char **dup_map, int y, int x)
 	return (false);
 }
 
-void	map_init(t_map *map)
+bool	map_init(t_map *map, int fd)
 {
-	search_max_lengths(map->input_content, &map->length_x, &map->length_y);
-	map->player_x = 0;
-	map->player_y = 0;
-	map->player_count = 0;
+	ft_bzero((void *)map, sizeof(t_map));
+	map->file_content = read_map(fd);
+	if (!map->file_content)
+		return (true);
+	// create_map(map); disabled till it works
+	map->dup_content = create_dup_map(map);
+	if (!map->dup_content)
+		return (false);
+	search_max_lengths(map->file_content, &map->length_x, &map->length_y);
+	return (true);
 }
 
 void	create_map(t_map *map)
@@ -68,14 +74,15 @@ void	create_map(t_map *map)
 	int	y;
 	int	i;
 
-	y = 6;
+	y = 6; //doesnt work cause could be more or less than 6, hceck for first 1
+	// after all other elements
 	i = 0;
-	while (map->input_content[y])
+	while (map->file_content[y])
 	{
 		x = 0;
-		while (map->input_content[y][x])
+		while (map->file_content[y][x])
 		{
-			map->content[i][x] = map->input_content[y][x];
+			map->content[i][x] = map->file_content[y][x];
 			printf("map->content[i][x: %c", map->content[i][x]);
 			x++;
 		}

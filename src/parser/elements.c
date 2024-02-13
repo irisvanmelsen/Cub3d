@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   elements.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/31 00:37:23 by iris              #+#    #+#             */
-/*   Updated: 2024/02/08 15:36:27 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   elements.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/31 00:37:23 by iris          #+#    #+#                 */
+/*   Updated: 2024/02/08 15:36:27 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ char	*take_out_prefix_newlines(char *line, int id)
 	}
 	while (*line == ' ')
 		line++;
+	printf("\n\nPAaTH IS: \"%s\"\n\n", line);
 	return (line);
 }
 
 int	check_elements(char *line)
 {
+	//make jumptable?
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		return (NO);
 	else if (ft_strncmp(line, "SO ", 3) == 0)
@@ -64,14 +66,6 @@ bool	set_element_color(char *path, int id, t_elements *element)
 	return (true);
 }
 
-void	texture_init(t_textures *texture)
-{
-	texture->north = NULL;
-	texture->south = NULL;
-	texture->west = NULL;
-	texture->east = NULL;
-}
-
 bool	use_elements(t_cub3d *cub3d, char *path, int id, t_elements *element)
 {
 	t_textures	*texture;
@@ -79,7 +73,7 @@ bool	use_elements(t_cub3d *cub3d, char *path, int id, t_elements *element)
 	texture = malloc(sizeof(t_textures));
 	if (!texture)
 		return (false);
-	texture_init(texture);
+	ft_bzero(texture, sizeof(t_textures));
 	if (id == NO)
 	{
 		if (!get_north_path(cub3d, texture, path))
@@ -119,7 +113,7 @@ bool	use_elements(t_cub3d *cub3d, char *path, int id, t_elements *element)
 	return (false);
 }
 
-bool	parse_elements_in_map(t_cub3d *cub3d, char **map)
+bool	parse_elements_in_file(t_cub3d *cub3d, char **map)
 {
 	char		*str;
 	int			i;
@@ -133,14 +127,13 @@ bool	parse_elements_in_map(t_cub3d *cub3d, char **map)
 	element.floor_column = 0;
 	while (i < 6)
 	{
+		id = check_elements(map[i]);
+		if (!id)
+			return (false);
 		str = take_out_prefix_newlines(map[i], id);
 		if (!str)
 			return (false);
-		id = check_elements(str);
-		if (!id)
-			return (false);
 		use_elements(cub3d, str, id, &element);
-		printf("str: %s\n", str);
 		i++;
 	}
 	return (true);

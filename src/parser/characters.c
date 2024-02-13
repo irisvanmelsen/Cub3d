@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   characters.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 23:59:29 by iris              #+#    #+#             */
-/*   Updated: 2024/02/07 13:22:43 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   characters.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 23:59:29 by iris          #+#    #+#                 */
+/*   Updated: 2024/02/07 13:22:43 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	check_characters(t_map *map)
+int	only_one_player_symbol(t_map *map)
 {
 	int	x;
 	int	y;
@@ -21,12 +21,12 @@ int	check_characters(t_map *map)
 
 	y = 6;
 	player_count = 0;
-	while (map->input_content[y])
+	while (map->file_content[y])
 	{
 		x = 0;
-		while (map->input_content[y][x])
+		while (map->file_content[y][x])
 		{
-			c = map->input_content[y][x];
+			c = map->file_content[y][x];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 				player_count++;
 			x++;
@@ -71,12 +71,12 @@ bool	find_player_pos(t_map *map)
 	int	y;
 
 	y = 0;
-	while (map->input_content[y])
+	while (map->file_content[y])
 	{
 		x = 0;
-		while (map->input_content[y][x])
+		while (map->file_content[y][x])
 		{
-			if (is_player_char(map->input_content[y][x]))
+			if (is_player_char(map->file_content[y][x]))
 			{
 				map->player_x = x;
 				map->player_y = y;

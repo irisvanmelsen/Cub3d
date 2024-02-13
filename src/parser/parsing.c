@@ -1,41 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 14:58:27 by iris              #+#    #+#             */
-/*   Updated: 2024/02/08 15:36:09 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parsing.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 14:58:27 by iris          #+#    #+#                 */
+/*   Updated: 2024/02/08 15:36:09 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
+bool	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
 {
 	int		fd;
 	int		i;
 
 	fd = is_input_correct(argc, argv[1]);
-	map->input_content = read_map(fd);
-	if (!map->input_content)
-		return (0);
+	if (!map_init(map, fd))
+		return (false);
 	i = 0;
-	while (map->input_content[i])
+	// print_2d_charray(map->file_content);
+	if (!has_map_errors(map) || !parse_elements_in_file(cub3d, map->file_content))
 	{
-		printf("%s\n", map->input_content[i]);
-		i++;
+		free_map_2d(map->file_content);
+		return (false);
 	}
-	if (!has_map_errors(map) || !parse_elements_in_map(cub3d, map->input_content))
-	{
-		free_map_2d(map->input_content);
-		return (-1);
-	}
-	create_map(map);
-	return (1);
+	return (true);
 }
 
+bool	has_map_errors(t_map *map)
+{
+	int	ret;
+
+	ret = true;
+	if (!only_one_player_symbol(map))
+		print_error(get_error_name(ERROR_CHARACTER));
+
+	if (!find_player_pos(map) || floodfill(map, map->dup_content, map->player_y, map->player_x))
+	{
+		printf("Not a Valid Map!\n");
+		ret = false;
+	}
+	free_map_2d(map->dup_content);
+	return (ret);
+}
 
 int	is_input_correct(int argc, char *map)
 {

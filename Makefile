@@ -1,18 +1,18 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
-#    Updated: 2024/02/12 16:19:08 by ivan-mel         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: ivan-mel <ivan-mel@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
+#    Updated: 2024/02/12 16:19:08 by ivan-mel      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		:= 	cub3d
-LIBS		:=	./libft/libft.a
-HEADER		:=	-I libft -I include/cub3d.h -I MLX42/include/MLX42
+LIBFT_A		:=	./libft/libft.a
+HEADER		:=	-I libft/include -I include/ -I MLX42/include/MLX42
 #MLX
 MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
@@ -35,7 +35,7 @@ SRC			:=	main.c \
 				setup/pixel_setup.c \
 				setup/player_setup.c \
 				setup/movement_setup.c
-# SRCB		:=	
+# SRCB		:=
 
 #OBJB_FILES	=	${SRCB:.c=.o}
 OBJ_DIR		:=	./obj
@@ -63,25 +63,29 @@ OBJ			:= 	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 OBJ_DIRS	:=	$(dir $(OBJ))
 SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
 
-all: libmlx ${NAME}
+all: ${NAME}
 
-libmlx:
+run: $(NAME)
+	./$(NAME) maps/map.cub
+
+$(LIBS_MLX):
+	if [ -z "$$(ls -A MLX42)" ]; then \
+		git clone https://github.com/codam-coding-college/MLX42.git; \
+	fi
 	@cmake $(MLX) -B $(MLX)/build && make -C $(MLX)/build
 
-${NAME}: ${OBJ}
+${NAME}: $(LIBS_MLX) ${LIBFT_A} ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@${MAKE} -C libft
-	@${CC} $^ ${LIBS} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
+	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_off}
+
+${LIBFT_A}:
+	@${MAKE} -C libft
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	@mkdir -p $(OBJ_DIRS)
 	@${CC} ${FLAGS} ${HEADER} -c $< -o $@
-
-
-# $(OBJ_DIR):
-# 	@echo $@
-# 	@mkdir -p $@
+	@echo $(Purple) $(notdir $@) $(Green) DONE ${Color_off}
 
 # Set 'WITH_BONUS' option to make with bonus
 # bonus:
@@ -89,14 +93,19 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 
 clean:
 	@echo ${Yellow} Deleting ${OBJ_DIR} ${Color_off}
+	@${RM} ${OBJ_DIR}
+
+
+libclean:
 	@${MAKE} -C libft clean
 	@${MAKE} -C ${MLX}/build clean
-	@${RM} ${OBJ_DIR}
+
+libfclean: libclean
+	@${MAKE} -C libft fclean
+	@${RM} ${MLX}/build
 
 fclean: clean
 	@echo ${Yellow} Deleting ${NAME} ${Color_off}
-	@${MAKE} -C libft fclean
-	@${RM} ${MLX}/build 
 	@${RM} ${NAME}
 
 re: fclean all

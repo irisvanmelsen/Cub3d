@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   paths.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/06 14:58:37 by iris              #+#    #+#             */
-/*   Updated: 2024/02/07 19:10:20 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   paths.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/06 14:58:37 by iris          #+#    #+#                 */
+/*   Updated: 2024/02/07 19:10:20 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool	get_north_path(t_cub3d *cub3d, t_textures *texture, char *path)
 {
-	printf("gets into function?\n");
 	if (texture->north)
 	{
 		printf("Double element! NO should only be used once.\n");
