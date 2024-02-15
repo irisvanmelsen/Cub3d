@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <stdio.h>
 
 # define MAL_ERR "your malloc failed! D:"
 
@@ -59,6 +60,8 @@ void		str_reverse(char *str);
 bool		ft_strrcmp(char *str1, char *str2, size_t n);
 int			ft_printf(const char *str, ...);
 char		*get_next_line(int fd);
+
+
 void		print_2d_charray(char **map);
 void		free_map(char **map);
 int			ptrarr_len(void **arr);
@@ -71,6 +74,8 @@ bool		str_is_fully_alnum(char *str);
 void		str_switch(char **str1, char **str2);
 bool		is_valid_nbr_str(char *str);
 bool		ft_isdigit_str(char *s);
+int			skip_space(char *str, int i);
+int			skip_whitespace(char *str, int i);
 
 typedef struct s_list
 {

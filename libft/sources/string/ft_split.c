@@ -60,11 +60,11 @@ char	**splittime(char const *s, char **out, char c, size_t wordcount)
 	size_t	wlen;
 
 	i = 0;
-	while (s[i] == c && s[i])
-		i++;
 	current = 0;
 	while (current < wordcount)
 	{
+		while (s[i] == c && s[i])
+			i++;
 		wlen = wordlen(s + i, c);
 		out[current] = ft_substr(s, i, wlen);
 		if (out[current] == NULL)
@@ -73,8 +73,6 @@ char	**splittime(char const *s, char **out, char c, size_t wordcount)
 			return (NULL);
 		}
 		i += wlen;
-		while (s[i] == c && s[i])
-			i++;
 		current++;
 	}
 	out[current] = NULL;

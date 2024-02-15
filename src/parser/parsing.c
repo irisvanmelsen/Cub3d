@@ -15,14 +15,11 @@
 bool	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
 {
 	int		fd;
-	int		i;
 
 	fd = is_input_correct(argc, argv[1]);
-	if (!map_init(map, fd))
+	if (!map_init(cub3d, map, fd))
 		return (false);
-	i = 0;
-	// print_2d_charray(map->file_content);
-	if (!has_map_errors(map) || !parse_elements_in_file(cub3d, map->file_content))
+	if (!has_map_errors(map))
 	{
 		free_map_2d(map->file_content);
 		return (false);
@@ -37,8 +34,8 @@ bool	has_map_errors(t_map *map)
 	ret = true;
 	if (!only_one_player_symbol(map))
 		print_error(get_error_name(ERROR_CHARACTER));
-
-	if (!find_player_pos(map) || floodfill(map, map->dup_content, map->player_y, map->player_x))
+	if (!find_player_pos(map) || !floodfill(map, map->dup_content, \
+											map->player_y, map->player_x))
 	{
 		printf("Not a Valid Map!\n");
 		ret = false;

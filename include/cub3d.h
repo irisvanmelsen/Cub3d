@@ -51,15 +51,15 @@ typedef enum e_identifier
 	C,
 }	t_edentifier;
 
-typedef struct s_elements
-{
-	char	*path_to_north_texture;
-	char	*path_to_south_texture;
-	char	*path_to_west_texture;
-	char	*path_to_east_texture;
-	int		ceiling_column;
-	int		floor_column;
-}	t_elements;
+// typedef struct s_elements
+// {
+// 	char	*path_to_north_texture;
+// 	char	*path_to_south_texture;
+// 	char	*path_to_west_texture;
+// 	char	*path_to_east_texture;
+// 	int		ceiling_column;
+// 	int		floor_column;
+// }	t_elements;
 
 typedef struct s_textures
 {
@@ -67,6 +67,9 @@ typedef struct s_textures
 	mlx_texture_t	*south;
 	mlx_texture_t	*west;
 	mlx_texture_t	*east;
+	uint32_t		floor_colour;
+	uint32_t		ceiling_colour;
+
 }	t_textures;
 
 typedef struct s_player
@@ -102,6 +105,7 @@ typedef struct s_cub3d
 	mlx_image_t	*background;
 	mlx_image_t	*wall;
 	mlx_image_t	*minimap;
+	t_textures	textures;
 }	t_cub3d;
 
 //CUBED.C
@@ -121,9 +125,10 @@ bool		find_player_pos(t_map *map);
 
 bool		valid_char(char c);
 bool		floodfill(t_map *map, char **dup_map, int y, int x);
-bool		map_init(t_map *map, int fd);
-void		create_map(t_map *map);
-char		**read_map(int fd);
+bool		map_init(t_cub3d *cub3d, t_map *map, int fd);
+bool		create_map(t_map *map, int i);
+char		**read_file(int fd);
+bool	free_line_if_empty(char *line);
 
 //MAP_UTILS.C
 
@@ -132,7 +137,7 @@ int			check_map_after_ff(char **map_after_ff);
 
 //PARSING.C
 
-bool	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map);
+bool		parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map);
 int			is_input_correct(int argc, char *map);
 
 //PARSING_UTILS.C
@@ -143,17 +148,19 @@ char		*ft_strjoin_free(char *s1, char *s2);
 
 //ELEMENTS.C
 
-char		*take_out_prefix_newlines(char *line, int id);
 bool		check_elements_in_map(char **map);
-int			check_elements(char *line);
-bool		use_elements(t_cub3d *cub3d, char *path, int id, \
-			t_elements *element);
-bool		parse_elements_in_file(t_cub3d *cub3d, char **map);
+void		load_element(t_cub3d *cub3d, char *path, int id);
+int			parse_elements_in_file(t_cub3d *cub3d, char **map);
+bool		load_wall_img(char *path, mlx_texture_t **texture);
+
 
 //ELEMENTS_UTILS.C
 
 uint32_t	get_rgba(int r, int g, int b, int a);
-bool		parse_colours(char *path, int id, t_elements *element);
+bool		parse_colours(char *path, int id, t_textures *s_textures);
+bool		all_elements_loaded(t_textures *checkme);
+int			which_element(char *line);
+char		*skip_path_prefix(char *line, int id);
 
 // PATHS.C
 
@@ -187,5 +194,10 @@ void	mlx_setup(t_cub3d *cub3d);
 //PLAYER_SETUP.C
 
 void	player_setup(t_cub3d *cub3d);
+
+//ERROR MSGS
+
+#define VALID_CHARS "10NSEW2"
+# define DOUBLE_ELEMENT "ERROR Double element! encountered.\n"
 
 #endif

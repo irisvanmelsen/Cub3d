@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	-Wall -Werror -Wextra -g -fsanitize=address
+FLAGS 		:=	#-Wall -Werror -Wextra -g -fsanitize=address
 SRC			:=	main.c \
 				cubed.c \
 				parser/characters.c \

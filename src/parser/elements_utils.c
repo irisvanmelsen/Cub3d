@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   elements_utils.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/07 00:21:03 by iris              #+#    #+#             */
-/*   Updated: 2024/02/02 14:33:53 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   elements_utils.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/07 00:21:03 by iris          #+#    #+#                 */
+/*   Updated: 2024/02/02 14:33:53 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,38 +23,39 @@ uint32_t	get_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int	amount_of_components(char **components)
+bool	all_elements_loaded(t_textures *checkme)
 {
-	int	i;
-
-	i = 0;
-	while (components[i] != NULL)
-		i++;
-	return (i);
+	if (!checkme->north || !checkme->east || !checkme->south || !checkme->west)
+		return (false);
+	if (!checkme->ceiling_colour || !checkme->floor_colour)
+		return (false);
+	return (true);
 }
 
-bool	parse_colours(char *path, int id, t_elements *element)
+int	which_element(char *line)
 {
-	char	**components;
-	int		colour;
+	//make jumptable?
+	if (ft_strncmp(line, "NO ", 3) == 0) //does it always have a space after?
+		return (NO);
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+		return (SO);
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+		return (WE);
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+		return (EA);
+	else if (ft_strncmp(line, "F ", 2) == 0)
+		return (F);
+	else if (ft_strncmp(line, "C ", 2) == 0)
+		return (C);
+	return (FAILED);
+}
 
-	components = ft_split(path, ',');
-	if (!components)
-	{
-		free_map_2d(components);
-		return (false);
-	}
-	if (amount_of_components(components) != 3)
-	{
-		free_map_2d(components);
-		return (false);
-	}
-	colour = get_rgba(ft_atoi(components[0]), ft_atoi(components[1]),
-			ft_atoi(components[2]), 255);
-	if (id == F)
-		element->floor_column = colour;
-	else if (id == C)
-		element->ceiling_column = colour;
-	free_map_2d(components);
-	return (true);
+char	*skip_path_prefix(char *line, int id)
+{
+	if (id == F || id == C)
+		line += 2;
+	else
+		line += 3;
+	line += skip_whitespace(line, 0);
+	return (line);
 }

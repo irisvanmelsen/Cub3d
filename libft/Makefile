@@ -44,7 +44,8 @@ STRING 	:=	ft_split.c \
 			ft_isprint.c \
 			str_reverse.c \
 			str_switch.c \
-			ft_is_valid_nbr_str.c
+			ft_is_valid_nbr_str.c \
+			skip_whitespace.c
 
 GNL			:=	get_next_line.c \
 				get_next_line_utils.c

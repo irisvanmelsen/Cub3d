@@ -12,129 +12,78 @@
 
 #include "../include/cub3d.h"
 
-char	*take_out_prefix_newlines(char *line, int id)
-{
-	size_t	prefix_len;
-
-	if (id == F || id == C)
-		prefix_len = 2;
-	else
-		prefix_len = 3;
-	while (*line && prefix_len > 0)
-	{
-		line++;
-		prefix_len--;
-	}
-	while (*line == ' ')
-		line++;
-	printf("\n\nPAaTH IS: \"%s\"\n\n", line);
-	return (line);
-}
-
-int	check_elements(char *line)
-{
-	//make jumptable?
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		return (NO);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		return (SO);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		return (WE);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		return (EA);
-	else if (ft_strncmp(line, "F ", 2) == 0)
-		return (F);
-	else if (ft_strncmp(line, "C ", 2) == 0)
-		return (C);
-	return (FAILED);
-}
-
-bool	set_element_color(char *path, int id, t_elements *element)
-{
-	if (id == 'F')
-	{
-		element->floor_column = parse_colours(path, id, element);
-		if (!element->floor_column)
-			return (false);
-	}
-	else if (id == 'C')
-	{
-		element->ceiling_column = parse_colours(path, id, element);
-		if (!element->ceiling_column)
-			return (false);
-	}
-	return (true);
-}
-
-bool	use_elements(t_cub3d *cub3d, char *path, int id, t_elements *element)
-{
-	t_textures	*texture;
-
-	texture = malloc(sizeof(t_textures));
-	if (!texture)
-		return (false);
-	ft_bzero(texture, sizeof(t_textures));
-	if (id == NO)
-	{
-		if (!get_north_path(cub3d, texture, path))
-			return (printf("Texture uploading of NO went wrong!\n"), false);
-		return (NO);
-	}
-	else if (id == SO)
-	{
-		if (!get_south_path(cub3d, texture, path))
-			return (printf("Texture uploading of SO went wrong!\n"), false);
-		return (SO);
-	}
-	else if (id == WE)
-	{
-		if (!get_west_path(cub3d, texture, path))
-			return (printf("Texture uploading of WE went wrong!\n"), false);
-		return (WE);
-	}
-	else if (id == EA)
-	{
-		if (!get_east_path(cub3d, texture, path))
-			return (printf("Texture uploading of EA went wrong!\n"), false);
-		return (EA);
-	}
-	else if (id == F)
-	{
-		if (!parse_colours(path, id, element))
-			return (printf("Colour uploading went wrong!\n"), false);
-		return (F);
-	}
-	else if (id == C)
-	{
-		if (!parse_colours(path, id, element))
-			return (printf("Colour uploading went wrong!\n"), false);
-		return (C);
-	}
-	return (false);
-}
-
-bool	parse_elements_in_file(t_cub3d *cub3d, char **map)
+int	parse_elements_in_file(t_cub3d *cub3d, char **file)
 {
 	char		*str;
 	int			i;
 	int			id;
-	t_elements	element;
 
 	i = 0;
-	id = 0;
-
-	element.ceiling_column = 0;
-	element.floor_column = 0;
-	while (i < 6)
+	while (file[i])
 	{
-		id = check_elements(map[i]);
+		str = file[i];
+		str += skip_whitespace(str, 0);
+		id =  which_element(str);
 		if (!id)
-			return (false);
-		str = take_out_prefix_newlines(map[i], id);
-		if (!str)
-			return (false);
-		use_elements(cub3d, str, id, &element);
+			break;
+		str = skip_path_prefix(str, id);
+		load_element(cub3d, str, id);
 		i++;
 	}
+	if (all_elements_loaded(&cub3d->textures))
+	{
+		return (i);
+	}
+	return (0); //print invalid line or not all elements?
+}
+
+void	load_element(t_cub3d *cub3d, char *path, int id)
+{
+	//damn actuallyyy if we make the textures an array we can index
+	//directly into the ID enum
+	if (id == NO)
+		load_wall_img(path, &cub3d->textures.north);
+	else if (id == SO)
+		load_wall_img(path, &cub3d->textures.south);
+	else if (id == WE)
+		load_wall_img(path, &cub3d->textures.west);
+	else if (id == EA)
+		load_wall_img(path, &cub3d->textures.east);
+	else if (id == F || id == C)
+		parse_colours(path, id, &cub3d->textures);
+}
+
+bool	load_wall_img(char *path, mlx_texture_t **texture)
+{
+	printf("\n\nPAaTH IS: \"%s\"\n\n", path);
+	if (*texture)
+		error_exit(DOUBLE_ELEMENT, 1); //make this a clean free and exit program?
+	*texture = mlx_load_png(path); //leaks.. mlx or us?
+	if (!*texture)
+		error_exit("loading path error", 1);
+	return (true);
+}
+
+bool	parse_colours(char *path, int id, t_textures *textures)
+{
+	char		**components;
+	uint32_t	colour;
+
+	components = ft_split(path, ',');
+	if (!components || ptrarr_len((void **)components) != 3)
+	{
+		free_map_2d(components);
+		return (false);
+	}
+	colour = get_rgba(ft_atoi(components[0]), ft_atoi(components[1]),
+			ft_atoi(components[2]), 255);
+	if ((id == C && textures->ceiling_colour) || \
+		(id == F && textures->floor_colour))
+		error_exit(DOUBLE_ELEMENT, 1);
+	if (id == F)
+		textures->floor_colour = colour;
+	else if (id == C)
+		textures->ceiling_colour = colour;
+	free_map_2d(components);
 	return (true);
 }

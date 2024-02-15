@@ -17,7 +17,6 @@ int	only_one_player_symbol(t_map *map)
 	int	x;
 	int	y;
 	int	player_count;
-	char c;
 
 	y = 6;
 	player_count = 0;
@@ -26,8 +25,7 @@ int	only_one_player_symbol(t_map *map)
 		x = 0;
 		while (map->file_content[y][x])
 		{
-			c = map->file_content[y][x];
-			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+			if (is_player_char(map->file_content[y][x]))
 				player_count++;
 			x++;
 		}
@@ -41,20 +39,19 @@ int	only_one_player_symbol(t_map *map)
 void	search_max_lengths(char **map, int *length_x, int *length_y)
 {
 	int	i;
-	int	length;
-	int	length_next;
+	int	max_length;
+	int	current_len;
 
 	i = 0;
-	length = 0;
-	length_next = 0;
+	max_length = 0;
 	while (map[i])
 	{
-		length_next = ft_strlen(map[i]);
-		if (length < length_next)
-			length = length_next;
+		current_len = ft_strlen(map[i]);
+		if (max_length < current_len)
+			max_length = current_len;
 		i++;
 	}
-	*length_x = length;
+	*length_x = max_length;
 	*length_y = i;
 }
 
@@ -88,4 +85,18 @@ bool	find_player_pos(t_map *map)
 	if (!map->player_x || !map->player_y)
 		return (false);
 	return (true);
+}
+
+bool	valid_char(char c)
+{
+	int	i;
+
+	i = 0;
+	while (VALID_CHARS[i])
+	{
+		if (c == VALID_CHARS[i])
+			return (true);
+		i++;
+	}
+	return (false);
 }
