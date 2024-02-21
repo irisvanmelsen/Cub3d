@@ -32,20 +32,20 @@ bool	all_elements_loaded(t_textures *checkme)
 	return (true);
 }
 
-int	which_element(char *line)
+int	which_element(char *line) //can be merged with load element
 {
 	//make jumptable?
-	if (ft_strncmp(line, "NO ", 3) == 0) //does it always have a space after?
+	if (ft_strncmp(line, "NO", 2) == 0) //does it always have a space after?
 		return (NO);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
+	else if (ft_strncmp(line, "SO", 2) == 0)
 		return (SO);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
+	else if (ft_strncmp(line, "WE", 2) == 0)
 		return (WE);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
+	else if (ft_strncmp(line, "EA", 2) == 0)
 		return (EA);
-	else if (ft_strncmp(line, "F ", 2) == 0)
+	else if (ft_strncmp(line, "F", 1) == 0)
 		return (F);
-	else if (ft_strncmp(line, "C ", 2) == 0)
+	else if (ft_strncmp(line, "C", 1) == 0)
 		return (C);
 	return (FAILED);
 }

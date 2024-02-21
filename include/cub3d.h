@@ -32,6 +32,16 @@
 # define HALF_SCREENSIZE HEIGHT / 2 * WIDTH
 # define TILE 10
 
+#define PASSED '2'
+
+//ERROR MSGS
+
+#define VALID_CHARS "10NSEW2"
+#define DOUBLE_ELEMENT "ERROR Double element! encountered.\n"
+#define FLOOD_FAIL "Invalid char in map OR unwalled floor detected"
+#define MAP_ALLOC_FAIL "Error allocating the map"
+
+
 typedef enum e_error
 {
 	ERROR_CHARACTER,
@@ -117,22 +127,21 @@ int	cubed(int argc, char **argv);
 //CHARACTERS.C
 
 int			only_one_player_symbol(t_map *map);
-void		search_max_lengths(char **map, int *length_x, int *length_y);
+void		find_max_lengths(char **map, int *length_x, int *length_y);
 bool		is_player_char(char c);
 bool		find_player_pos(t_map *map);
 
 //MAP.C
 
 bool		valid_char(char c);
-bool		floodfill(t_map *map, char **dup_map, int y, int x);
-bool		map_init(t_cub3d *cub3d, t_map *map, int fd);
-bool		create_map(t_map *map, int i);
+bool		floodfill(char **dup_map, int y, int x);
+bool		map_init(t_map *map, int map_start_index);
 char		**read_file(int fd);
-bool	free_line_if_empty(char *line);
 
 //MAP_UTILS.C
 
-char		**create_dup_map(t_map *map);
+bool		create_dup_map(t_map *map);
+bool		create_map(t_map *map, int i);
 int			check_map_after_ff(char **map_after_ff);
 
 //PARSING.C
@@ -145,12 +154,13 @@ int			is_input_correct(int argc, char *map);
 size_t		ft_strlen_protect(char *s);
 size_t		ft_strlcpy_protect(char *dst, char *src, size_t dstsize);
 char		*ft_strjoin_free(char *s1, char *s2);
+bool		free_line_if_empty(char *line);
 
 //ELEMENTS.C
 
 bool		check_elements_in_map(char **map);
 void		load_element(t_cub3d *cub3d, char *path, int id);
-int			parse_elements_in_file(t_cub3d *cub3d, char **map);
+int			parse_and_load_textures(t_cub3d *cub3d, char **map);
 bool		load_wall_img(char *path, mlx_texture_t **texture);
 
 
@@ -173,7 +183,7 @@ bool		get_east_path(t_cub3d *cub3d, t_textures *texture, char *path);
 
 bool		has_map_errors(t_map *map);
 char		*get_error_name(t_error error);
-int			print_error(char *str);
+bool			print_error(char *str);
 
 //FREE.C
 
@@ -194,10 +204,5 @@ void	mlx_setup(t_cub3d *cub3d);
 //PLAYER_SETUP.C
 
 void	player_setup(t_cub3d *cub3d);
-
-//ERROR MSGS
-
-#define VALID_CHARS "10NSEW2"
-# define DOUBLE_ELEMENT "ERROR Double element! encountered.\n"
 
 #endif

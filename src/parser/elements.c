@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	parse_elements_in_file(t_cub3d *cub3d, char **file)
+int	parse_and_load_textures(t_cub3d *cub3d, char **file)
 {
 	char		*str;
 	int			i;
@@ -31,9 +31,7 @@ int	parse_elements_in_file(t_cub3d *cub3d, char **file)
 		i++;
 	}
 	if (all_elements_loaded(&cub3d->textures))
-	{
 		return (i);
-	}
 	return (0); //print invalid line or not all elements?
 }
 

@@ -23,8 +23,8 @@ char	*get_error_name(t_error error)
 	return (str[error]);
 }
 
-int	print_error(char *str)
+bool	print_error(char *str)
 {
 	write (STDERR_FILENO, str, ft_strlen(str));
-	return (EXIT_FAILURE);
+	return (false);
 }

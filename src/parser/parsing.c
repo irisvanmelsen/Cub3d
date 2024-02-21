@@ -14,34 +14,22 @@
 
 bool	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
 {
-	int		fd;
+	int	fd;
+	int	map_start_index;
 
+	ft_bzero((void *)map, sizeof(t_map));
 	fd = is_input_correct(argc, argv[1]);
-	if (!map_init(cub3d, map, fd))
+	if (!fd)
 		return (false);
-	if (!has_map_errors(map))
-	{
-		free_map_2d(map->file_content);
+	map->file_content = read_file(fd);
+	if (!map->file_content)
 		return (false);
-	}
+	map_start_index = parse_and_load_textures(cub3d, map->file_content);
+	if (!map_start_index)
+		return (false);
+	if (!map_init(map, map_start_index))
+		return (false);
 	return (true);
-}
-
-bool	has_map_errors(t_map *map)
-{
-	int	ret;
-
-	ret = true;
-	if (!only_one_player_symbol(map))
-		print_error(get_error_name(ERROR_CHARACTER));
-	if (!find_player_pos(map) || !floodfill(map, map->dup_content, \
-											map->player_y, map->player_x))
-	{
-		printf("Not a Valid Map!\n");
-		ret = false;
-	}
-	free_map_2d(map->dup_content);
-	return (ret);
 }
 
 int	is_input_correct(int argc, char *map)
@@ -49,20 +37,41 @@ int	is_input_correct(int argc, char *map)
 	int	fd;
 
 	if (argc != 2)
-	{
-		printf("Wrong Amount of Arguments! Please enter: executable + map.\n");
-		exit (EXIT_FAILURE);
-	}
+		return(print_error("Wrong Amount of Arguments! \
+		Please enter: executable + map.\n"));
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-	{
-		printf("No File Found! Please enter an existing file.\n");
-		exit (EXIT_FAILURE);
-	}
+		return(print_error("No File Found! Please enter an existing file.\n"));
 	if (ft_strncmp(map + ft_strlen(map) - 4, ".cub", 4))
-	{
-		printf("Incorrect File! Please enter correct file type.\n");
-		exit (EXIT_FAILURE);
-	}
+		return(print_error("Incorrect File! Please enter correct file type.\n"));
 	return (fd);
+}
+
+char	**read_file(int fd)
+{
+	char	*map_line;
+	char	*line;
+	char	**result;
+
+	line = NULL;
+	map_line = NULL;
+
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (free_line_if_empty(line))
+			continue;
+		map_line = ft_strjoin_free(map_line, line);
+		if (!map_line)
+			return (NULL);
+	}
+	if (!map_line)
+		return (NULL);
+	result = ft_split(map_line, '\n');
+	free(map_line);
+	if (!result)
+		return (NULL);
+	return (result);
 }

@@ -10,52 +10,41 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
-#define PASSED '2'
-
-bool	floodfill(t_map *map, char **dup_map, int y, int x)
+bool	map_init(t_map *map, int map_start_index)
 {
-	// if (y < 0 || x < 0)
-	// 	return (false);
-	// if (y >= map->length_y || x >= map->length_x)
-	// 	return (true);
-	// if (!valid_char(map->file_content[y][x]))
-	// 	return (true);
-	// if (map->file_content[y][x] == '1' || map->file_content[y][x] == PASSED)
-	// 	return (false);
-	// if (map->file_content[y][x] == '0')
-	// {
-	// 	map->file_content[y][x] = PASSED;
-	// }
-	// if (floodfill(map, dup_map, y + 1, x))
-	// 	return (true);
-	// if (floodfill(map, dup_map, y - 1, x))
-	// 	return (true);
-	// if (floodfill(map, dup_map, y, x + 1))
-	// 	return (true);
-	// if (floodfill(map, dup_map, y, x - 1))
-	// 	return (true);
+	 if (!create_map(map, map_start_index) || !create_dup_map(map))
+	 	return (print_error(MAP_ALLOC_FAIL));
+	find_max_lengths(map->content, &map->length_x, &map->length_y);
+	if (!only_one_player_symbol(map))
+		return (print_error(get_error_name(ERROR_CHARACTER)));
+	print_2d_charray(map->content);
+	if (!floodfill(map->dup_content, map->player_y, map->player_x))
+		return (print_error(FLOOD_FAIL));
 	return (true);
 }
 
-bool	map_init(t_cub3d *cub3d, t_map *map, int fd)
+bool	floodfill(char **dup_map, int y, int x)
 {
-	int	i;
 
-	ft_bzero((void *)map, sizeof(t_map));
-	map->file_content = read_file(fd);
-	if (!map->file_content)
+	if (y < 0 || x < 0)
+		return (true);
+	if (!dup_map[y] || x >= (int)ft_strlen(dup_map[y]))
+		return (true);
+	if (!valid_char(dup_map[y][x]))
 		return (false);
-	i = parse_elements_in_file(cub3d, map->file_content);
-	if (!i)
+	if (dup_map[y][x] == '1' || dup_map[y][x] == PASSED)
+		return (true);
+	dup_map[y][x] = PASSED;
+	if (!floodfill(dup_map, y + 1, x))
 		return (false);
-	 if (!create_map(map, i))
-	 	return (false);
-	map->dup_content = create_dup_map(map);
-	if (!map->dup_content)
+	if (!floodfill(dup_map, y - 1, x))
 		return (false);
-	search_max_lengths(map->content, &map->length_x, &map->length_y);
+	if (!floodfill(dup_map, y, x + 1))
+		return (false);
+	if (!floodfill(dup_map, y, x - 1))
+		return (false);
 	return (true);
 }
 
@@ -75,47 +64,26 @@ bool	create_map(t_map *map, int i)
 		i++;
 		j++;
 	}
+	map->content[j] = NULL;
 	return (true);
 }
 
-char	**read_file(int fd)
+bool	create_dup_map(t_map *map)
 {
-	char	*map;
-	char	*line;
-	char	**result;
+	int	i;
 
-	line = NULL;
-	map = NULL;
-
-	while (1)
+	i = 0;
+	map->dup_content = (char **)ft_calloc((ptrarr_len((void **)map->content) + 1), \
+						sizeof(char *));
+	if (!map->dup_content)
+		return (false);
+	while (map->content[i])
 	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		if (free_line_if_empty(line))
-			continue;
-		map = ft_strjoin_free(map, line);
-		if (!map)
-			return (NULL);
+		map->dup_content[i] = ft_strdup(map->content[i]);
+		if (!map->dup_content[i])
+			return (false);
+		i++;
 	}
-	if (!map)
-		return (NULL);
-	result = ft_split(map, '\n');
-	free (map);
-	if (!result)
-		return (NULL);
-	return (result);
-}
-
-bool	free_line_if_empty(char *line)
-{
-	int i;
-
-	i = skip_whitespace(line, 0);
-	if (!line[i])
-	{
-		free(line);
-		return (true);
-	}
-	return (false);
+	map->dup_content[i] = NULL;
+	return (true);
 }
