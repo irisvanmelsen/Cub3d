@@ -71,7 +71,62 @@ void	mlx_setup(t_cub3d *cub3d)
 	background_setup(cub3d->background);
 	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
 	player_setup(cub3d);
+	fuck_around(cub3d);
 	// mlx_loop_hook(cub3d->mlx, cub3d_loop,cub3d);
 	mlx_loop(cub3d->mlx);
 	mlx_terminate(cub3d->mlx);
 }
+
+void	calculate_raydirs(t_cub3d *data)
+{
+	int	x;
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+	double dirX = -1, dirY = 0; //initial direction vector
+	double planeX = 0, planeY = 0.66;
+	double w = data->map.length_x;
+	x = 0;
+	while (x < w)
+	{
+		cameraX = 2 * x / w - 1; //x-coordinate in camera space
+		rayDirX = dirX + planeX * cameraX;
+		rayDirY = dirY + planeY * cameraX;
+		x++;
+	}
+}
+
+void	fuck_around()
+{
+
+
+	double posX = 22, posY = 12;
+	double dirX = -1, dirY = 0; //initial direction vector
+
+	double time = 0; //time of current frame
+	double oldTime = 0; //time of previous frame
+
+
+}
+
+
+
+//plane gaat van -1 naar 1
+
+// double cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
+// double rayDirX = dirX + planeX * cameraX;
+// double rayDirY = dirY + planeY * cameraX;
+
+//direction vector is black line from player to plane (aka screen)
+// bepalen we dat zelf?
+
+
+
+//direction en plane zijn HARDCODED?
+// ^ if same FOV == 90
+
+
+//raycast = dir + plane * 0.33
+
+
+//CAMERA X IS HET ZWARTE PUNTJE MIDDEN VAN PLANE
