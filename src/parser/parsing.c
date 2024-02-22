@@ -1,61 +1,77 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 14:58:27 by iris              #+#    #+#             */
-/*   Updated: 2024/02/08 15:36:09 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parsing.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 14:58:27 by iris          #+#    #+#                 */
+/*   Updated: 2024/02/08 15:36:09 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
+bool	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
 {
-	int		fd;
-	int		i;
+	int	fd;
+	int	map_start_index;
 
+	ft_bzero((void *)map, sizeof(t_map));
 	fd = is_input_correct(argc, argv[1]);
-	map->input_content = read_map(fd);
-	if (!map->input_content)
-		return (0);
-	i = 0;
-	while (map->input_content[i])
-	{
-		printf("%s\n", map->input_content[i]);
-		i++;
-	}
-	if (!has_map_errors(map) || !parse_elements_in_map(cub3d, map->input_content))
-	{
-		free_map_2d(map->input_content);
-		return (-1);
-	}
-	create_map(map);
-	return (1);
+	if (!fd)
+		return (false);
+	map->file_content = read_file(fd);
+	if (!map->file_content)
+		return (false);
+	map_start_index = parse_and_load_textures(cub3d, map->file_content);
+	if (!map_start_index)
+		return (false);
+	if (!map_init(map, map_start_index))
+		return (false);
+	return (true);
 }
-
 
 int	is_input_correct(int argc, char *map)
 {
 	int	fd;
 
 	if (argc != 2)
-	{
-		printf("Wrong Amount of Arguments! Please enter: executable + map.\n");
-		exit (EXIT_FAILURE);
-	}
+		return(print_error("Wrong Amount of Arguments! \
+		Please enter: executable + map.\n"));
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-	{
-		printf("No File Found! Please enter an existing file.\n");
-		exit (EXIT_FAILURE);
-	}
+		return(print_error("No File Found! Please enter an existing file.\n"));
 	if (ft_strncmp(map + ft_strlen(map) - 4, ".cub", 4))
-	{
-		printf("Incorrect File! Please enter correct file type.\n");
-		exit (EXIT_FAILURE);
-	}
+		return(print_error("Incorrect File! Please enter correct file type.\n"));
 	return (fd);
+}
+
+char	**read_file(int fd)
+{
+	char	*map_line;
+	char	*line;
+	char	**result;
+
+	line = NULL;
+	map_line = NULL;
+
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (free_line_if_empty(line))
+			continue;
+		map_line = ft_strjoin_free(map_line, line);
+		if (!map_line)
+			return (NULL);
+	}
+	if (!map_line)
+		return (NULL);
+	result = ft_split(map_line, '\n');
+	free(map_line);
+	if (!result)
+		return (NULL);
+	return (result);
 }

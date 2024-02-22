@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   characters.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 23:59:29 by iris              #+#    #+#             */
-/*   Updated: 2024/02/07 13:22:43 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   characters.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 23:59:29 by iris          #+#    #+#                 */
+/*   Updated: 2024/02/07 13:22:43 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	check_characters(t_map *map)
+int	only_one_player_symbol(t_map *map)
 {
 	int	x;
 	int	y;
 	int	player_count;
-	char c;
 
 	y = 6;
 	player_count = 0;
-	while (map->input_content[y])
+	while (map->content[y])
 	{
 		x = 0;
-		while (map->input_content[y][x])
+		while (map->content[y][x])
 		{
-			c = map->input_content[y][x];
-			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+			if (is_player_char(map->content[y][x]))
+			{
 				player_count++;
+				map->player_x = x;
+				map->player_y = y;
+			}
 			x++;
 		}
 		y++;
@@ -38,23 +40,22 @@ int	check_characters(t_map *map)
 	return (1);
 }
 
-void	search_max_lengths(char **map, int *length_x, int *length_y)
+void	find_max_lengths(char **map, int *length_x, int *length_y)
 {
 	int	i;
-	int	length;
-	int	length_next;
+	int	max_length;
+	int	current_len;
 
 	i = 0;
-	length = 0;
-	length_next = 0;
+	max_length = 0;
 	while (map[i])
 	{
-		length_next = ft_strlen(map[i]);
-		if (length < length_next)
-			length = length_next;
+		current_len = ft_strlen(map[i]);
+		if (max_length < current_len)
+			max_length = current_len;
 		i++;
 	}
-	*length_x = length;
+	*length_x = max_length;
 	*length_y = i;
 }
 
@@ -65,27 +66,16 @@ bool	is_player_char(char c)
 	return (false);
 }
 
-bool	find_player_pos(t_map *map)
+bool	valid_char(char c)
 {
-	int	x;
-	int	y;
+	int	i;
 
-	y = 0;
-	while (map->input_content[y])
+	i = 0;
+	while (VALID_CHARS[i])
 	{
-		x = 0;
-		while (map->input_content[y][x])
-		{
-			if (is_player_char(map->input_content[y][x]))
-			{
-				map->player_x = x;
-				map->player_y = y;
-			}
-			x++;
-		}
-		y++;
+		if (c == VALID_CHARS[i])
+			return (true);
+		i++;
 	}
-	if (!map->player_x || !map->player_y)
-		return (false);
-	return (true);
+	return (false);
 }
