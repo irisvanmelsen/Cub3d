@@ -27,7 +27,7 @@ bool	map_init(t_map *map, int map_start_index)
 
 bool	floodfill(char **dup_map, int y, int x)
 {
-
+	//write check for if player is outside the walls
 	if (y < 0 || x < 0)
 		return (true);
 	if (!dup_map[y] || x >= (int)ft_strlen(dup_map[y]))

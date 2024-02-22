@@ -68,7 +68,7 @@ run: $(NAME)
 	./$(NAME) maps/map.cub
 
 $(LIBS_MLX):
-	if [ -z "$$(ls -A MLX42)" ]; then \
+	@if [ -z "$$(ls -A MLX42)" ]; then \
 		git clone https://github.com/codam-coding-college/MLX42.git; \
 	fi
 	@cmake $(MLX) -B $(MLX)/build && make -C $(MLX)/build
