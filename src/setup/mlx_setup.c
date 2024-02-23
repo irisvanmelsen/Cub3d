@@ -64,6 +64,9 @@ int	mlx_image_setup(t_cub3d *cub3d)
 
 void	mlx_setup(t_cub3d *cub3d)
 {
+	t_nbrs nbrs;
+
+	ft_bzero((void *)&nbrs, sizeof(nbrs));
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!cub3d->mlx)
 		print_error(get_error_name(ERROR_MLX)); //clean exit?
@@ -71,32 +74,115 @@ void	mlx_setup(t_cub3d *cub3d)
 	background_setup(cub3d->background);
 	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
 	player_setup(cub3d);
-	fuck_around(cub3d);
+	raycast(&nbrs, &cub3d->map);
 	// mlx_loop_hook(cub3d->mlx, cub3d_loop,cub3d);
 	mlx_loop(cub3d->mlx);
 	mlx_terminate(cub3d->mlx);
 }
 
-void	calculate_raydirs(t_cub3d *data)
+
+void	raycast(t_nbrs *nbrs, t_map *map)
 {
+	nbrs->mapX = map->player_x;
+	nbrs->mapY = map->player_y;
+	calculate_raydirs(nbrs);
+}
+
+void	calculate_raydirs(t_nbrs *nbrs)
+{
+
 	int	x;
 	double cameraX;
-	double rayDirX;
-	double rayDirY;
 	double dirX = -1, dirY = 0; //initial direction vector
 	double planeX = 0, planeY = 0.66;
-	double w = data->map.length_x;
 	x = 0;
-	while (x < w)
+	while (x < WIDTH)
 	{
-		cameraX = 2 * x / w - 1; //x-coordinate in camera space
-		rayDirX = dirX + planeX * cameraX;
-		rayDirY = dirY + planeY * cameraX;
+		cameraX = 2 * x / WIDTH - 1; //x-coordinate in camera space
+		nbrs->rayDirX = dirX + planeX * cameraX;
+		nbrs->rayDirY = dirY + planeY * cameraX;
+		calc_delta_distance(nbrs);
+		init_nbrs(nbrs);
+		keep_lookin(nbrs);
+		calc_perp_distance(nbrs);
+		lineheight(nbrs);
 		x++;
 	}
 }
 
-void	fuck_around()
+void	lineheight(t_nbrs *nbrs)
+{
+	const int H[2] = {nbrs->mapX+ (1 - nbrs->stepX) / 2, \
+				nbrs->mapY + (1 - nbrs->stepY) / 2};
+	t_vector	lineHeight;
+	vector_divide(H, (t_vector){nbrs->perp_dist, nbrs->perp_dist}, &lineHeight);
+
+
+}
+
+void	init_nbrs(t_nbrs *nbrs)
+{
+	if (nbrs->rayDirX < 0)
+	{
+		nbrs->stepX = NEGATIVE;
+		nbrs->side_distX =(nbrs->posX - nbrs->mapX) * nbrs->delta_distX;
+	}
+	else
+	{
+		nbrs->stepX = POSITIVE;
+		nbrs->side_distX =(nbrs->mapX + 1.0 - nbrs->posX) * nbrs->delta_distX;
+	}
+	if (nbrs->rayDirY < 0)
+	{
+		nbrs->stepY = NEGATIVE;
+		nbrs->side_distY =(nbrs->posY - nbrs->mapY) * nbrs->delta_distY;
+	}
+	else
+	{
+		nbrs->stepY = POSITIVE;
+		nbrs->side_distY =(nbrs->mapY + 1.0 - nbrs->posY) * nbrs->delta_distY;
+	}
+}
+
+void	keep_lookin(t_nbrs *nbrs)
+{
+	nbrs->eucli_distX += nbrs->side_distX;
+	nbrs->eucli_distY += nbrs->side_distY;
+	while (1)
+	{
+		if (nbrs->side_distX < nbrs->side_distY)
+		{
+			nbrs->eucli_distX += nbrs->delta_distX;
+			nbrs->mapX += nbrs->stepX;
+			nbrs->side_hit = HORIZONTAL;
+		}
+		else
+		{
+			nbrs->eucli_distY += nbrs->delta_distY;
+			nbrs->mapY += nbrs->stepY;
+			nbrs->side_hit = VERTICAL;
+		}
+		if (nbrs->map->content[nbrs->mapY][nbrs->mapX])
+			break;
+	}
+}
+
+void	calc_delta_distance(t_nbrs *nbrs)
+{
+		nbrs->delta_distX = fabs(1 / nbrs->rayDirX);
+		nbrs->delta_distY = fabs(1 / nbrs->rayDirY);
+}
+
+void	calc_perp_distance(t_nbrs *nbrs)
+{
+	if (nbrs->side_hit == HORIZONTAL)
+		nbrs->perp_dist = (nbrs->eucli_distX - nbrs->delta_distX);
+	else
+		nbrs->perp_dist = (nbrs->eucli_distY - nbrs->delta_distY);
+
+}
+
+void	fuck_around(void)
 {
 
 
