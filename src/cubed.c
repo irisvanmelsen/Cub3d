@@ -21,6 +21,7 @@ int	cubed(int argc, char **argv)
 
 	if (!parsing(argc, argv, &cub3d, &map))
 		return (print_error("PARSING ERROR\n"));
+	cub3d.map = &map;
 	mlx_setup(&cub3d);
 	return (1);
 }

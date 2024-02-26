@@ -15,7 +15,7 @@
 // this function returns the RGBA colour in hexadecimal notation
 // r shifts 24s bits to the left so first byte
 // g shifts 16 bits to the left and becomes second byte
-// b shifts 0 bits to the left and becomes third byte
+// b shifts 8 bits to the left and becomes third byte
 // a is places without shifting and is the fourth byte
 
 uint32_t	get_rgba(int r, int g, int b, int a)

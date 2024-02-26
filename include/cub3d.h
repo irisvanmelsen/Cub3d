@@ -84,7 +84,11 @@ typedef enum e_wallside
 // 	int		floor_column;
 // }	t_elements;
 
-typedef	float t_vector[2];
+typedef	struct s_vector
+{
+	float y;
+	float x;
+}	t_vector;
 
 
 typedef struct s_textures
@@ -124,7 +128,7 @@ typedef struct s_map
 
 typedef struct s_cub3d
 {
-	t_map		map;
+	t_map		*map;
 	t_player	player;
 	t_colour	colour;
 	mlx_t		*mlx;
@@ -246,24 +250,25 @@ int		background_setup(mlx_image_t *background);
 void	mlx_window_setup();
 int		mlx_image_setup(t_cub3d *cub3d);
 void	mlx_setup(t_cub3d *cub3d);
+void	draw_line(t_nbrs *nbrs, int x);
 
 //PLAYER_SETUP.C
 
 void	player_setup(t_cub3d *cub3d);
 
 
-//calc.C
+//calc.c
 
 void	calc_delta_distance(t_nbrs *nbrs);
-void	calculate_raydirs(t_nbrs *nbrs);
+void	raycast(t_nbrs *nbrs);
 void	fuck_around();
 void	keep_lookin(t_nbrs *nbrs);
-void	raycast(t_nbrs *nbrs, t_map *map);
-void	lineheight(t_nbrs *nbrs);
+void	lineheight(t_nbrs *nbrs, int x);
 void	calc_perp_distance(t_nbrs *nbrs);
-void	init_nbrs(t_nbrs *nbrs);
+void	init_nbrs(t_nbrs *nbrs, t_cub3d *data);
+void	calc_side_dist(t_nbrs *nbrs);
 
-void	vector_divide(t_vector src, t_vector divider,	t_vector *ret);
+t_vector	vector_divide(t_vector src, t_vector divider);
 void	vector_add(t_vector src, t_vector addition, t_vector *ret);
 void	vector_subtract(t_vector src, t_vector subtraction, t_vector *ret);
 

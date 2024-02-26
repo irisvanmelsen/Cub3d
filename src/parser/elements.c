@@ -19,6 +19,7 @@ int	parse_and_load_textures(t_cub3d *cub3d, char **file)
 	int			id;
 
 	i = 0;
+	ft_bzero((void *)&cub3d->textures, sizeof(t_textures));
 	while (file[i])
 	{
 		str = file[i];

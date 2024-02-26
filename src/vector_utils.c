@@ -12,20 +12,22 @@
 
 #include "cub3d.h"
 
-void	vector_divide(t_vector src, t_vector divider,	t_vector *ret)
+t_vector	vector_divide(t_vector src, t_vector divider)
 {
-	*ret[Y] = src[Y] / divider[Y];
-	*ret[X] = src[X] / divider[X];
+	t_vector ret;
+	ret.y = src.y / divider.y;
+	ret.x = src.x / divider.x;
+	return (ret);
 }
 
-void	vector_add(t_vector src, t_vector addition, t_vector *ret)
-{
-	*ret[Y] = src[Y] + addition[Y];
-	*ret[X] = src[X] + addition[X];
-}
+// void	vector_add(t_vector src, t_vector addition, t_vector *ret)
+// {
+// 	*ret[Y] = src[Y] + addition[Y];
+// 	*ret[X] = src[X] + addition[X];
+// }
 
-void	vector_subtract(t_vector src, t_vector subtraction, t_vector *ret)
-{
-	*ret[Y] = src[Y] - subtraction[Y];
-	*ret[X] = src[X] - subtraction[X];
-}
+// void	vector_subtract(t_vector src, t_vector subtraction, t_vector *ret)
+// {
+// 	*ret[Y] = src[Y] - subtraction[Y];
+// 	*ret[X] = src[X] - subtraction[X];
+// }
