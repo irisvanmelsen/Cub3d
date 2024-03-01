@@ -31,6 +31,8 @@
 # define PI 3.1415926
 # define HALF_SCREENSIZE HEIGHT / 2 * WIDTH
 # define TILE 10
+# define Y 0
+# define X 1
 
 #define PASSED '2'
 
@@ -61,6 +63,17 @@ typedef enum e_identifier
 	C,
 }	t_edentifier;
 
+typedef enum e_stepdir
+{
+	NEGATIVE = -1,
+	POSITIVE = 1,
+}	t_stepdir;
+
+typedef enum e_wallside
+{
+	HORIZONTAL,
+	VERTICAL,
+}	t_wallside;
 // typedef struct s_elements
 // {
 // 	char	*path_to_north_texture;
@@ -70,6 +83,13 @@ typedef enum e_identifier
 // 	int		ceiling_column;
 // 	int		floor_column;
 // }	t_elements;
+
+typedef	struct s_vector
+{
+	float y;
+	float x;
+}	t_vector;
+
 
 typedef struct s_textures
 {
@@ -108,7 +128,7 @@ typedef struct s_map
 
 typedef struct s_cub3d
 {
-	t_map		map;
+	t_map		*map;
 	t_player	player;
 	t_colour	colour;
 	mlx_t		*mlx;
@@ -118,7 +138,37 @@ typedef struct s_cub3d
 	t_textures	textures;
 }	t_cub3d;
 
+typedef struct s_nbrs
+{
+	double rayDirX;
+	double rayDirY;
+	double	delta_distX;
+	double	delta_distY;
+
+	double	eucli_distX;
+	double	eucli_distY;
+	double	perp_dist;
+
+	double	side_distX;
+	double	side_distY;
+
+	int		stepX;
+	int		stepY;
+	// bool	wall_hit;
+
+	double	posX;
+	double	posY;
+	int		mapX;
+	int		mapY;
+
+	int		side_hit;
+	t_map	*map;
+	t_cub3d	*data;
+
+	double	wallhit_co_ord;
+}	t_nbrs;
 //CUBED.C
+
 
 int	cubed(int argc, char **argv);
 
@@ -200,9 +250,26 @@ int		background_setup(mlx_image_t *background);
 void	mlx_window_setup();
 int		mlx_image_setup(t_cub3d *cub3d);
 void	mlx_setup(t_cub3d *cub3d);
+void	draw_line(t_nbrs *nbrs, int x);
 
 //PLAYER_SETUP.C
 
 void	player_setup(t_cub3d *cub3d);
+
+
+//calc.c
+
+void	calc_delta_distance(t_nbrs *nbrs);
+void	raycast(t_nbrs *nbrs);
+void	fuck_around();
+void	keep_lookin(t_nbrs *nbrs);
+void	lineheight(t_nbrs *nbrs, int x);
+void	calc_perp_distance(t_nbrs *nbrs);
+void	init_nbrs(t_nbrs *nbrs, t_cub3d *data);
+void	calc_side_dist(t_nbrs *nbrs);
+
+t_vector	vector_divide(t_vector src, t_vector divider);
+void	vector_add(t_vector src, t_vector addition, t_vector *ret);
+void	vector_subtract(t_vector src, t_vector subtraction, t_vector *ret);
 
 #endif
