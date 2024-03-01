@@ -233,7 +233,7 @@ bool		get_east_path(t_cub3d *cub3d, t_textures *texture, char *path);
 
 bool		has_map_errors(t_map *map);
 char		*get_error_name(t_error error);
-bool			print_error(char *str);
+bool		print_error(char *str);
 
 //FREE.C
 
@@ -256,6 +256,9 @@ void	draw_line(t_nbrs *nbrs, int x);
 
 void	player_setup(t_cub3d *cub3d);
 
+//mouse move
+
+void	*mouse_move(double xpos, double ypos, void	*param);
 
 //calc.c
 

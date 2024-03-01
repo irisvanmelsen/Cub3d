@@ -34,7 +34,9 @@ SRC			:=	main.c \
 				setup/pixel_setup.c \
 				setup/player_setup.c \
 				setup/movement_setup.c \
-				vector_utils.c
+				mouse_move.c \
+				vector_utils.c \
+				raycast.c
 # SRCB		:=
 
 #OBJB_FILES	=	${SRCB:.c=.o}
