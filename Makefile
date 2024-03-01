@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: ivan-mel <ivan-mel@student.42.fr>            +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
-#    Updated: 2024/02/12 16:19:08 by ivan-mel      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
+#    Updated: 2024/03/01 13:28:57 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRC			:=	main.c \
 				setup/pixel_setup.c \
 				setup/player_setup.c \
 				setup/movement_setup.c \
-				vector_utils.c
+				vector_utils.c \
+				minimap/minimap.c
 # SRCB		:=
 
 #OBJB_FILES	=	${SRCB:.c=.o}
