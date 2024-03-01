@@ -17,8 +17,7 @@ void	delta_dist(t_nbrs *nbrs);
 
 void	mlx_window_setup(t_cub3d *cub3d)
 {
-	printf("hello?\n");
-	if (mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0) == -1)
+ 	if (mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0) == -1)
 		print_error(get_error_name(ERROR_IMAGE));
 	if (mlx_image_to_window(cub3d->mlx, cub3d->wall, 0, 0) == -1)
 		print_error(get_error_name(ERROR_IMAGE));
@@ -70,7 +69,7 @@ int	mlx_image_setup(t_cub3d *cub3d)
 
 void init_nbrs(t_nbrs *nbrs, t_cub3d *data)
 {
-	ft_bzero((void *)nbrs, sizeof(nbrs));
+	ft_bzero((void *)nbrs, sizeof(*nbrs));
 	nbrs->data = data;
 	nbrs->map = data->map;
 	nbrs->mapX = nbrs->map->player_x;
@@ -108,11 +107,13 @@ void	raycast(t_nbrs *nbrs)
 	int	x;
 	double cameraX;
 	double dirX = -1, dirY = 0; //initial direction vector
-	double planeX = 0, planeY = 0.66;
+	double planeX = 0, planeY = 0.66; //this would be for facing WEST
 	x = 0;
 	while (x < WIDTH)
 	{
-		cameraX = 2 * x / (double)WIDTH - (float)1; //x-coordinate in camera space
+		cameraX = 2 * (x / (double)WIDTH) - 1; //x-coordinate in camera space
+		nbrs->mapX = nbrs->map->player_x;
+		nbrs->mapY = nbrs->map->player_y;
 		nbrs->rayDirX = dirX + planeX * cameraX;
 		nbrs->rayDirY = dirY + planeY * cameraX;
 		delta_dist(nbrs);
@@ -143,7 +144,7 @@ void	keep_lookin(t_nbrs *nbrs)
 {
 	// nbrs->eucli_distX += nbrs->side_distX;
 	// nbrs->eucli_distY += nbrs->side_distY;
-	static int x;
+	int x = 0;
 	while (1)
 	{
 		if (nbrs->side_distX < nbrs->side_distY)
@@ -158,10 +159,12 @@ void	keep_lookin(t_nbrs *nbrs)
 			nbrs->mapY += nbrs->stepY;
 			nbrs->side_hit = VERTICAL;
 		}
-		if (nbrs->mapY < 0 || nbrs->mapX < 0 || \
-		nbrs->map->content[nbrs->mapY][nbrs->mapX] == '1')
+		if (nbrs->mapY < 0 || nbrs->mapX < 0 || nbrs->map->content[nbrs->mapY][nbrs->mapX] == '1')
+		{
+			printf("\n----RAYCAST HIT----%i\n\n", x);
 			break;
-		mlx_put_pixel(nbrs->data->wall, nbrs->mapX, nbrs->mapY, get_rgba(0, 255, 0, 255));
+		}
+		mlx_put_pixel(nbrs->data->wall, nbrs->mapX + WIDTH, nbrs->mapY + HEIGHT, get_rgba(0, 255, 150, 255));
 		x++;
 	}
 }
