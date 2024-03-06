@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   player_setup.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 20:22:02 by iris              #+#    #+#             */
-/*   Updated: 2024/02/02 21:26:14 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   player_setup.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 20:22:02 by iris          #+#    #+#                 */
+/*   Updated: 2024/02/02 21:26:14 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
 void	player_setup(t_cub3d *cub3d)
 {
@@ -24,3 +24,26 @@ void	player_setup(t_cub3d *cub3d)
 		cub3d->player.direction = 0;
 }
 
+void	set_initial_look_dirs(t_cub3d *cub3d, t_nbrs *nbrs)
+{
+	if (cub3d->map->dir_char == 'N')
+	{
+		nbrs->dirX = 0;
+		nbrs->dirY = -1;
+	}
+	if (cub3d->map->dir_char == 'E')
+	{
+		nbrs->dirX = 1;
+		nbrs->dirY = 0;
+	}
+	if (cub3d->map->dir_char == 'S')
+	{
+		nbrs->dirX = 0;
+		nbrs->dirY = 1;
+	}
+	if (cub3d->map->dir_char == 'W')
+	{
+		nbrs->dirX = -1;
+		nbrs->dirY = 0;
+	}
+}

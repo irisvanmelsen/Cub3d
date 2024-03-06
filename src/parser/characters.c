@@ -18,11 +18,11 @@ int	only_one_player_symbol(t_map *map)
 	int	y;
 	int	player_count;
 
-	y = 6;
+	y = 0;
+	x = 0;
 	player_count = 0;
 	while (map->content[y])
 	{
-		x = 0;
 		while (map->content[y][x])
 		{
 			if (is_player_char(map->content[y][x]))
@@ -30,13 +30,17 @@ int	only_one_player_symbol(t_map *map)
 				player_count++;
 				map->player_x = x;
 				map->player_y = y;
+				map->dir_char = map->content[y][x];
 			}
 			x++;
 		}
 		y++;
+		x = 0;
 	}
 	if (player_count != 1)
+	{
 		return (0);
+	}
 	return (1);
 }
 
@@ -61,7 +65,7 @@ void	find_max_lengths(char **map, int *length_x, int *length_y)
 
 bool	is_player_char(char c)
 {
-	if ((c == 'N' || c == 'S' || c == 'E' || c == 'W'))
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);
 	return (false);
 }

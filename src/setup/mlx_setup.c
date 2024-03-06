@@ -12,8 +12,6 @@
 
 #include "../include/cub3d.h"
 
-void	delta_dist(t_nbrs *nbrs);
-
 
 void	mlx_window_setup(t_cub3d *cub3d)
 {
@@ -41,6 +39,35 @@ int	mlx_image_setup(t_cub3d *cub3d)
 	return (1);
 }
 
+
+void init_nbrs(t_nbrs *nbrs, t_cub3d *data)
+{
+	ft_bzero((void *)nbrs, sizeof(*nbrs));
+	nbrs->data = data;
+	nbrs->map = data->map;
+	nbrs->mapX = nbrs->map->player_x;
+	nbrs->mapY = nbrs->map->player_y;
+	set_initial_look_dirs(data, nbrs);
+}
+
+
+void	mlx_setup(t_cub3d *cub3d)
+{
+	t_nbrs nbrs;
+
+	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	if (!cub3d->mlx)
+		print_error(get_error_name(ERROR_MLX)); //clean exit?
+	mlx_image_setup(cub3d);
+	background_setup(cub3d->background);
+	init_nbrs(&nbrs, cub3d);
+	raycast(&nbrs);
+	// mlx_loop_hook(cub3d->mlx, raycast ,(void *)&nbrs);
+	mlx_cursor_hook(cub3d->mlx, (mlx_cursorfunc)mouse_move, (void *)cub3d);
+	mlx_loop(cub3d->mlx);
+	mlx_terminate(cub3d->mlx);
+}
+
 // void	cub3d_loop(void	*param)
 // {
 // 	t_cub3d *m;
@@ -66,31 +93,3 @@ int	mlx_image_setup(t_cub3d *cub3d)
 // 	if (mlx_is_key_down(m->mlx, MLX_KEY_LEFT))
 // 		take_step_x(&m->player, m->map, 1, m->mlx->delta_time);
 // }
-
-void init_nbrs(t_nbrs *nbrs, t_cub3d *data)
-{
-	ft_bzero((void *)nbrs, sizeof(*nbrs));
-	nbrs->data = data;
-	nbrs->map = data->map;
-	nbrs->mapX = nbrs->map->player_x;
-	nbrs->mapY = nbrs->map->player_y;
-}
-
-
-void	mlx_setup(t_cub3d *cub3d)
-{
-	t_nbrs nbrs;
-
-	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
-	if (!cub3d->mlx)
-		print_error(get_error_name(ERROR_MLX)); //clean exit?
-	mlx_image_setup(cub3d);
-	background_setup(cub3d->background);
-	player_setup(cub3d);
-	init_nbrs(&nbrs, cub3d);
-	raycast(&nbrs);
-	mlx_loop_hook(cub3d->mlx, raycast ,(void *)&nbrs);
-	mlx_cursor_hook(cub3d->mlx, (mlx_cursorfunc)mouse_move, (void *)cub3d);
-	mlx_loop(cub3d->mlx);
-	mlx_terminate(cub3d->mlx);
-}

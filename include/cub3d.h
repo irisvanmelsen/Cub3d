@@ -74,20 +74,11 @@ typedef enum e_wallside
 	HORIZONTAL,
 	VERTICAL,
 }	t_wallside;
-// typedef struct s_elements
-// {
-// 	char	*path_to_north_texture;
-// 	char	*path_to_south_texture;
-// 	char	*path_to_west_texture;
-// 	char	*path_to_east_texture;
-// 	int		ceiling_column;
-// 	int		floor_column;
-// }	t_elements;
 
 typedef	struct s_vector
 {
-	float y;
-	float x;
+	double x;
+	double y;
 }	t_vector;
 
 
@@ -109,11 +100,6 @@ typedef struct s_player
 
 }	t_player;
 
-typedef struct s_colour
-{
-	int	floor;
-}	t_colour;
-
 typedef struct s_map
 {
 	char		**file_content;
@@ -124,15 +110,15 @@ typedef struct s_map
 	int			player_x;
 	int			player_y;
 	int			player_count;
+	char		dir_char;
 }	t_map;
 
 typedef struct s_cub3d
 {
 	t_map		*map;
 	t_player	player;
-	t_colour	colour;
 	mlx_t		*mlx;
-	mlx_image_t	*background;
+	mlx_image_t	*background; //should be with textures imo
 	mlx_image_t	*wall;
 	mlx_image_t	*minimap;
 	t_textures	textures;
@@ -164,6 +150,9 @@ typedef struct s_nbrs
 	int		side_hit;
 	t_map	*map;
 	t_cub3d	*data;
+
+	double	dirX;
+	double	dirY;
 
 	double	wallhit_co_ord;
 }	t_nbrs;
@@ -254,21 +243,18 @@ void	draw_line(t_nbrs *nbrs, int x);
 
 //PLAYER_SETUP.C
 
-void	player_setup(t_cub3d *cub3d);
+// void	player_setup(t_cub3d *cub3d);
+void	set_initial_look_dirs(t_cub3d *cub3d, t_nbrs *nbrs);
 
 //mouse move
 
 void	*mouse_move(double xpos, double ypos, void	*param);
 
-//calc.c
+// RAYCAST.c
 
-void	calc_delta_distance(t_nbrs *nbrs);
 void	raycast(t_nbrs *nbrs);
-void	fuck_around();
 void	keep_lookin(t_nbrs *nbrs);
-void	lineheight(t_nbrs *nbrs, int x);
-void	calc_perp_distance(t_nbrs *nbrs);
-void	init_nbrs(t_nbrs *nbrs, t_cub3d *data);
+void	delta_dist(t_nbrs *nbrs);
 void	calc_side_dist(t_nbrs *nbrs);
 
 t_vector	vector_divide(t_vector src, t_vector divider);

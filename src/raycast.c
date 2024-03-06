@@ -12,15 +12,11 @@
 
 #include "cub3d.h"
 
-void	delta_dist(t_nbrs *nbrs);
-
-
 void	raycast(t_nbrs *nbrs)
 {
 
 	int	x;
 	double cameraX;
-	double dirX = -1, dirY = 0; //initial direction vector UN HARD CODE
 	double planeX = 0, planeY = 0.66; //this would be for facing WEST
 	x = 0;
 	while (x < WIDTH)
@@ -28,8 +24,8 @@ void	raycast(t_nbrs *nbrs)
 		cameraX = 2 * (x / (double)WIDTH) - 1;
 		nbrs->mapX = nbrs->map->player_x;
 		nbrs->mapY = nbrs->map->player_y;
-		nbrs->rayDirX = dirX + planeX * cameraX;
-		nbrs->rayDirY = dirY + planeY * cameraX;
+		nbrs->rayDirX = nbrs->dirX + planeX * cameraX;
+		nbrs->rayDirY = nbrs->dirY + planeY * cameraX;
 		delta_dist(nbrs);
 		calc_side_dist(nbrs);
 		keep_lookin(nbrs);
@@ -37,21 +33,9 @@ void	raycast(t_nbrs *nbrs)
 			nbrs->perp_dist = (nbrs->side_distX - nbrs->delta_distX);
 		else
 			nbrs->perp_dist = (nbrs->side_distY - nbrs->delta_distY);
-		draw_line(nbrs, x);
+		draw_line(nbrs, x); //
 		x++;
 	}
-}
-
-void	delta_dist(t_nbrs *nbrs)
-{
-	if (nbrs->rayDirX == 0)
-		nbrs->delta_distX = 1e30;
-	else
-		nbrs->delta_distX = fabs((float)1 / nbrs->rayDirX);
-	if (nbrs->rayDirY == 0)
-		nbrs->delta_distY = 1e30;
-	else
-		nbrs->delta_distY = fabs((float)1 / nbrs->rayDirY);
 }
 
 void	keep_lookin(t_nbrs *nbrs)
@@ -74,6 +58,19 @@ void	keep_lookin(t_nbrs *nbrs)
 			break;
 	}
 }
+
+void	delta_dist(t_nbrs *nbrs)
+{
+	if (nbrs->rayDirX == 0)
+		nbrs->delta_distX = 1e30;
+	else
+		nbrs->delta_distX = fabs((float)1 / nbrs->rayDirX);
+	if (nbrs->rayDirY == 0)
+		nbrs->delta_distY = 1e30;
+	else
+		nbrs->delta_distY = fabs((float)1 / nbrs->rayDirY);
+}
+
 
 //calculates the side_distance, which is the distnace from the starting pos
 // to the nearest gridline, as well as checking if we need the step adjustment
