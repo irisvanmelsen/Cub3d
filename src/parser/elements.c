@@ -54,7 +54,6 @@ void	load_element(t_cub3d *cub3d, char *path, int id)
 
 bool	load_wall_img(char *path, mlx_texture_t **texture)
 {
-	printf("\n\nPAaTH IS: \"%s\"\n\n", path);
 	if (*texture)
 		error_exit(DOUBLE_ELEMENT, 1); //make this a clean free and exit program?
 	*texture = mlx_load_png(path); //leaks.. mlx or us?

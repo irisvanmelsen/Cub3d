@@ -97,6 +97,8 @@ typedef struct s_player
 {
 	float	direction;
 	float	view;
+	double	posX;
+	double	posY;
 
 }	t_player;
 
@@ -140,10 +142,7 @@ typedef struct s_nbrs
 
 	int		stepX;
 	int		stepY;
-	// bool	wall_hit;
 
-	double	posX;
-	double	posY;
 	int		mapX;
 	int		mapY;
 
@@ -153,6 +152,9 @@ typedef struct s_nbrs
 
 	double	dirX;
 	double	dirY;
+
+	double	planeX;
+	double	planeY;
 
 	double	wallhit_co_ord;
 }	t_nbrs;
@@ -249,10 +251,11 @@ void	set_initial_look_dirs(t_cub3d *cub3d, t_nbrs *nbrs);
 //mouse move
 
 void	*mouse_move(double xpos, double ypos, void	*param);
+void	*escape(mlx_key_data_t keydata, void *param);
 
 // RAYCAST.c
 
-void	raycast(t_nbrs *nbrs);
+void	raycast(void *param);
 void	keep_lookin(t_nbrs *nbrs);
 void	delta_dist(t_nbrs *nbrs);
 void	calc_side_dist(t_nbrs *nbrs);

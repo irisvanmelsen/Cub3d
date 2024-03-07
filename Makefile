@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	#-g -fsanitize=address #-Wall -Werror -Wextra
+FLAGS 		:=	-g -fsanitize=address #-Wall -Werror -Wextra
 SRC			:=	main.c \
 				cubed.c \
 				parser/characters.c \
@@ -35,7 +35,6 @@ SRC			:=	main.c \
 				setup/player_setup.c \
 				setup/movement_setup.c \
 				mouse_move.c \
-				vector_utils.c \
 				raycast.c
 # SRCB		:=
 

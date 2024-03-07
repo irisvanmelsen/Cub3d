@@ -12,20 +12,21 @@
 
 #include "cub3d.h"
 
-void	raycast(t_nbrs *nbrs)
+void	raycast(void *param)
 {
+	t_nbrs	*nbrs;
 
+	nbrs = (t_nbrs *)param;
 	int	x;
 	double cameraX;
-	double planeX = 0, planeY = 0.66; //this would be for facing WEST
 	x = 0;
 	while (x < WIDTH)
 	{
 		cameraX = 2 * (x / (double)WIDTH) - 1;
-		nbrs->mapX = nbrs->map->player_x;
-		nbrs->mapY = nbrs->map->player_y;
-		nbrs->rayDirX = nbrs->dirX + planeX * cameraX;
-		nbrs->rayDirY = nbrs->dirY + planeY * cameraX;
+		nbrs->mapX = nbrs->data->player.posX;
+		nbrs->mapY = nbrs->data->player.posY;
+		nbrs->rayDirX = nbrs->dirX + nbrs->planeX * cameraX;
+		nbrs->rayDirY = nbrs->dirY + nbrs->planeY * cameraX;
 		delta_dist(nbrs);
 		calc_side_dist(nbrs);
 		keep_lookin(nbrs);

@@ -1,0 +1,7 @@
+/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/build/CMakeFiles/mlx42.dir
+/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/build/CMakeFiles/edit_cache.dir
+/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/build/CMakeFiles/rebuild_cache.dir
+/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/build/CMakeFiles/list_install_components.dir
+/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/build/CMakeFiles/install.dir
+/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/build/CMakeFiles/install/local.dir
+/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/build/CMakeFiles/install/strip.dir

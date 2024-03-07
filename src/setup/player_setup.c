@@ -24,26 +24,41 @@ void	player_setup(t_cub3d *cub3d)
 		cub3d->player.direction = 0;
 }
 
+
+//the dir is just the direction of th emap the player looks
+// map starts at 0.0 in the top left corner so that's why it's always
+// 1 or -1
+//
+// the plane is the camera plane that represents the screen and it always runs
+// perpendicular to our dir
 void	set_initial_look_dirs(t_cub3d *cub3d, t_nbrs *nbrs)
 {
 	if (cub3d->map->dir_char == 'N')
 	{
 		nbrs->dirX = 0;
 		nbrs->dirY = -1;
+		nbrs->planeX = -0.66;
+		nbrs->planeY = 0;
 	}
 	if (cub3d->map->dir_char == 'E')
 	{
 		nbrs->dirX = 1;
 		nbrs->dirY = 0;
+		nbrs->planeX = 0;
+		nbrs->planeY = -0.66;
 	}
 	if (cub3d->map->dir_char == 'S')
 	{
 		nbrs->dirX = 0;
 		nbrs->dirY = 1;
+		nbrs->planeX = 0.66;
+		nbrs->planeY = 0;
 	}
 	if (cub3d->map->dir_char == 'W')
 	{
 		nbrs->dirX = -1;
 		nbrs->dirY = 0;
+		nbrs->planeX = 0;
+		nbrs->planeY = 0.66;
 	}
 }
