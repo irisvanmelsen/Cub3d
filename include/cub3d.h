@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/03/01 16:45:48 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:58:10 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_minimap
 {
 	mlx_image_t	*image;
 	mlx_t		*mlx;
+	char		**mini_map;
 	int			scaler;
 	
 } t_minimap;
@@ -148,7 +149,7 @@ typedef struct s_cub3d
 	mlx_t		*mlx;
 	mlx_image_t	*background;
 	mlx_image_t	*wall;
-	mlx_image_t	*minimap;
+	mlx_image_t	*minimap_img;
 	t_textures	textures;
 }	t_cub3d;
 
@@ -288,7 +289,7 @@ void	vector_subtract(t_vector src, t_vector subtraction, t_vector *ret);
 
 //MINIMAP.C
 
-void	start_minimap(t_cub3d *cub3d);
-void	compare_maps(t_cub3d *cub3d, char **mm_array);
+bool	start_minimap(t_cub3d *cub3d);
+char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
+#    By: iris <iris@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
-#    Updated: 2024/03/01 13:28:57 by ivan-mel         ###   ########.fr        #
+#    Updated: 2024/03/08 23:04:42 by iris             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	-g #-fsanitize=address #-Wall -Werror -Wextra
+FLAGS 		:=	-Wall -Werror -Wextra #-g -fsanitize=address #-Wall -Werror -Wextra
 SRC			:=	main.c \
 				cubed.c \
 				parser/characters.c \
