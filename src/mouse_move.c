@@ -12,6 +12,10 @@
 
 #include "cub3d.h"
 
+void	take_step_y(t_player *player, t_map *map, int step, double del_time);
+void	take_step_x(t_player *player, t_map *map, int step, double del_time);
+
+
 void	*mouse_move(double xpos, double ypos, void	*param)
 {
 	const	t_cub3d	*data = (t_cub3d *)param;
@@ -52,30 +56,26 @@ void	cub3d_loop(void	*param)
 
 	if (mlx_is_key_down(m->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(m->mlx);
-	if (mlx_is_key_down(m->mlx, MLX_KEY_W))
+	if (mlx_is_key_down(m->mlx, MLX_KEY_W) || mlx_is_key_down(m->mlx, MLX_KEY_UP))
 		take_step_y(&m->player, m->map, -1, m->mlx->delta_time);
-	if (mlx_is_key_down(m->mlx, MLX_KEY_UP))
-		take_step_y(&m->player, m->map, -1, m->mlx->delta_time);
-	if (mlx_is_key_down(m->mlx, MLX_KEY_S))
+	if (mlx_is_key_down(m->mlx, MLX_KEY_S) || mlx_is_key_down(m->mlx, MLX_KEY_DOWN))
 		take_step_y(&m->player, m->map, 1, m->mlx->delta_time);
-	if (mlx_is_key_down(m->mlx, MLX_KEY_DOWN))
-		take_step_y(&m->player, m->map, 1, m->mlx->delta_time);
-	if (mlx_is_key_down(m->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(m->mlx, MLX_KEY_D) || mlx_is_key_down(m->mlx, MLX_KEY_RIGHT))
 		take_step_x(&m->player, m->map, -1, m->mlx->delta_time);
-	if (mlx_is_key_down(m->mlx, MLX_KEY_RIGHT))
-		take_step_x(&m->player, m->map, -1, m->mlx->delta_time);
-	if (mlx_is_key_down(m->mlx, MLX_KEY_A))
-		take_step_x(&m->player, m->map, 1, m->mlx->delta_time);
-	if (mlx_is_key_down(m->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(m->mlx, MLX_KEY_A) || mlx_is_key_down(m->mlx, MLX_KEY_LEFT))
 		take_step_x(&m->player, m->map, 1, m->mlx->delta_time);
 }
 
-take_step_y(t_player *player, t_map *map, int step, double del_time)
+void	take_step_y(t_player *player, t_map *map, int step, double del_time)
 {
-
+	if (map->content[(int)player->posY + step][(int)player->posX] == '0')
+		player->posY += step;
+	raycast(player->data->nbrs);
 }
 
-take_step_x(t_player *player, t_map *map, int step, double del_time)
+void	take_step_x(t_player *player, t_map *map, int step, double del_time)
 {
-
+	if (map->content[(int)player->posY][(int)player->posX + step] == '0')
+		player->posX += step;
+	raycast(player->data->nbrs);
 }

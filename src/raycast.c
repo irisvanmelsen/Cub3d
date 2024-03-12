@@ -23,8 +23,8 @@ void	raycast(void *param)
 	while (x < WIDTH)
 	{
 		cameraX = 2 * (x / (double)WIDTH) - 1;
-		nbrs->mapX = nbrs->data->player.posX;
-		nbrs->mapY = nbrs->data->player.posY;
+		nbrs->mapX = (int)nbrs->data->player.posX;
+		nbrs->mapY = (int)nbrs->data->player.posY;
 		nbrs->rayDirX = nbrs->dirX + nbrs->planeX * cameraX;
 		nbrs->rayDirY = nbrs->dirY + nbrs->planeY * cameraX;
 		delta_dist(nbrs);

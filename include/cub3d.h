@@ -43,6 +43,7 @@
 #define FLOOD_FAIL "Invalid char in map OR unwalled floor detected"
 #define MAP_ALLOC_FAIL "Error allocating the map"
 
+typedef struct s_cub3d	t_cub3d;
 
 typedef enum e_error
 {
@@ -99,6 +100,7 @@ typedef struct s_player
 	float	view;
 	double	posX;
 	double	posY;
+	t_cub3d	*data;
 
 }	t_player;
 
@@ -115,16 +117,6 @@ typedef struct s_map
 	char		dir_char;
 }	t_map;
 
-typedef struct s_cub3d
-{
-	t_map		*map;
-	t_player	player;
-	mlx_t		*mlx;
-	mlx_image_t	*background; //should be with textures imo
-	mlx_image_t	*wall;
-	mlx_image_t	*minimap;
-	t_textures	textures;
-}	t_cub3d;
 
 typedef struct s_nbrs
 {
@@ -158,6 +150,18 @@ typedef struct s_nbrs
 
 	double	wallhit_co_ord;
 }	t_nbrs;
+
+struct s_cub3d
+{
+	t_map		*map;
+	t_player	player;
+	mlx_t		*mlx;
+	mlx_image_t	*background; //should be with textures imo
+	mlx_image_t	*wall;
+	mlx_image_t	*minimap;
+	t_textures	textures;
+	t_nbrs		*nbrs;
+};
 //CUBED.C
 
 
@@ -252,6 +256,7 @@ void	set_initial_look_dirs(t_cub3d *cub3d, t_nbrs *nbrs);
 
 void	*mouse_move(double xpos, double ypos, void	*param);
 void	*escape(mlx_key_data_t keydata, void *param);
+void	cub3d_loop(void	*param);
 
 // RAYCAST.c
 
