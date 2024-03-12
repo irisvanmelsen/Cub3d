@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/03/08 22:58:10 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/12 13:16:27 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef enum e_stepdir
 	POSITIVE = 1,
 }	t_stepdir;
 
+
 typedef enum e_wallside
 {
 	HORIZONTAL,
@@ -119,13 +120,15 @@ typedef struct s_colour
 	int	floor;
 }	t_colour;
 
+typedef struct s_cub3d t_cub3d;
+
 typedef struct s_minimap
 {
 	mlx_image_t	*image;
 	mlx_t		*mlx;
-	char		**mini_map;
+	char		**og_map;
 	int			scaler;
-	
+	t_cub3d		*cub3d;
 } t_minimap;
 
 typedef struct s_map

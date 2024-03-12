@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iris <iris@student.42.fr>                  +#+  +:+       +#+         #
+#    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
-#    Updated: 2024/03/08 23:04:42 by iris             ###   ########.fr        #
+#    Updated: 2024/03/12 12:40:34 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	-Wall -Werror -Wextra #-g -fsanitize=address #-Wall -Werror -Wextra
+FLAGS 		:=	-g -fsanitize=address #-Wall -Werror -Wextra
 SRC			:=	main.c \
 				cubed.c \
 				parser/characters.c \
@@ -66,8 +66,8 @@ SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
 
 all: ${NAME}
 
-run: $(NAME)
-	./$(NAME) maps/map2.cub
+# run: $(NAME)
+# 	./$(NAME) map.cub
 
 $(LIBS_MLX):
 	@if [ -z "$$(ls -A MLX42)" ]; then \

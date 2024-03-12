@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   elements.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/31 00:37:23 by iris          #+#    #+#                 */
-/*   Updated: 2024/02/08 15:36:27 by ivan-mel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   elements.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/31 00:37:23 by iris              #+#    #+#             */
+/*   Updated: 2024/03/12 11:15:02 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	load_element(t_cub3d *cub3d, char *path, int id)
 
 bool	load_wall_img(char *path, mlx_texture_t **texture)
 {
-	printf("\n\nPAaTH IS: \"%s\"\n\n", path);
+	printf("\n\nPATH IS: \"%s\"\n\n", path);
 	if (*texture)
 		error_exit(DOUBLE_ELEMENT, 1); //make this a clean free and exit program?
 	*texture = mlx_load_png(path); //leaks.. mlx or us?

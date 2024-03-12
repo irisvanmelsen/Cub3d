@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_setup.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 15:04:45 by ivan-mel      #+#    #+#                 */
-/*   Updated: 2024/02/12 16:51:00 by ivan-mel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_setup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
+/*   Updated: 2024/03/12 13:55:24 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	delta_dist(t_nbrs *nbrs);
 
 void	mlx_window_setup(t_cub3d *cub3d)
 {
-	printf("hello?\n");
 	if (mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0) == -1)
 		print_error(get_error_name(ERROR_IMAGE));
 	if (mlx_image_to_window(cub3d->mlx, cub3d->wall, 0, 0) == -1)
@@ -92,7 +91,7 @@ void	mlx_setup(t_cub3d *cub3d)
 	raycast(&nbrs);
 	// mlx_loop_hook(cub3d->mlx, raycast(&nbrs, cub3d->map),cub3d);
 	mlx_loop(cub3d->mlx);
-	mlx_terminate(cub3d->mlx);
+	// mlx_terminate(cub3d->mlx);
 }
 
 
@@ -113,6 +112,8 @@ void	raycast(t_nbrs *nbrs)
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - (float)1; //x-coordinate in camera space
+		nbrs->mapX = nbrs->map->player_x;
+		nbrs->mapY = nbrs->map->player_y;
 		nbrs->rayDirX = dirX + planeX * cameraX;
 		nbrs->rayDirY = dirY + planeY * cameraX;
 		delta_dist(nbrs);
