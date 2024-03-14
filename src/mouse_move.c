@@ -70,7 +70,7 @@ void	take_step_y(t_player *player, t_map *map, int step, double del_time)
 {
 	if (map->content[(int)player->posY + step][(int)player->posX] == '0')
 		player->posY += (step * 0.1);
-	ft_memset(player->data->wall->pixels, get_rgba(0, 255, 0, 255), WIDTH * HEIGHT * 8);
+	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 4);
 	raycast(player->data->nbrs);
 }
 
@@ -78,5 +78,6 @@ void	take_step_x(t_player *player, t_map *map, int step, double del_time)
 {
 	if (map->content[(int)player->posY][(int)player->posX + step] == '0')
 		player->posX += step;
+	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 4);
 	raycast(player->data->nbrs);
 }

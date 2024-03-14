@@ -6,7 +6,8 @@
 	"files.associations": {
 		"cub3d.h": "c",
 		"libft.h": "c",
-		"random": "c"
+		"random": "c",
+		"features.h": "c"
 	},
 	"cmake.sourceDirectory": "/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/MLX42"
 }

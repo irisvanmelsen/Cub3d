@@ -34,7 +34,7 @@ void	raycast(void *param)
 			nbrs->perp_dist = (nbrs->side_distX - nbrs->delta_distX);
 		else
 			nbrs->perp_dist = (nbrs->side_distY - nbrs->delta_distY);
-		draw_line(nbrs, x); //
+		draw_line(nbrs, x);
 		x++;
 	}
 }
