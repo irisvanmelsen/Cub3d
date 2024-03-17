@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
+#    By: iris <iris@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
-#    Updated: 2024/03/12 12:40:34 by ivan-mel         ###   ########.fr        #
+#    Updated: 2024/03/15 16:44:19 by iris             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	-g -fsanitize=address #-Wall -Werror -Wextra
+FLAGS 		:=	-Wall -Werror -Wextra
 SRC			:=	main.c \
 				cubed.c \
 				parser/characters.c \
@@ -77,7 +77,8 @@ $(LIBS_MLX):
 
 ${NAME}: $(LIBS_MLX) ${LIBFT_A} ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
+#@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
+	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -L "/usr/local/Cellar/glfw/3.4/lib" -framework Cocoa -framework OpenGL -framework IOKit -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_off}
 
 ${LIBFT_A}:

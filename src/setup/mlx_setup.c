@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/12 13:55:24 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/03/17 14:20:38 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	mlx_window_setup(t_cub3d *cub3d)
 		print_error(get_error_name(ERROR_IMAGE));
 	if (mlx_image_to_window(cub3d->mlx, cub3d->wall, 0, 0) == -1)
 		print_error(get_error_name(ERROR_IMAGE));
-	// if (mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0) == -1)
-	// 	print_error(get_error_name(ERROR_IMAGE));
 }
 
 int	mlx_image_setup(t_cub3d *cub3d)
@@ -33,10 +31,6 @@ int	mlx_image_setup(t_cub3d *cub3d)
 	cub3d->wall = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->wall)
 		return (print_error(get_error_name(ERROR_IMAGE)));
-	// cub3d->minimap = mlx_new_image(cub3d->mlx, cub3d->mlx->width * TILE, \
-	// 	cub3d->mlx->height * TILE);
-	// if (!cub3d->minimap)
-	// 	return (print_error(get_error_name(ERROR_IMAGE)));
 	mlx_window_setup(cub3d);
 	return (1);
 }
@@ -89,9 +83,10 @@ void	mlx_setup(t_cub3d *cub3d)
 	player_setup(cub3d);
 	init_nbrs(&nbrs, cub3d);
 	raycast(&nbrs);
+	start_minimap(cub3d);
 	// mlx_loop_hook(cub3d->mlx, raycast(&nbrs, cub3d->map),cub3d);
 	mlx_loop(cub3d->mlx);
-	// mlx_terminate(cub3d->mlx);
+	mlx_close_window(cub3d->mlx);
 }
 
 

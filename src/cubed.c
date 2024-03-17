@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:20:50 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/12 13:27:02 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/03/17 14:20:45 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	cubed(int argc, char **argv)
 		return (print_error("PARSING ERROR\n"));
 	cub3d.map = &map;
 	mlx_setup(&cub3d);
-	start_minimap(&cub3d);
+	// start_minimap(&cub3d);
+	// mlx_terminate(cub3d.mlx);
 	return (1);
 }

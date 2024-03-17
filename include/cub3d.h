@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/03/12 13:16:27 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/03/17 13:27:35 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,14 @@
 # define WIDTH 1800
 
 // MINIMAP
-# define MINI_HEIGHT HEIGHT / 6
-# define MINI_WIDTH WIDTH / 6
+# define MINI_HEIGHT HEIGHT / 5
+# define MINI_WIDTH WIDTH / 5
+
+// COLOURS
+# define LIGHTCORAL 240, 128, 128, 255
+# define LAVENDER 230, 230, 250, 255
+# define LIGHTPINK 255, 182, 193, 255
+# define MISTYROSE 225, 228, 225, 225
 
 // MATH
 # define PI 3.1415926
@@ -125,6 +131,7 @@ typedef struct s_cub3d t_cub3d;
 typedef struct s_minimap
 {
 	mlx_image_t	*image;
+	mlx_image_t	*border;
 	mlx_t		*mlx;
 	char		**og_map;
 	int			scaler;
