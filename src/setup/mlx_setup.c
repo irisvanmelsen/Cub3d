@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/17 14:20:38 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/17 14:33:04 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void	draw_line(t_nbrs *nbrs, int x)
 	draw_end = lineheight / 2 + HEIGHT / 2;
 	if(draw_end >= HEIGHT)
 	  	draw_end = HEIGHT - 1;
-	printf("PERPDIST = %f on x%i,\n", nbrs->perp_dist, x);
+	// printf("PERPDIST = %f on x%i,\n", nbrs->perp_dist, x);
 	while (draw_start < draw_end)
 	{
 		mlx_put_pixel(nbrs->data->wall, x, draw_start, get_rgba(0, 255, 0, 255));

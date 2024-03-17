@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:22:54 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/17 14:18:06 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/17 15:10:33 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,18 +118,20 @@ void	fill_wall_backgr(char **mm_array, t_minimap *minimap)
 			if (mm_array[y][x] == '#')
 				colour = get_rgba(0, 0, 0, 0);
 			else if (mm_array[y][x] == '0')
-				colour = get_rgba(LIGHTPINK);
-			else if (mm_array[y][x] == '1')
 				colour = get_rgba(LAVENDER);
+			else if (mm_array[y][x] == '1')
+				colour = get_rgba(LIGHTPINK);
 			else if (mm_array[y][x] == 'P')
 				colour = get_rgba(LIGHTCORAL);
 			fill_the_image(minimap, x, y, colour);
 			x++;
 		}
 		y++;
+		mlx_put_string(minimap->mlx, "          M I N I M A P : ", 1, 2);
 	}
 	if (mlx_image_to_window(minimap->mlx, minimap->image, minimap->scaler / 2, minimap->scaler / 2) == -1)
 		print_error(get_error_name(ERROR_IMAGE));
+	mlx_put_string(minimap->mlx, " P ", 165, 170);
 }	
 
 void	setup_border(t_minimap *minimap)
