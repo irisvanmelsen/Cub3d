@@ -144,6 +144,15 @@ typedef struct s_map
 	char		dir_char;
 }	t_map;
 
+typedef struct s_minimap
+{
+	mlx_image_t	*image;
+	mlx_image_t	*border;
+	mlx_t		*mlx;
+	char		**og_map;
+	int			scaler;
+	t_cub3d		*cub3d;
+} t_minimap;
 
 typedef struct s_raycast_data
 {
@@ -186,7 +195,8 @@ struct s_cub3d
 	t_raycast_data		*raycast;
 	mlx_image_t			*background; //should be with textures imo
 	mlx_image_t			*wall;
-	mlx_image_t			*minimap;
+	// mlx_image_t			*minimap;
+	t_minimap			*minimap;
 	t_textures			textures;
 };
 //CUBED.C

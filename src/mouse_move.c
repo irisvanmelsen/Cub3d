@@ -16,25 +16,25 @@ void	take_step_y(t_player *player, t_map *map, int step, double del_time);
 void	take_step_x(t_player *player, t_map *map, int step, double del_time);
 
 
-void	*mouse_move(double xpos, double ypos, void	*param)
-{
-	const	t_cub3d	*data = (t_cub3d *)param;
+// void	*mouse_move(double xpos, double ypos, void	*param)
+// {
+// 	const	t_cub3d	*data = (t_cub3d *)param;
 
-	if (xpos < 10 || xpos > WIDTH - 10 || ypos < 10 || ypos > HEIGHT - 10)
-		return (NULL);
-	for (size_t i = 0; i < 10; i++)
-	{
-		mlx_put_pixel(data->wall, xpos + i, ypos + i, get_rgba(0, 255, 150, 255));
-		mlx_put_pixel(data->wall, xpos + i, ypos - i, get_rgba(0, 255, 150, 255));
-		mlx_put_pixel(data->wall, xpos - i, ypos + i, get_rgba(0, 255, 150, 255));
-		mlx_put_pixel(data->wall, xpos - i, ypos - i, get_rgba(0, 255, 150, 255));
-		// xpos++;
-		// ypos++;
-		i++;
-	}
+// 	if (xpos < 10 || xpos > WIDTH - 10 || ypos < 10 || ypos > HEIGHT - 10)
+// 		return (NULL);
+// 	for (size_t i = 0; i < 10; i++)
+// 	{
+// 		mlx_put_pixel(data->wall, xpos + i, ypos + i, get_rgba(0, 255, 150, 255));
+// 		mlx_put_pixel(data->wall, xpos + i, ypos - i, get_rgba(0, 255, 150, 255));
+// 		mlx_put_pixel(data->wall, xpos - i, ypos + i, get_rgba(0, 255, 150, 255));
+// 		mlx_put_pixel(data->wall, xpos - i, ypos - i, get_rgba(0, 255, 150, 255));
+// 		// xpos++;
+// 		// ypos++;
+// 		i++;
+// 	}
 
-	return (NULL);
-}
+// 	return (NULL);
+// }
 
 void	*escape(mlx_key_data_t keydata, void *param)
 {
