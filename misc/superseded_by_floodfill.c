@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   characters.c                                       :+:    :+:            */
+/*   superseded_by_floodfill.c                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: iris <iris@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
@@ -14,7 +14,7 @@
 
 
 
-int	check_characters(t_map *map)
+int	check_characters(t_map *map) //superseded by only_one_player_symbol
 {
 	int	x;
 	int	y;
@@ -28,8 +28,8 @@ int	check_characters(t_map *map)
 		x = 0;
 		while (map->content[y][x])
 		{
-			c = map->content[y][x]
-			if (c == 'N' || c == 'S' || c == 'E' c == 'W')
+			c = map->content[y][x];
+			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 				player_count++;
 			x++;
 		}
@@ -60,25 +60,15 @@ int	check_sides_wall(t_map *map)
 	return (1);
 }
 
-// walls moeten ook gecheckt worden op 0 in de 'gaps'
-
-// while (map[x][y])
-// {
-// 	if (map[x][y] == ' ')
-// 	{
-// 		if map(x + 1) | -1 of y + 1 || -1 == ' ' || '1')
-// 	}
-// }
-
-int	check_first_last_walls(t_map *map)
+bool	check_first_last_walls(t_map *map)
 {
 	int	x;
 
 	x = 0;
 	while (map->content[6][x])
 	{
-		if (map->content[6][x] != '1')
-			return (1);
+		if (map->content[6][x] != '1' && map->content[6][x] != ' ')
+			return (false);
 		x++;
 	}
 	x = 0;
@@ -86,8 +76,28 @@ int	check_first_last_walls(t_map *map)
 	{
 		if (map->content[map->length_y - 1][x] != '1' &&
 			map->content[map->length_y - 1][x] != ' ' )
-			return (0);
+			return (false);
 		x++;
+	}
+	return (true);
+}
+
+int	check_map_after_ff(char **map_after_ff)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (map_after_ff[y])
+	{
+		x = 0;
+		while (map_after_ff[y][x])
+		{
+			if (map_after_ff[y][x] != '1' && map_after_ff[y][x] != '0')
+				return (0);
+			x++;
+		}
+		y++;
 	}
 	return (1);
 }

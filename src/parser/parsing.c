@@ -12,6 +12,9 @@
 
 #include "../include/cub3d.h"
 
+static int	is_input_correct(int argc, char *map);
+static char	**read_file(int fd);
+
 bool	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
 {
 	int	fd;
@@ -27,12 +30,12 @@ bool	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
 	map_start_index = parse_and_load_textures(cub3d, map->file_content);
 	if (!map_start_index)
 		return (false);
-	if (!map_init(map, map_start_index))
+	if (!map_init(cub3d, map, map_start_index))
 		return (false);
 	return (true);
 }
 
-int	is_input_correct(int argc, char *map)
+static int	is_input_correct(int argc, char *map)
 {
 	int	fd;
 
@@ -47,7 +50,7 @@ int	is_input_correct(int argc, char *map)
 	return (fd);
 }
 
-char	**read_file(int fd)
+static char	**read_file(int fd)
 {
 	char	*map_line;
 	char	*line;

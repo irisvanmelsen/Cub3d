@@ -69,9 +69,9 @@ void	cub3d_loop(void	*param)
 void	take_step_y(t_player *player, t_map *map, int step, double del_time)
 {
 	if (map->content[(int)player->posY + step][(int)player->posX] == '0')
-		player->posY += (step * 0.1);
-	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 4);
-	raycast(player->data->nbrs);
+		player->posY += step;
+	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 8);
+	raycaster(player->data->raycast);
 }
 
 void	take_step_x(t_player *player, t_map *map, int step, double del_time)
@@ -79,5 +79,5 @@ void	take_step_x(t_player *player, t_map *map, int step, double del_time)
 	if (map->content[(int)player->posY][(int)player->posX + step] == '0')
 		player->posX += step;
 	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 4);
-	raycast(player->data->nbrs);
+	raycaster(player->data->raycast);
 }

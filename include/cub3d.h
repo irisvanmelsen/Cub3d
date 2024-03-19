@@ -76,11 +76,11 @@ typedef enum e_wallside
 	VERTICAL,
 }	t_wallside;
 
-typedef	struct s_vector
-{
-	double x;
-	double y;
-}	t_vector;
+// typedef	struct s_vector
+// {
+// 	double x;
+// 	double y;
+// }	t_vector;
 
 
 typedef struct s_textures
@@ -118,7 +118,7 @@ typedef struct s_map
 }	t_map;
 
 
-typedef struct s_nbrs
+typedef struct s_raycast_data
 {
 	double rayDirX;
 	double rayDirY;
@@ -149,50 +149,42 @@ typedef struct s_nbrs
 	double	planeY;
 
 	double	wallhit_co_ord;
-}	t_nbrs;
+}	t_raycast_data;
 
 struct s_cub3d
 {
-	t_map		*map;
-	t_player	player;
-	mlx_t		*mlx;
-	mlx_image_t	*background; //should be with textures imo
-	mlx_image_t	*wall;
-	mlx_image_t	*minimap;
-	t_textures	textures;
-	t_nbrs		*nbrs;
+	t_map				*map;
+	t_player			player;
+	mlx_t				*mlx;
+	t_raycast_data		*raycast;
+	mlx_image_t			*background; //should be with textures imo
+	mlx_image_t			*wall;
+	mlx_image_t			*minimap;
+	t_textures			textures;
 };
 //CUBED.C
 
 
 int	cubed(int argc, char **argv);
 
+//init.c
+void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast);
+
+
 /////////////////////////////PARSER////////////////////////////////////
+//MAP.C
+
+bool		map_init(t_cub3d *cub3d, t_map *map, int map_start_index);
 
 //CHARACTERS.C
 
-int			only_one_player_symbol(t_map *map);
 void		find_max_lengths(char **map, int *length_x, int *length_y);
+int			only_one_player_symbol(t_map *map);
 bool		is_player_char(char c);
-bool		find_player_pos(t_map *map);
-
-//MAP.C
-
-bool		valid_char(char c);
-bool		floodfill(char **dup_map, int y, int x);
-bool		map_init(t_map *map, int map_start_index);
-char		**read_file(int fd);
-
-//MAP_UTILS.C
-
-bool		create_dup_map(t_map *map);
-bool		create_map(t_map *map, int i);
-int			check_map_after_ff(char **map_after_ff);
 
 //PARSING.C
-
 bool		parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map);
-int			is_input_correct(int argc, char *map);
+
 
 //PARSING_UTILS.C
 
@@ -217,13 +209,6 @@ bool		all_elements_loaded(t_textures *checkme);
 int			which_element(char *line);
 char		*skip_path_prefix(char *line, int id);
 
-// PATHS.C
-
-bool		get_north_path(t_cub3d *cub3d, t_textures *texture, char *path);
-bool		get_south_path(t_cub3d *cub3d, t_textures *texture, char *path);
-bool		get_west_path(t_cub3d *cub3d, t_textures *texture, char *path);
-bool		get_east_path(t_cub3d *cub3d, t_textures *texture, char *path);
-
 //ERROR.C
 
 bool		has_map_errors(t_map *map);
@@ -245,12 +230,12 @@ int		background_setup(mlx_image_t *background);
 void	mlx_window_setup();
 int		mlx_image_setup(t_cub3d *cub3d);
 void	mlx_setup(t_cub3d *cub3d);
-void	draw_line(t_nbrs *nbrs, int x);
+void	draw_line(t_raycast_data *raycast, int x);
 
 //PLAYER_SETUP.C
 
 // void	player_setup(t_cub3d *cub3d);
-void	set_initial_look_dirs(t_cub3d *cub3d, t_nbrs *nbrs);
+void	set_initial_look_dirs(t_cub3d *cub3d, t_raycast_data *raycast);
 
 //mouse move
 
@@ -260,13 +245,11 @@ void	cub3d_loop(void	*param);
 
 // RAYCAST.c
 
-void	raycast(void *param);
-void	keep_lookin(t_nbrs *nbrs);
-void	delta_dist(t_nbrs *nbrs);
-void	calc_side_dist(t_nbrs *nbrs);
+void	raycaster(void *param);
+void	keep_lookin(t_raycast_data *raycast);
+void	delta_dist(t_raycast_data *raycast);
+void	calc_side_dist(t_raycast_data *raycast);
 
-t_vector	vector_divide(t_vector src, t_vector divider);
-void	vector_add(t_vector src, t_vector addition, t_vector *ret);
-void	vector_subtract(t_vector src, t_vector subtraction, t_vector *ret);
+void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
 
 #endif

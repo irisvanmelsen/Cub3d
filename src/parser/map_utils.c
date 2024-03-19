@@ -11,27 +11,3 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-
-
-
-
-int	check_map_after_ff(char **map_after_ff)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (map_after_ff[y])
-	{
-		x = 0;
-		while (map_after_ff[y][x])
-		{
-			if (map_after_ff[y][x] != '1' && map_after_ff[y][x] != '0')
-				return (0);
-			x++;
-		}
-		y++;
-	}
-	return (1);
-}

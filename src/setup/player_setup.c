@@ -31,34 +31,34 @@ void	player_setup(t_cub3d *cub3d)
 //
 // the plane is the camera plane that represents the screen and it always runs
 // perpendicular to our dir
-void	set_initial_look_dirs(t_cub3d *cub3d, t_nbrs *nbrs)
+void	set_initial_look_dirs(t_cub3d *cub3d, t_raycast_data *raycast)
 {
 	if (cub3d->map->dir_char == 'N')
 	{
-		nbrs->dirX = 0;
-		nbrs->dirY = -1;
-		nbrs->planeX = -0.66;
-		nbrs->planeY = 0;
+		raycast->dirX = 0;
+		raycast->dirY = -1;
+		raycast->planeX = -0.66;
+		raycast->planeY = 0;
 	}
 	if (cub3d->map->dir_char == 'E')
 	{
-		nbrs->dirX = 1;
-		nbrs->dirY = 0;
-		nbrs->planeX = 0;
-		nbrs->planeY = -0.66;
+		raycast->dirX = 1;
+		raycast->dirY = 0;
+		raycast->planeX = 0;
+		raycast->planeY = -0.66;
 	}
 	if (cub3d->map->dir_char == 'S')
 	{
-		nbrs->dirX = 0;
-		nbrs->dirY = 1;
-		nbrs->planeX = 0.66;
-		nbrs->planeY = 0;
+		raycast->dirX = 0;
+		raycast->dirY = 1;
+		raycast->planeX = 0.66;
+		raycast->planeY = 0;
 	}
 	if (cub3d->map->dir_char == 'W')
 	{
-		nbrs->dirX = -1;
-		nbrs->dirY = 0;
-		nbrs->planeX = 0;
-		nbrs->planeY = 0.66;
+		raycast->dirX = -1;
+		raycast->dirY = 0;
+		raycast->planeX = 0;
+		raycast->planeY = 0.66;
 	}
 }

@@ -16,12 +16,29 @@ int	cubed(int argc, char **argv)
 {
 	t_cub3d	cub3d;
 	t_map	map;
-
-	ft_bzero(&cub3d, sizeof(cub3d));
+	t_raycast_data raycast;
 
 	if (!parsing(argc, argv, &cub3d, &map))
 		return (print_error("PARSING ERROR\n"));
-	cub3d.map = &map;
+	init_cub3d_data(&cub3d, &map, &raycast);
 	mlx_setup(&cub3d);
 	return (1);
+}
+
+void	mlx_setup(t_cub3d *cub3d)
+{
+
+	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	if (!cub3d->mlx)
+		print_error(get_error_name(ERROR_MLX)); //clean exit?
+	mlx_image_setup(cub3d);
+	background_setup(cub3d->background);
+	init_raycast_data(cub3d->raycast, cub3d);
+	raycaster(cub3d->raycast);
+	mlx_loop_hook(cub3d->mlx, cub3d_loop ,(void *)cub3d);
+	// mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	// mlx_cursor_hook(cub3d->mlx, (mlx_cursorfunc)mouse_move, (void *)cub3d);
+	// mlx_key_hook(cub3d->mlx, (mlx_keyfunc)cub3d_loop, (void *)cub3d);
+	mlx_loop(cub3d->mlx);
+	mlx_terminate(cub3d->mlx);
 }

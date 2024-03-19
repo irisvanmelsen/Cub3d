@@ -12,98 +12,98 @@
 
 #include "cub3d.h"
 
-void	raycast(void *param)
+void	raycaster(void *param)
 {
-	t_nbrs	*nbrs;
+	t_raycast_data	*raycast;
 
-	nbrs = (t_nbrs *)param;
+	raycast = (t_raycast_data *)param;
 	int	x;
 	double cameraX;
 	x = 0;
 	while (x < WIDTH)
 	{
 		cameraX = 2 * (x / (double)WIDTH) - 1;
-		nbrs->mapX = (int)nbrs->data->player.posX;
-		nbrs->mapY = (int)nbrs->data->player.posY;
-		nbrs->rayDirX = nbrs->dirX + nbrs->planeX * cameraX;
-		nbrs->rayDirY = nbrs->dirY + nbrs->planeY * cameraX;
-		delta_dist(nbrs);
-		calc_side_dist(nbrs);
-		keep_lookin(nbrs);
-		if (nbrs->side_hit == HORIZONTAL)
-			nbrs->perp_dist = (nbrs->side_distX - nbrs->delta_distX);
+		raycast->mapX = (int)raycast->data->player.posX;
+		raycast->mapY = (int)raycast->data->player.posY;
+		raycast->rayDirX = raycast->dirX + raycast->planeX * cameraX;
+		raycast->rayDirY = raycast->dirY + raycast->planeY * cameraX;
+		delta_dist(raycast);
+		calc_side_dist(raycast);
+		keep_lookin(raycast);
+		if (raycast->side_hit == HORIZONTAL)
+			raycast->perp_dist = (raycast->side_distX - raycast->delta_distX);
 		else
-			nbrs->perp_dist = (nbrs->side_distY - nbrs->delta_distY);
-		draw_line(nbrs, x);
+			raycast->perp_dist = (raycast->side_distY - raycast->delta_distY);
+		draw_line(raycast, x);
 		x++;
 	}
 }
 
-void	keep_lookin(t_nbrs *nbrs)
+void	keep_lookin(t_raycast_data *raycast)
 {
 	while (1)
 	{
-		if (nbrs->side_distX < nbrs->side_distY)
+		if (raycast->side_distX < raycast->side_distY)
 		{
-			nbrs->side_distX += nbrs->delta_distX;
-			nbrs->mapX += nbrs->stepX;
-			nbrs->side_hit = HORIZONTAL;
+			raycast->side_distX += raycast->delta_distX;
+			raycast->mapX += raycast->stepX;
+			raycast->side_hit = HORIZONTAL;
 		}
 		else
 		{
-			nbrs->side_distY += nbrs->delta_distY;
-			nbrs->mapY += nbrs->stepY;
-			nbrs->side_hit = VERTICAL;
+			raycast->side_distY += raycast->delta_distY;
+			raycast->mapY += raycast->stepY;
+			raycast->side_hit = VERTICAL;
 		}
-		if (nbrs->map->content[nbrs->mapY][nbrs->mapX] == '1') //removed out of bounds check
+		if (raycast->map->content[raycast->mapY][raycast->mapX] == '1') //removed out of bounds check
 			break;
 	}
 }
 
-void	delta_dist(t_nbrs *nbrs)
+void	delta_dist(t_raycast_data *raycast)
 {
-	if (nbrs->rayDirX == 0)
-		nbrs->delta_distX = 1e30;
+	if (raycast->rayDirX == 0)
+		raycast->delta_distX = 1e30;
 	else
-		nbrs->delta_distX = fabs((float)1 / nbrs->rayDirX);
-	if (nbrs->rayDirY == 0)
-		nbrs->delta_distY = 1e30;
+		raycast->delta_distX = fabs((float)1 / raycast->rayDirX);
+	if (raycast->rayDirY == 0)
+		raycast->delta_distY = 1e30;
 	else
-		nbrs->delta_distY = fabs((float)1 / nbrs->rayDirY);
+		raycast->delta_distY = fabs((float)1 / raycast->rayDirY);
 }
 
 
 //calculates the side_distance, which is the distnace from the starting pos
 // to the nearest gridline, as well as checking if we need the step adjustment
-void	calc_side_dist(t_nbrs *nbrs)
+void	calc_side_dist(t_raycast_data *raycast)
 {
-	if (nbrs->rayDirX < 0)
+	if (raycast->rayDirX < 0)
 	{
-		nbrs->stepX = NEGATIVE;
-		nbrs->side_distX = (nbrs->map->player_x - nbrs->mapX) * nbrs->delta_distX;
+		raycast->stepX = NEGATIVE;
+		raycast->side_distX = (raycast->map->player_x - raycast->mapX) * raycast->delta_distX;
 	}
 	else
 	{
-		nbrs->stepX = POSITIVE;
-		nbrs->side_distX =(nbrs->mapX + 1.0 - nbrs->map->player_x) * nbrs->delta_distX;
+		raycast->stepX = POSITIVE;
+		raycast->side_distX =(raycast->mapX + 1.0 - raycast->map->player_x) * raycast->delta_distX;
 	}
-	if (nbrs->rayDirY < 0)
+	if (raycast->rayDirY < 0)
 	{
-		nbrs->stepY = NEGATIVE;
-		nbrs->side_distY =(nbrs->map->player_y - nbrs->mapY) * nbrs->delta_distY;
+		raycast->stepY = NEGATIVE;
+		raycast->side_distY =(raycast->map->player_y - raycast->mapY) * raycast->delta_distY;
 	}
 	else
 	{
-		nbrs->stepY = POSITIVE;
-		nbrs->side_distY =(nbrs->mapY + 1.0 - nbrs->map->player_y) * nbrs->delta_distY;
+		raycast->stepY = POSITIVE;
+		raycast->side_distY =(raycast->mapY + 1.0 - raycast->map->player_y) * raycast->delta_distY;
 	}
 }
 
-void	draw_line(t_nbrs *nbrs, int x)
+void	draw_line(t_raycast_data *raycast, int x)
 {
 	long	draw_start;
 	long	draw_end;
-	int	lineheight = (int)HEIGHT / nbrs->perp_dist;
+	int	lineheight = (int)HEIGHT / raycast->perp_dist;
 
 	draw_start = -lineheight / 2 + HEIGHT / 2;
 	if(draw_start < 0)
@@ -113,7 +113,7 @@ void	draw_line(t_nbrs *nbrs, int x)
 	  	draw_end = HEIGHT - 1;
 	while (draw_start < draw_end)
 	{
-		mlx_put_pixel(nbrs->data->wall, x, draw_start, get_rgba(0, 255, 0, 255));
+		mlx_put_pixel(raycast->data->wall, x, draw_start, get_rgba(0, 255, 0, 255));
 		draw_start++;
 	}
 }

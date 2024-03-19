@@ -12,7 +12,12 @@
 
 #include "cub3d.h"
 
-bool	map_init(t_map *map, int map_start_index)
+static bool	create_map(t_map *map, int i);
+static bool	create_dup_map(t_map *map);
+static bool	floodfill(char **dup_map, int y, int x);
+static bool	valid_char(char c);
+
+bool	map_init(t_cub3d *cub3d, t_map *map, int map_start_index)
 {
 	 if (!create_map(map, map_start_index) || !create_dup_map(map))
 	 	return (print_error(MAP_ALLOC_FAIL));
@@ -25,7 +30,47 @@ bool	map_init(t_map *map, int map_start_index)
 	return (true);
 }
 
-bool	floodfill(char **dup_map, int y, int x)
+static bool	create_map(t_map *map, int i)
+{
+	int	j;
+	int	size;
+
+	j = 0;
+	size = ptrarr_len((void **)&map->file_content[i]);
+	map->content = ft_calloc(size + 1, sizeof(char *));
+	if (!map->content)
+		return (false);
+	while (map->file_content[i])
+	{
+		map->content[j] = map->file_content[i]; //beware that this
+		i++;
+		j++;
+	}
+	map->content[j] = NULL;
+	return (true);
+}
+
+static bool	create_dup_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	map->dup_content = ft_calloc((ptrarr_len((void **)map->content) + 1), \
+						sizeof(char *));
+	if (!map->dup_content)
+		return (false);
+	while (map->content[i])
+	{
+		map->dup_content[i] = ft_strdup(map->content[i]);
+		if (!map->dup_content[i])
+			return (false);
+		i++;
+	}
+	map->dup_content[i] = NULL;
+	return (true);
+}
+
+static bool	floodfill(char **dup_map, int y, int x)
 {
 	//write check for if player is outside the walls
 	if (y < 0 || x < 0)
@@ -48,42 +93,16 @@ bool	floodfill(char **dup_map, int y, int x)
 	return (true);
 }
 
-bool	create_map(t_map *map, int i)
-{
-	int	j;
-	int	size;
-
-	j = 0;
-	size = ptrarr_len((void **)&map->file_content[i]);
-	map->content = ft_calloc(size + 1, sizeof(char *));
-	if (!map->content)
-		return (false);
-	while (map->file_content[i])
-	{
-		map->content[j] = map->file_content[i];
-		i++;
-		j++;
-	}
-	map->content[j] = NULL;
-	return (true);
-}
-
-bool	create_dup_map(t_map *map)
+static bool	valid_char(char c)
 {
 	int	i;
 
 	i = 0;
-	map->dup_content = (char **)ft_calloc((ptrarr_len((void **)map->content) + 1), \
-						sizeof(char *));
-	if (!map->dup_content)
-		return (false);
-	while (map->content[i])
+	while (VALID_CHARS[i])
 	{
-		map->dup_content[i] = ft_strdup(map->content[i]);
-		if (!map->dup_content[i])
-			return (false);
+		if (c == VALID_CHARS[i])
+			return (true);
 		i++;
 	}
-	map->dup_content[i] = NULL;
-	return (true);
+	return (false);
 }

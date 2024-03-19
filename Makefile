@@ -35,7 +35,8 @@ SRC			:=	main.c \
 				setup/player_setup.c \
 				setup/movement_setup.c \
 				mouse_move.c \
-				raycast.c
+				raycast.c \
+				init.c
 # SRCB		:=
 
 #OBJB_FILES	=	${SRCB:.c=.o}
@@ -67,7 +68,7 @@ SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
 all: ${NAME}
 
 run: $(NAME)
-	./$(NAME) maps/map2.cub
+	./$(NAME) maps/map.cub
 
 $(LIBS_MLX):
 	@if [ -z "$$(ls -A MLX42)" ]; then \
