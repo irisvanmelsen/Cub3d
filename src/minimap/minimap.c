@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:22:54 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/19 19:09:39 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:11:20 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@
 	{
 		int	x_max;
 		int	y_max;
-		int	tmp;
+		int	tmp_y;
 		
 		x_max = (x + 1) * minimap->scaler;
 		y_max = (y + 1) * minimap->scaler;
-		tmp = y * minimap->scaler;
+		tmp_y = y * minimap->scaler;
 		x = x * minimap->scaler;
 		if (x_max > MINI_WIDTH)
 			x_max = MINI_WIDTH;
@@ -92,7 +92,7 @@
 			y_max = MINI_HEIGHT;
 		while (x < x_max)
 		{
-			y = tmp;
+			y = tmp_y;
 			while (y < y_max)
 			{
 				mlx_put_pixel(minimap->image, x, y, colour);
@@ -100,7 +100,6 @@
 			}
 			x++;
 		}
-		printf("y: %d\n", y);
 	}
 
 	void	fill_wall_backgr(char **mm_array, t_minimap *minimap)
