@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/02/12 16:50:31 by ivan-mel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
+/*   Updated: 2024/03/17 13:27:35 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@
 // SCREEN
 # define HEIGHT 1200
 # define WIDTH 1800
+
+// MINIMAP
+# define MINI_HEIGHT HEIGHT / 5
+# define MINI_WIDTH WIDTH / 5
+
+// COLOURS
+# define LIGHTCORAL 240, 128, 128, 255
+# define LAVENDER 230, 230, 250, 255
+# define LIGHTPINK 255, 182, 193, 255
+# define MISTYROSE 225, 228, 225, 225
 
 // MATH
 # define PI 3.1415926
@@ -69,11 +79,13 @@ typedef enum e_stepdir
 	POSITIVE = 1,
 }	t_stepdir;
 
+
 typedef enum e_wallside
 {
 	HORIZONTAL,
 	VERTICAL,
 }	t_wallside;
+
 // typedef struct s_elements
 // {
 // 	char	*path_to_north_texture;
@@ -114,6 +126,18 @@ typedef struct s_colour
 	int	floor;
 }	t_colour;
 
+typedef struct s_cub3d t_cub3d;
+
+typedef struct s_minimap
+{
+	mlx_image_t	*image;
+	mlx_image_t	*border;
+	mlx_t		*mlx;
+	char		**og_map;
+	int			scaler;
+	t_cub3d		*cub3d;
+} t_minimap;
+
 typedef struct s_map
 {
 	char		**file_content;
@@ -129,12 +153,13 @@ typedef struct s_map
 typedef struct s_cub3d
 {
 	t_map		*map;
+	t_minimap	*minimap;
 	t_player	player;
 	t_colour	colour;
 	mlx_t		*mlx;
 	mlx_image_t	*background;
 	mlx_image_t	*wall;
-	mlx_image_t	*minimap;
+	mlx_image_t	*minimap_img;
 	t_textures	textures;
 }	t_cub3d;
 
@@ -271,5 +296,10 @@ void	calc_side_dist(t_nbrs *nbrs);
 t_vector	vector_divide(t_vector src, t_vector divider);
 void	vector_add(t_vector src, t_vector addition, t_vector *ret);
 void	vector_subtract(t_vector src, t_vector subtraction, t_vector *ret);
+
+//MINIMAP.C
+
+bool	start_minimap(t_cub3d *cub3d);
+char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
 
 #endif
