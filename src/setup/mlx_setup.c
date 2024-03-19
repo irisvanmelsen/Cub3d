@@ -19,8 +19,6 @@ void	mlx_window_setup(t_cub3d *cub3d)
 		print_error(get_error_name(ERROR_IMAGE));
 	if (mlx_image_to_window(cub3d->mlx, cub3d->wall, 0, 0) == -1)
 		print_error(get_error_name(ERROR_IMAGE));
-	// if (mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0) == -1)
-	// 	print_error(get_error_name(ERROR_IMAGE));
 }
 
 int	mlx_image_setup(t_cub3d *cub3d)
@@ -31,10 +29,6 @@ int	mlx_image_setup(t_cub3d *cub3d)
 	cub3d->wall = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->wall)
 		return (print_error(get_error_name(ERROR_IMAGE)));
-	// cub3d->minimap = mlx_new_image(cub3d->mlx, cub3d->mlx->width * TILE, \
-	// 	cub3d->mlx->height * TILE);
-	// if (!cub3d->minimap)
-	// 	return (print_error(get_error_name(ERROR_IMAGE)));
 	mlx_window_setup(cub3d);
 	return (1);
 }

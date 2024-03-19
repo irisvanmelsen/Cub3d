@@ -27,6 +27,16 @@
 # define HEIGHT 1200
 # define WIDTH 1800
 
+// MINIMAP
+# define MINI_HEIGHT HEIGHT / 5
+# define MINI_WIDTH WIDTH / 5
+
+// COLOURS
+# define LIGHTCORAL 240, 128, 128, 255
+# define LAVENDER 230, 230, 250, 255
+# define LIGHTPINK 255, 182, 193, 255
+# define MISTYROSE 225, 228, 225, 225
+
 // MATH
 # define PI 3.1415926
 # define HALF_SCREENSIZE HEIGHT / 2 * WIDTH
@@ -70,6 +80,7 @@ typedef enum e_stepdir
 	POSITIVE = 1,
 }	t_stepdir;
 
+
 typedef enum e_wallside
 {
 	HORIZONTAL,
@@ -81,6 +92,22 @@ typedef enum e_wallside
 // 	double x;
 // 	double y;
 // }	t_vector;
+
+// typedef struct s_elements
+// {
+// 	char	*path_to_north_texture;
+// 	char	*path_to_south_texture;
+// 	char	*path_to_west_texture;
+// 	char	*path_to_east_texture;
+// 	int		ceiling_column;
+// 	int		floor_column;
+// }	t_elements;
+
+typedef	struct s_vector
+{
+	float y;
+	float x;
+}	t_vector;
 
 
 typedef struct s_textures
@@ -251,5 +278,10 @@ void	delta_dist(t_raycast_data *raycast);
 void	calc_side_dist(t_raycast_data *raycast);
 
 void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
+
+//MINIMAP.C
+
+bool	start_minimap(t_cub3d *cub3d);
+char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
-#    Updated: 2024/02/12 16:19:08 by ivan-mel      ########   odam.nl          #
+#    Updated: 2024/03/19 18:05:49 by ivan-mel      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	-g #-fsanitize=address #-Wall -Werror -Wextra
+FLAGS 		:=	-Wall -Werror -Wextra
 SRC			:=	main.c \
 				cubed.c \
 				parser/characters.c \
@@ -36,7 +36,8 @@ SRC			:=	main.c \
 				setup/movement_setup.c \
 				mouse_move.c \
 				raycast.c \
-				init.c
+				init.c \
+				minimap/minimap.c
 # SRCB		:=
 
 #OBJB_FILES	=	${SRCB:.c=.o}
@@ -67,8 +68,8 @@ SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
 
 all: ${NAME}
 
-run: $(NAME)
-	./$(NAME) maps/map2.cub
+# run: $(NAME)
+# 	./$(NAME) map.cub
 
 $(LIBS_MLX):
 	@if [ -z "$$(ls -A MLX42)" ]; then \
@@ -79,6 +80,7 @@ $(LIBS_MLX):
 ${NAME}: $(LIBS_MLX) ${LIBFT_A} ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
 	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
+#@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -L "/usr/local/Cellar/glfw/3.4/lib" -framework Cocoa -framework OpenGL -framework IOKit -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_off}
 
 ${LIBFT_A}:
