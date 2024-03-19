@@ -70,7 +70,7 @@ void	take_step_y(t_player *player, t_map *map, int step, double del_time)
 {
 	if (map->content[(int)player->posY + step][(int)player->posX] == '0')
 		player->posY += step;
-	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 8);
+	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 4);
 	raycaster(player->data->raycast);
 }
 

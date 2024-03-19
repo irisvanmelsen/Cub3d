@@ -36,9 +36,9 @@ void	mlx_setup(t_cub3d *cub3d)
 	init_raycast_data(cub3d->raycast, cub3d);
 	raycaster(cub3d->raycast);
 	mlx_loop_hook(cub3d->mlx, cub3d_loop ,(void *)cub3d);
+	mlx_loop(cub3d->mlx);
 	// mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	// mlx_cursor_hook(cub3d->mlx, (mlx_cursorfunc)mouse_move, (void *)cub3d);
 	// mlx_key_hook(cub3d->mlx, (mlx_keyfunc)cub3d_loop, (void *)cub3d);
-	mlx_loop(cub3d->mlx);
 	mlx_terminate(cub3d->mlx);
 }
