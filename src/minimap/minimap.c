@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:22:54 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/20 21:36:33 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/20 21:56:24 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y
 	y = 0;
 	map_height = calc_height_minimap(mini_map);
 	if (map_height < 5)
-		mm_height = map_height + 1;
+	{
+		if (map_height == 4)
+			mm_height = 4;
+		else
+			mm_height = map_height + 1;
+	}
 	else
 		mm_height = 5;
 	while (y < mm_height)	

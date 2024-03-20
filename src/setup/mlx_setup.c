@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/20 21:29:03 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/20 21:45:49 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ void	raycast(t_nbrs *nbrs)
 	double dirX = -1, dirY = 0; //initial direction vector
 	double planeX = 0, planeY = 0.66; //this would be for facing WEST
 	x = 0;
-	// printf("player pos x: %d\n", nbrs->map->player_x);
-	// printf("player pos y: %d\n", nbrs->map->player_y);
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - (float)1; //x-coordinate in camera space
