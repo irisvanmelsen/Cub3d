@@ -1,0 +1,86 @@
+1111111111111111111111111
+1000000000110000000000001
+1011000001110000000000001
+1001000000000000000000001
+11110001111000000000000001
+10000000000000000111111111111
+111101111N1111011100000010001
+11110111111111011101010010001
+11000011111111011100000010001
+10000000000000001100000010001
+10000000000000001101010000001
+1100000111010101111101100000111
+11110111 1110101 101111000001
+11111111 1111111 111111111111
+
+
+PATH IS: "./textures/wall_bricks1.png"
+
+
+
+PATH IS: "./textures/wall_bricks1.png"
+
+
+
+PATH IS: "./textures/wall_bricks1.png"
+
+
+
+PATH IS: "./textures/wall_bricks1.png"
+
+segfault ik hier?
+y: 45
+count: 0
+y: 45
+count: 0
+y: 45
+count: 0
+y: 45
+count: 0
+y: 45
+count: 0
+y: 90
+count: 1
+y: 90
+count: 1
+y: 90
+count: 1
+y: 90
+count: 1
+y: 90
+count: 1
+y: 135
+count: 2
+y: 135
+count: 2
+y: 135
+count: 2
+y: 135
+count: 2
+y: 135
+count: 2
+y: 180
+count: 3
+y: 180
+count: 3
+y: 180
+count: 3
+y: 180
+count: 3
+y: 180
+count: 3
+y: 225
+count: 4
+y: 225
+count: 4
+y: 225
+count: 4
+y: 225
+count: 4
+y: 225
+count: 4
+mm_array: 11110
+mm_array: 00000
+mm_array: 11P11
+mm_array: 11111
+mm_array: 11111

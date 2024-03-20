@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/19 18:46:02 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/03/20 08:43:43 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	mlx_setup(t_cub3d *cub3d)
 {
 	t_nbrs nbrs;
 
+	printf("segfault ik hier?\n");
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!cub3d->mlx)
 		print_error(get_error_name(ERROR_MLX)); //clean exit?
@@ -156,10 +157,10 @@ void	keep_lookin(t_nbrs *nbrs)
 		}
 		if (nbrs->mapY < 0 || nbrs->mapX < 0 || nbrs->map->content[nbrs->mapY][nbrs->mapX] == '1')
 		{
-			printf("\n----RAYCAST HIT----%i\n\n", x);
+			// printf("\n----RAYCAST HIT----%i\n\n", x);
 			break;
 		}
-		mlx_put_pixel(nbrs->data->wall, nbrs->mapX + WIDTH, nbrs->mapY + HEIGHT, get_rgba(0, 255, 150, 255));
+		mlx_put_pixel(nbrs->data->wall, nbrs->mapX, nbrs->mapY, get_rgba(0, 255, 150, 255));
 		x++;
 	}
 }
