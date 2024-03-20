@@ -17,15 +17,3 @@ PATH IS: "./textures/wall_bricks1.png"
 
 PATH IS: "./textures/wall_bricks1.png"
 
-segfault ik hier?
-mm_array: 
-mm_array: 
-mm_array: 
-mm_array: 
-mm_array: 
-cub3d->minimap->og_map: 11111111111111111
-cub3d->minimap->og_map: 100000000000000N1
-cub3d->minimap->og_map: 11111111111111111
-cub3d->map->player_x: 15
-cub3d->map->player_y: 1
-y: 3

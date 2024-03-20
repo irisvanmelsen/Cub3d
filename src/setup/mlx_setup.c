@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/20 20:07:30 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/20 21:29:03 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	mlx_setup(t_cub3d *cub3d)
 {
 	t_nbrs nbrs;
 
-	printf("segfault ik hier?\n");
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!cub3d->mlx)
 		print_error(get_error_name(ERROR_MLX)); //clean exit?

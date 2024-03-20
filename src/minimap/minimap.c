@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:22:54 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/20 21:21:11 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/20 21:28:53 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	calc_height_minimap(char **mini_map)
 	y = 0;
 	while (mini_map[y])
 		y++;
-	printf("y: %d\n", y);
 	return (y);
 }
 
@@ -44,7 +43,7 @@ char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y
 		mm_height = map_height;
 	else
 		mm_height = 5;
-	while (y < mm_height)	
+	while (y <= mm_height)	
 	{
 		x = 0;
 		while (x < 5)
@@ -195,19 +194,6 @@ char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y
 		if (!cub3d->minimap->border)
 			setup_border(cub3d->minimap);
 		mm_array = setup_minimap_arr();
-		int i = 0;
-		while (mm_array[i])
-		{
-			printf("mm_array: %s\n", mm_array[i]);
-			i++;
-		}
-		i = 0;
-		while (cub3d->minimap->og_map[i])
-		{
-			printf("cub3d->minimap->og_map: %s\n", cub3d->minimap->og_map[i]);
-			i++;
-		}
-		printf ("cub3d->map->player_x: %d\ncub3d->map->player_y: %d\n", cub3d->map->player_x, cub3d->map->player_y);
 		mm_array = compare_maps(mm_array, cub3d->minimap->og_map, cub3d->map->player_x, cub3d->map->player_y);
 		fill_wall_backgr(mm_array, cub3d->minimap);
 		free_map_2d(mm_array);
