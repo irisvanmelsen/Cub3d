@@ -1,5 +1,6 @@
 11111111111111111
-100000000000000N1
+10000000001000001
+100000000010000N1
 11111111111111111
 
 
@@ -17,3 +18,4 @@ PATH IS: "./textures/wall_bricks1.png"
 
 PATH IS: "./textures/wall_bricks1.png"
 
+map_height: 4
