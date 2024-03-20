@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:20:50 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/19 22:48:56 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/20 20:11:01 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	cubed(int argc, char **argv)
 	ft_bzero(&cub3d, sizeof(cub3d));
 
 	if (!parsing(argc, argv, &cub3d, &map))
-		return (print_error("PARSING ERROR\n"));
+		return (print_error("\n"));
 	cub3d.map = &map;
 	mlx_setup(&cub3d);
 	// start_minimap(&cub3d);

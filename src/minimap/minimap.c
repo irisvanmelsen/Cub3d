@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:22:54 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/20 08:45:33 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/20 21:37:36 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,52 @@
 		cub3d->minimap->og_map = cub3d->map->content;
 	}
 
-	char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y)
-	{
-		int	x;
-		int	y;
+int	calc_height_minimap(char **mini_map)
+{
+	int y;
 
-		y = 0;
-		while (y < 5)	
+	y = 0;
+	while (mini_map[y])
+		y++;
+	return (y);
+}
+
+char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y)
+{
+	int	x;
+	int	y;
+	int	map_height;
+	int	mm_height;
+	
+	y = 0;
+	map_height = calc_height_minimap(mini_map);
+	if (map_height < 5)
+		mm_height = map_height + 1;
+	else
+		mm_height = 5;
+	while (y < mm_height)	
+	{
+		x = 0;
+		while (x < 5)
 		{
-			x = 0;
-			while (x < 5)
+			if (player_y - 2 + y >= 0 && player_y - 2 + y  < HEIGHT && player_x - 2 + x >= 0 && player_x - 2 + x < WIDTH)
 			{
-				if (player_y - 2 + y >= 0 && player_y - 2 + y  < HEIGHT && player_x - 2 + x >= 0 && player_x - 2 + x < WIDTH)
-				{
-					if (mini_map[player_y - 2 + y][player_x - 2 + x] == '1')
-						mm_array[y][x] = '1';
-					else if (mini_map[player_y - 2 + y][player_x - 2 + x] == 'P')
-						mm_array[y][x] = 'P';
-					else
-						mm_array[y][x] = '0';
-				}
+				if (mini_map[player_y - 2 + y][player_x - 2 + x] == '1')
+					mm_array[y][x] = '1';
+				else if (mini_map[player_y - 2 + y][player_x - 2 + x] == 'P')
+					mm_array[y][x] = 'P';
 				else
-					mm_array[y][x] = '#';
-				x++;
+					mm_array[y][x] = '0';
 			}
-			y++;
+			else
+				mm_array[y][x] = '#';
+			x++;
 		}
-		mm_array[2][2] = 'P';
-		return (mm_array);
+		y++;
 	}
+	mm_array[2][2] = 'P';
+	return (mm_array);
+}
 
 	char	**setup_minimap_arr(void)
 	{
@@ -72,7 +89,7 @@
 			}
 			i++;
 		}
-		mm_array[i] = NULL;
+		mm_array[5] = NULL;
 		return (mm_array);
 	}
 
@@ -181,4 +198,4 @@
 		fill_wall_backgr(mm_array, cub3d->minimap);
 		free_map_2d(mm_array);
 		return (true);
-	}
+	}	
