@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:22:54 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/19 22:48:48 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/20 21:21:11 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,53 @@
 		cub3d->minimap->og_map = cub3d->map->content;
 	}
 
-	char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y)
-	{
-		int	x;
-		int	y;
+int	calc_height_minimap(char **mini_map)
+{
+	int y;
 
-		y = 0;
-		while (y < 5)	
+	y = 0;
+	while (mini_map[y])
+		y++;
+	printf("y: %d\n", y);
+	return (y);
+}
+
+char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y)
+{
+	int	x;
+	int	y;
+	int	map_height;
+	int	mm_height;
+	
+	y = 0;
+	map_height = calc_height_minimap(mini_map);
+	if (map_height < 5)
+		mm_height = map_height;
+	else
+		mm_height = 5;
+	while (y < mm_height)	
+	{
+		x = 0;
+		while (x < 5)
 		{
-			x = 0;
-			while (x < 5)
+			if (player_y - 2 + y >= 0 && player_y - 2 + y  < HEIGHT && player_x - 2 + x >= 0 && player_x - 2 + x < WIDTH)
 			{
-				if (player_y - 2 + y >= 0 && player_y - 2 + y  < HEIGHT && player_x - 2 + x >= 0 && player_x - 2 + x < WIDTH)
-				{
-					if (mini_map[player_y - 2 + y][player_x - 2 + x] == '1')
-						mm_array[y][x] = '1';
-					else if (mini_map[player_y - 2 + y][player_x - 2 + x] == 'P')
-						mm_array[y][x] = 'P';
-					else
-						mm_array[y][x] = '0';
-				}
+				if (mini_map[player_y - 2 + y][player_x - 2 + x] == '1')
+					mm_array[y][x] = '1';
+				else if (mini_map[player_y - 2 + y][player_x - 2 + x] == 'P')
+					mm_array[y][x] = 'P';
 				else
-					mm_array[y][x] = '#';
-				x++;
+					mm_array[y][x] = '0';
 			}
-			y++;
+			else
+				mm_array[y][x] = '#';
+			x++;
 		}
-		mm_array[2][2] = 'P';
-		return (mm_array);
+		y++;
 	}
+	mm_array[2][2] = 'P';
+	return (mm_array);
+}
 
 	char	**setup_minimap_arr(void)
 	{
@@ -72,7 +90,7 @@
 			}
 			i++;
 		}
-		mm_array[i] = NULL;
+		mm_array[5] = NULL;
 		return (mm_array);
 	}
 
@@ -80,11 +98,11 @@
 	{
 		int	x_max;
 		int	y_max;
-		int	tmp;
+		int	tmp_y;
 		
 		x_max = (x + 1) * minimap->scaler;
 		y_max = (y + 1) * minimap->scaler;
-		tmp = y * minimap->scaler;
+		tmp_y = y * minimap->scaler;
 		x = x * minimap->scaler;
 		if (x_max > MINI_WIDTH)
 			x_max = MINI_WIDTH;
@@ -92,7 +110,7 @@
 			y_max = MINI_HEIGHT;
 		while (x < x_max)
 		{
-			y = tmp;
+			y = tmp_y;
 			while (y < y_max)
 			{
 				mlx_put_pixel(minimap->image, x, y, colour);
@@ -100,7 +118,6 @@
 			}
 			x++;
 		}
-		printf("y: %d\n", y);
 	}
 
 	void	fill_wall_backgr(char **mm_array, t_minimap *minimap)
@@ -125,18 +142,11 @@
 				else if (mm_array[y][x] == 'P')
 					colour = get_rgba(LIGHTCORAL);
 				fill_the_image(minimap, x, y, colour);
-				printf("count: %d\n", y);
 				x++;
 			}
 			y++;
 		}
-		int i = 0;
 		mlx_put_string(minimap->mlx, "      M I N I M A P : ", 1, 2);
-		while (mm_array[i])
-		{
-			printf("mm_array: %s\n", mm_array[i]);
-			i++;
-		}
 		if (mlx_image_to_window(minimap->mlx, minimap->image, minimap->scaler / 2, minimap->scaler / 2) == -1)
 			print_error(get_error_name(ERROR_IMAGE));
 		mlx_put_string(minimap->mlx, " P ", 120, 125);
@@ -185,8 +195,21 @@
 		if (!cub3d->minimap->border)
 			setup_border(cub3d->minimap);
 		mm_array = setup_minimap_arr();
+		int i = 0;
+		while (mm_array[i])
+		{
+			printf("mm_array: %s\n", mm_array[i]);
+			i++;
+		}
+		i = 0;
+		while (cub3d->minimap->og_map[i])
+		{
+			printf("cub3d->minimap->og_map: %s\n", cub3d->minimap->og_map[i]);
+			i++;
+		}
+		printf ("cub3d->map->player_x: %d\ncub3d->map->player_y: %d\n", cub3d->map->player_x, cub3d->map->player_y);
 		mm_array = compare_maps(mm_array, cub3d->minimap->og_map, cub3d->map->player_x, cub3d->map->player_y);
 		fill_wall_backgr(mm_array, cub3d->minimap);
 		free_map_2d(mm_array);
 		return (true);
-	}
+	}	

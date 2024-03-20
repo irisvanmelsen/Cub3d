@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   characters.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 23:59:29 by iris              #+#    #+#             */
-/*   Updated: 2024/03/12 13:13:52 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:30:20 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	only_one_player_symbol(t_map *map)
 	int	y;
 	int	player_count;
 
-	y = 6;
+	y = 0;
 	player_count = 0;
 	while (map->content[y])
 	{
