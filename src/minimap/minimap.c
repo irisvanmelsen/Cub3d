@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 13:22:54 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/19 19:11:20 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minimap.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 13:22:54 by ivan-mel      #+#    #+#                 */
+/*   Updated: 2024/03/19 19:11:20 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@
 		int	y;
 
 		y = 0;
-		while (y < 5)	
+		while (y < 5)
 		{
 			x = 0;
 			while (x < 5)
 			{
-				if (player_y - 2 + y >= 0 && player_y - 2 + y  < HEIGHT && player_x - 2 + x >= 0 && player_x - 2 + x < WIDTH)
+				if (player_y - 2 + y >= 0 && player_y - 2 + y  < MINI_HEIGHT && \
+					player_x - 2 + x >= 0 && player_x - 2 + x < MINI_WIDTH)
 				{
 					if (mini_map[player_y - 2 + y][player_x - 2 + x] == '1')
 						mm_array[y][x] = '1';
@@ -81,7 +82,7 @@
 		int	x_max;
 		int	y_max;
 		int	tmp_y;
-		
+
 		x_max = (x + 1) * minimap->scaler;
 		y_max = (y + 1) * minimap->scaler;
 		tmp_y = y * minimap->scaler;
@@ -132,7 +133,7 @@
 		if (mlx_image_to_window(minimap->mlx, minimap->image, minimap->scaler / 2, minimap->scaler / 2) == -1)
 			print_error(get_error_name(ERROR_IMAGE));
 		mlx_put_string(minimap->mlx, " P ", 120, 125);
-	}	
+	}
 
 	void	setup_border(t_minimap *minimap)
 	{
