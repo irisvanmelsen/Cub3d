@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 13:22:54 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/20 21:56:58 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minimap.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 13:22:54 by ivan-mel      #+#    #+#                 */
+/*   Updated: 2024/03/20 21:56:58 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y
 	int	y;
 	int	map_height;
 	int	mm_height;
-	
+
 	y = 0;
 	map_height = calc_height_minimap(mini_map);
 	if (map_height < 5)
@@ -48,12 +48,13 @@ char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y
 	}
 	else
 		mm_height = 5;
-	while (y < mm_height)	
+	while (y < mm_height)
 	{
 		x = 0;
 		while (x < 5)
 		{
-			if (player_y - 2 + y >= 0 && player_y - 2 + y  < HEIGHT && player_x - 2 + x >= 0 && player_x - 2 + x < WIDTH)
+			if (player_y - 2 + y >= 0 && player_y - 2 + y  < MINI_HEIGHT && \
+				player_x - 2 + x >= 0 && player_x - 2 + x <MINI_WIDTH)
 			{
 				if (mini_map[player_y - 2 + y][player_x - 2 + x] == '1')
 					mm_array[y][x] = '1';
@@ -103,7 +104,7 @@ char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y
 		int	x_max;
 		int	y_max;
 		int	tmp_y;
-		
+
 		x_max = (x + 1) * minimap->scaler;
 		y_max = (y + 1) * minimap->scaler;
 		tmp_y = y * minimap->scaler;
@@ -154,7 +155,7 @@ char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y
 		if (mlx_image_to_window(minimap->mlx, minimap->image, minimap->scaler / 2, minimap->scaler / 2) == -1)
 			print_error(get_error_name(ERROR_IMAGE));
 		mlx_put_string(minimap->mlx, " P ", 120, 125);
-	}	
+	}
 
 	void	setup_border(t_minimap *minimap)
 	{
@@ -203,4 +204,4 @@ char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y
 		fill_wall_backgr(mm_array, cub3d->minimap);
 		free_map_2d(mm_array);
 		return (true);
-	}	
+	}
