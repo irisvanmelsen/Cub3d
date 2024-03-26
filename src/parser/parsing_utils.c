@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-size_t	ft_strlen_protect(char *s)
+size_t	ft_strlen_protect(char *s) //put these in libft?
 {
 	int	length;
 
@@ -81,4 +81,17 @@ bool	free_line_if_empty(char *line)
 		return (true);
 	}
 	return (false);
+}
+
+void	free_map_2d(char **map_copy)
+{
+	int	i;
+
+	i = 0;
+	while (map_copy[i])
+	{
+		free(map_copy[i]);
+		i++;
+	}
+	free(map_copy);
 }

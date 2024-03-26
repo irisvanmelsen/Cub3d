@@ -18,20 +18,16 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	#-Wall -Werror -Wextra
+FLAGS 		:=	-fsanitize=address #-Wall -Werror -Wextra
 SRC			:=	main.c \
-				cubed.c \
 				parser/characters.c \
 				parser/error.c \
-				parser/free.c \
 				parser/map.c \
-				parser/map_utils.c \
 				parser/parsing.c \
 				parser/parsing_utils.c \
 				parser/elements.c \
 				parser/elements_utils.c \
 				setup/mlx_setup.c \
-				setup/pixel_setup.c \
 				setup/player_setup.c \
 				setup/movement_setup.c \
 				mouse_move.c \
@@ -69,7 +65,7 @@ SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
 all: ${NAME}
 
 run: $(NAME)
-	./$(NAME) maps/map.cub
+	./$(NAME) maps/map_test.cub
 
 $(LIBS_MLX):
 	@if [ -z "$$(ls -A MLX42)" ]; then \

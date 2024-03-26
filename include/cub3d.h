@@ -266,7 +266,7 @@ int		background_setup(mlx_image_t *background);
 
 void	mlx_window_setup();
 int		mlx_image_setup(t_cub3d *cub3d);
-void	mlx_setup(t_cub3d *cub3d);
+void	game_setup(t_cub3d *cub3d);
 void	draw_line(t_raycast_data *raycast, int x);
 
 //PLAYER_SETUP.C

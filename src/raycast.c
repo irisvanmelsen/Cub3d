@@ -99,6 +99,30 @@ void	calc_side_dist(t_raycast_data *raycast)
 	}
 }
 
+// void	calc_side_dist(t_raycast_data *raycast, double raydir, double *)
+// {
+// 	if (raycast->rayDirX < 0)
+// 	{
+// 		raycast->stepX = NEGATIVE;
+// 		raycast->side_distX = (raycast->map->player_x - raycast->mapX) * raycast->delta_distX;
+// 	}
+// 	else
+// 	{
+// 		raycast->stepX = POSITIVE;
+// 		raycast->side_distX =(raycast->mapX + 1.0 - raycast->map->player_x) * raycast->delta_distX;
+// 	}
+// 	if (raycast->rayDirY < 0)
+// 	{
+// 		raycast->stepY = NEGATIVE;
+// 		raycast->side_distY =(raycast->map->player_y - raycast->mapY) * raycast->delta_distY;
+// 	}
+// 	else
+// 	{
+// 		raycast->stepY = POSITIVE;
+// 		raycast->side_distY =(raycast->mapY + 1.0 - raycast->map->player_y) * raycast->delta_distY;
+// 	}
+// }
+
 void	draw_line(t_raycast_data *raycast, int x)
 {
 	long	draw_start;
