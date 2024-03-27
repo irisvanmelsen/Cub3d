@@ -29,7 +29,6 @@ SRC			:=	main.c \
 				parser/elements_utils.c \
 				setup/mlx_setup.c \
 				setup/player_setup.c \
-				setup/movement_setup.c \
 				mouse_move.c \
 				raycast.c \
 				init.c \
