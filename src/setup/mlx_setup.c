@@ -49,7 +49,7 @@ int	mlx_image_setup(t_cub3d *cub3d)
 }
 
 
-void	cub3d_memset(void *b, int colour, size_t len)
+void	cub3d_memset(void *b, int colour, size_t len) // why ft_memset doesnt work
 {
 	size_t	i;
 	int		*img;

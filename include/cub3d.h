@@ -93,23 +93,6 @@ typedef enum e_wallside
 // 	double y;
 // }	t_vector;
 
-// typedef struct s_elements
-// {
-// 	char	*path_to_north_texture;
-// 	char	*path_to_south_texture;
-// 	char	*path_to_west_texture;
-// 	char	*path_to_east_texture;
-// 	int		ceiling_column;
-// 	int		floor_column;
-// }	t_elements;
-
-typedef	struct s_vector
-{
-	float y;
-	float x;
-}	t_vector;
-
-
 typedef struct s_textures
 {
 	mlx_texture_t	*north;
