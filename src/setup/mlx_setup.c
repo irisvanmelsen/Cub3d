@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/03/20 21:57:12 by iris             ###   ########.fr       */
+/*   Updated: 2024/03/27 12:48:37 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,6 @@ int	mlx_image_setup(t_cub3d *cub3d)
 	return (1);
 }
 
-// void	cub3d_loop(void	*param)
-// {
-// 	t_cub3d *m;
-
-// 	m = param;
-
-// 	if (mlx_is_key_down(m->mlx, MLX_KEY_ESCAPE))
-// 		mlx_close_window(m->mlx);
-// 	if (mlx_is_key_down(m->mlx, MLX_KEY_W))
-// 		take_step_y(&m->player, m->map, -1, m->mlx->delta_time);
-// 	if (mlx_is_key_down(m->mlx, MLX_KEY_UP))
-// 		take_step_y(&m->player, m->map, -1, m->mlx->delta_time);
-// 	if (mlx_is_key_down(m->mlx, MLX_KEY_S))
-// 		take_step_y(&m->player, m->map, 1, m->mlx->delta_time);
-// 	if (mlx_is_key_down(m->mlx, MLX_KEY_DOWN))
-// 		take_step_y(&m->player, m->map, 1, m->mlx->delta_time);
-// 	if (mlx_is_key_down(m->mlx, MLX_KEY_D))
-// 		take_step_x(&m->player, m->map, -1, m->mlx->delta_time);
-// 	if (mlx_is_key_down(m->mlx, MLX_KEY_RIGHT))
-// 		take_step_x(&m->player, m->map, -1, m->mlx->delta_time);
-// 	if (mlx_is_key_down(m->mlx, MLX_KEY_A))
-// 		take_step_x(&m->player, m->map, 1, m->mlx->delta_time);
-// 	if (mlx_is_key_down(m->mlx, MLX_KEY_LEFT))
-// 		take_step_x(&m->player, m->map, 1, m->mlx->delta_time);
-// }
-
 void init_nbrs(t_nbrs *nbrs, t_cub3d *data)
 {
 	ft_bzero((void *)nbrs, sizeof(*nbrs));
@@ -69,7 +43,6 @@ void init_nbrs(t_nbrs *nbrs, t_cub3d *data)
 	nbrs->mapX = nbrs->map->player_x;
 	nbrs->mapY = nbrs->map->player_y;
 }
-
 
 void	mlx_setup(t_cub3d *cub3d)
 {
