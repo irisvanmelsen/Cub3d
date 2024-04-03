@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=	-fsanitize=address #-g #-fsanitize=address
+FLAGS 		:=  -g #-fsanitize=address
 SRC			:=	main.c \
 				parser/characters.c \
 				parser/error.c \

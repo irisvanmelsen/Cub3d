@@ -68,16 +68,42 @@ void	cub3d_loop(void	*param)
 
 void	take_step_y(t_player *player, t_map *map, int step, double del_time)
 {
-	if (map->content[(int)player->posY + step][(int)player->posX] == '0')
-		player->posY += step;
+	if (map->content[(int)player->pos.y + step][(int)player->pos.x] == '0')
+		player->pos.y += ((double)step * 0.15);
 	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 4);
 	raycaster(player->data->raycast);
 }
 
 void	take_step_x(t_player *player, t_map *map, int step, double del_time)
 {
-	if (map->content[(int)player->posY][(int)player->posX + step] == '0')
-		player->posX += step;
+	if (map->content[(int)player->pos.y][(int)player->pos.x + step] == '0')
+		player->pos.x += ((double)step * 0.15);
 	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 4);
 	raycaster(player->data->raycast);
+}
+
+void	change_dir(void	*param)
+{
+	t_player	*player;
+	bool	button_pressed;
+	double	speed;//delta time
+
+	player = (t_player *)param;
+	button_pressed = false;
+	speed = 0.05;
+	const double	old_dir_x = player->dir.x;
+	const double	old_plane_x = player->plane.x;
+	if (mlx_is_key_down(player->data->mlx, MLX_KEY_LEFT))
+		button_pressed = true;
+	else if (mlx_is_key_down(player->data->mlx, MLX_KEY_RIGHT))
+	{
+		button_pressed = true;
+		speed *= -1;
+	}
+	if (!button_pressed)
+		return ;
+	player->dir.x = old_dir_x * cos(speed) - player->dir.y * sin(speed);
+	player->dir.y = old_dir_x * sin(speed) + player->dir.y * cos(speed);
+	player->plane.x = old_plane_x * cos(speed) - player->plane.y * sin(speed);
+	player->plane.y = old_plane_x * sin(speed) + player->plane.y * cos(speed);
 }

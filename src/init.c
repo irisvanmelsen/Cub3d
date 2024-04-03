@@ -19,9 +19,9 @@ void init_raycast_data(t_raycast_data *raycast, t_cub3d *data)
 	raycast->map = data->map;
 	raycast->mapX = raycast->map->player_x;
 	raycast->mapY = raycast->map->player_y;
-	set_initial_look_dirs(data, raycast);
-	data->player.posX = (double)raycast->map->player_x;
-	data->player.posY = (double)raycast->map->player_y;
+	set_initial_look_dirs(&data->player, data->map->dir_char);
+	data->player.pos.x = (double)raycast->map->player_x;
+	data->player.pos.y = (double)raycast->map->player_y;
 	data->player.data = data;
 	data->raycast = raycast;
 }

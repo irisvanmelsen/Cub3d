@@ -12,17 +12,17 @@
 
 #include "cub3d.h"
 
-void	player_setup(t_cub3d *cub3d)
-{
-	if (cub3d->player.direction == NO)
-		cub3d->player.view = PI / 2;
-	if (cub3d->player.direction == SO)
-		cub3d->player.view = PI + PI / 2;
-	if (cub3d->player.direction == WE)
-		cub3d->player.view = PI;
-	if (cub3d->player.direction == EA)
-		cub3d->player.direction = 0;
-}
+// void	player_setup(t_cub3d *cub3d)
+// {
+// 	if (cub3d->player.direction == NO)
+// 		cub3d->player.view = PI / 2;
+// 	if (cub3d->player.direction == SO)
+// 		cub3d->player.view = PI + PI / 2;
+// 	if (cub3d->player.direction == WE)
+// 		cub3d->player.view = PI;
+// 	if (cub3d->player.direction == EA)
+// 		cub3d->player.direction = 0;
+// }
 
 
 //the dir is just the direction of th emap the player looks
@@ -31,34 +31,34 @@ void	player_setup(t_cub3d *cub3d)
 //
 // the plane is the camera plane that represents the screen and it always runs
 // perpendicular to our dir
-void	set_initial_look_dirs(t_cub3d *cub3d, t_raycast_data *raycast)
+void	set_initial_look_dirs(t_player *player, char dir_char)
 {
-	if (cub3d->map->dir_char == 'N')
+	if (dir_char == 'N')
 	{
-		raycast->dirX = 0;
-		raycast->dirY = -1;
-		raycast->planeX = -0.66;
-		raycast->planeY = 0;
+		player->dir.x = 0;
+		player->dir.y = -1;
+		player->plane.x = -0.66;
+		player->plane.y = 0;
 	}
-	if (cub3d->map->dir_char == 'E')
+	if (dir_char == 'E')
 	{
-		raycast->dirX = 1;
-		raycast->dirY = 0;
-		raycast->planeX = 0;
-		raycast->planeY = -0.66;
+		player->dir.x = 1;
+		player->dir.y = 0;
+		player->plane.x = 0;
+		player->plane.y = -0.66;
 	}
-	if (cub3d->map->dir_char == 'S')
+	if (dir_char == 'S')
 	{
-		raycast->dirX = 0;
-		raycast->dirY = 1;
-		raycast->planeX = 0.66;
-		raycast->planeY = 0;
+		player->dir.x = 0;
+		player->dir.y = 1;
+		player->plane.x = 0.66;
+		player->plane.y = 0;
 	}
-	if (cub3d->map->dir_char == 'W')
+	if (dir_char == 'W')
 	{
-		raycast->dirX = -1;
-		raycast->dirY = 0;
-		raycast->planeX = 0;
-		raycast->planeY = 0.66;
+		player->dir.x = -1;
+		player->dir.y = 0;
+		player->plane.x = 0;
+		player->plane.y = 0.66;
 	}
 }

@@ -87,11 +87,11 @@ typedef enum e_wallside
 	VERTICAL,
 }	t_wallside;
 
-// typedef	struct s_vector
-// {
-// 	double x;
-// 	double y;
-// }	t_vector;
+typedef	struct s_vector
+{
+	double x;
+	double y;
+}	t_vector;
 
 typedef struct s_textures
 {
@@ -106,11 +106,13 @@ typedef struct s_textures
 
 typedef struct s_player
 {
-	float	direction;
-	float	view;
-	double	posX;
-	double	posY;
+	// float	direction;
+	// float	view;
+	t_vector	pos;
 	t_cub3d	*data;
+
+	t_vector	dir;
+	t_vector	plane;
 
 }	t_player;
 
@@ -139,10 +141,8 @@ typedef struct s_minimap
 
 typedef struct s_raycast_data
 {
-	double rayDirX;
-	double rayDirY;
-	double	delta_distX;
-	double	delta_distY;
+	t_vector	raydir;
+	t_vector	delta_dist;
 
 	double	eucli_distX;
 	double	eucli_distY;
@@ -160,12 +160,6 @@ typedef struct s_raycast_data
 	int		side_hit;
 	t_map	*map;
 	t_cub3d	*data;
-
-	double	dirX;
-	double	dirY;
-
-	double	planeX;
-	double	planeY;
 
 	double	wallhit_co_ord;
 }	t_raycast_data;
@@ -255,20 +249,19 @@ void	draw_line(t_raycast_data *raycast, int x);
 //PLAYER_SETUP.C
 
 // void	player_setup(t_cub3d *cub3d);
-void	set_initial_look_dirs(t_cub3d *cub3d, t_raycast_data *raycast);
+void	set_initial_look_dirs(t_player *player, char dir_char);
 
 //mouse move
 
 void	*mouse_move(double xpos, double ypos, void	*param);
 void	*escape(mlx_key_data_t keydata, void *param);
 void	cub3d_loop(void	*param);
+void	change_dir(void	*param);
 
 // RAYCAST.c
 
 void	raycaster(void *param);
 void	keep_lookin(t_raycast_data *raycast);
-void	delta_dist(t_raycast_data *raycast);
-void	calc_side_dist(t_raycast_data *raycast);
 
 void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
 

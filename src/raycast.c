@@ -12,28 +12,35 @@
 
 #include "cub3d.h"
 
+static t_vector	calc_delta_dist(t_vector raydir);
+static void	calc_side_dist(t_raycast_data *raycast, t_player *player);
+
 void	raycaster(void *param)
 {
-	t_raycast_data	*raycast;
+	t_raycast_data	*raycast; // remove
+	t_player		*player;
+	t_vector	raydir;
+	t_vector	delta_dist;
 
-	raycast = (t_raycast_data *)param;
+	raycast = (t_raycast_data *)param; //rm
+	player = &raycast->data->player;
 	int	x;
 	double cameraX;
 	x = 0;
 	while (x < WIDTH)
 	{
 		cameraX = 2 * (x / (double)WIDTH) - 1;
-		raycast->mapX = (int)raycast->data->player.posX;
-		raycast->mapY = (int)raycast->data->player.posY;
-		raycast->rayDirX = raycast->dirX + raycast->planeX * cameraX;
-		raycast->rayDirY = raycast->dirY + raycast->planeY * cameraX;
-		delta_dist(raycast);
-		calc_side_dist(raycast);
+		raycast->mapX = player->pos.x;
+		raycast->mapY = player->pos.y;
+		raycast->raydir.x = player->dir.x + player->plane.x * cameraX;
+		raycast->raydir.y = player->dir.y + player->plane.y * cameraX;
+		raycast->delta_dist = calc_delta_dist(raycast->raydir);
+		calc_side_dist(raycast, player);
 		keep_lookin(raycast);
 		if (raycast->side_hit == HORIZONTAL)
-			raycast->perp_dist = (raycast->side_distX - raycast->delta_distX);
+			raycast->perp_dist = (raycast->side_distX - raycast->delta_dist.x);
 		else
-			raycast->perp_dist = (raycast->side_distY - raycast->delta_distY);
+			raycast->perp_dist = (raycast->side_distY - raycast->delta_dist.y);
 		draw_line(raycast, x);
 		x++;
 	}
@@ -45,13 +52,13 @@ void	keep_lookin(t_raycast_data *raycast)
 	{
 		if (raycast->side_distX < raycast->side_distY)
 		{
-			raycast->side_distX += raycast->delta_distX;
+			raycast->side_distX += raycast->delta_dist.x;
 			raycast->mapX += raycast->stepX;
 			raycast->side_hit = HORIZONTAL;
 		}
 		else
 		{
-			raycast->side_distY += raycast->delta_distY;
+			raycast->side_distY += raycast->delta_dist.y;
 			raycast->mapY += raycast->stepY;
 			raycast->side_hit = VERTICAL;
 		}
@@ -60,70 +67,51 @@ void	keep_lookin(t_raycast_data *raycast)
 	}
 }
 
-void	delta_dist(t_raycast_data *raycast)
+static t_vector	calc_delta_dist(t_vector raydir) //take raydir, return delta dist
 {
-	if (raycast->rayDirX == 0)
-		raycast->delta_distX = 1e30;
+	t_vector	delta_dist;
+
+
+	if (raydir.x == 0)
+		delta_dist.x = 1e30;
 	else
-		raycast->delta_distX = fabs((float)1 / raycast->rayDirX);
-	if (raycast->rayDirY == 0)
-		raycast->delta_distY = 1e30;
+		delta_dist.x = fabs((float)1 / raydir.x);
+	if (raydir.y == 0)
+		delta_dist.y = 1e30;
 	else
-		raycast->delta_distY = fabs((float)1 / raycast->rayDirY);
+		delta_dist.y = fabs((float)1 / raydir.y);
+	return (delta_dist);
 }
 
 
 //calculates the side_distance, which is the distnace from the starting pos
 // to the nearest gridline, as well as checking if we need the step adjustment
-void	calc_side_dist(t_raycast_data *raycast)
+static void	calc_side_dist(t_raycast_data *raycast, t_player *player) //take raydir
 {
-	if (raycast->rayDirX < 0)
+	if (raycast->raydir.x < 0)
 	{
 		raycast->stepX = NEGATIVE;
-		raycast->side_distX = (raycast->map->player_x - raycast->mapX) * raycast->delta_distX;
+		raycast->side_distX = (player->pos.x - raycast->mapX) * raycast->delta_dist.x;
 	}
 	else
 	{
 		raycast->stepX = POSITIVE;
-		raycast->side_distX =(raycast->mapX + 1.0 - raycast->map->player_x) * raycast->delta_distX;
+		raycast->side_distX =(raycast->mapX+ 1.0 - player->pos.x) * raycast->delta_dist.x;
 	}
-	if (raycast->rayDirY < 0)
+	if (raycast->raydir.y < 0)
 	{
 		raycast->stepY = NEGATIVE;
-		raycast->side_distY =(raycast->map->player_y - raycast->mapY) * raycast->delta_distY;
+		raycast->side_distY =(player->pos.y - raycast->mapY) * raycast->delta_dist.y;
 	}
 	else
 	{
 		raycast->stepY = POSITIVE;
-		raycast->side_distY =(raycast->mapY + 1.0 - raycast->map->player_y) * raycast->delta_distY;
+		raycast->side_distY =(raycast->mapY + 1.0 -  player->pos.y) * raycast->delta_dist.y;
 	}
 }
 
-// void	calc_side_dist(t_raycast_data *raycast, double raydir, double *)
-// {
-// 	if (raycast->rayDirX < 0)
-// 	{
-// 		raycast->stepX = NEGATIVE;
-// 		raycast->side_distX = (raycast->map->player_x - raycast->mapX) * raycast->delta_distX;
-// 	}
-// 	else
-// 	{
-// 		raycast->stepX = POSITIVE;
-// 		raycast->side_distX =(raycast->mapX + 1.0 - raycast->map->player_x) * raycast->delta_distX;
-// 	}
-// 	if (raycast->rayDirY < 0)
-// 	{
-// 		raycast->stepY = NEGATIVE;
-// 		raycast->side_distY =(raycast->map->player_y - raycast->mapY) * raycast->delta_distY;
-// 	}
-// 	else
-// 	{
-// 		raycast->stepY = POSITIVE;
-// 		raycast->side_distY =(raycast->mapY + 1.0 - raycast->map->player_y) * raycast->delta_distY;
-// 	}
-// }
 
-void	draw_line(t_raycast_data *raycast, int x)
+void	draw_line(t_raycast_data *raycast, int x) //take perpdist and wall object
 {
 	long	draw_start;
 	long	draw_end;
