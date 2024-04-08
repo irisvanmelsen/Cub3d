@@ -29,7 +29,7 @@ SRC			:=	main.c \
 				parser/elements_utils.c \
 				setup/mlx_setup.c \
 				setup/player_setup.c \
-				mouse_move.c \
+				movement.c \
 				raycast.c \
 				init.c \
 				minimap/minimap.c

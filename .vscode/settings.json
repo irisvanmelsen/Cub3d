@@ -7,7 +7,10 @@
 		"cub3d.h": "c",
 		"libft.h": "c",
 		"random": "c",
-		"features.h": "c"
+		"features.h": "c",
+		"stdio.h": "c",
+		"math.h": "c",
+		"features-time64.h": "c"
 	},
 	"cmake.sourceDirectory": "/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/MLX42"
 }

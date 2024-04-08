@@ -256,7 +256,6 @@ void	set_initial_look_dirs(t_player *player, char dir_char);
 void	*mouse_move(double xpos, double ypos, void	*param);
 void	*escape(mlx_key_data_t keydata, void *param);
 void	cub3d_loop(void	*param);
-void	change_dir(void	*param);
 
 // RAYCAST.c
 
