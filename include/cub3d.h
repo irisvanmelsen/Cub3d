@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/02/12 16:50:31 by ivan-mel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
+/*   Updated: 2024/04/09 22:06:14 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef enum e_error
 	ERROR_MLX,
 	ERROR_IMAGE,
 	ERROR_ALLOCATION,
+	ERROR_LOAD,
 }	t_error;
 
 typedef enum e_identifier
@@ -95,10 +96,22 @@ typedef	struct s_vector
 
 typedef struct s_textures
 {
-	mlx_texture_t	*north;
-	mlx_texture_t	*south;
-	mlx_texture_t	*west;
-	mlx_texture_t	*east;
+	mlx_texture_t	*north_text;
+	mlx_texture_t	*south_text;
+	mlx_texture_t	*west_text;
+	mlx_texture_t	*east_text;
+	mlx_image_t		*north_text_img;
+	mlx_image_t		*south_text_img;
+	mlx_image_t		*east_text_img;
+	mlx_image_t		*west_text_img;
+	char			*north;
+	char			*south;
+	char			*west;
+	char			*east;
+	double			wallx;
+	int				texx;
+	int				used_tex;
+	int				side;
 	uint32_t		floor_colour;
 	uint32_t		ceiling_colour;
 
@@ -162,6 +175,8 @@ typedef struct s_raycast_data
 	t_cub3d	*data;
 
 	double	wallhit_co_ord;
+	t_textures	*textures;
+	t_player	*player;
 }	t_raycast_data;
 
 struct s_cub3d
@@ -172,12 +187,11 @@ struct s_cub3d
 	t_raycast_data		*raycast;
 	mlx_image_t			*background; //should be with textures imo
 	mlx_image_t			*wall;
-	// mlx_image_t			*minimap;
 	t_minimap			*minimap;
 	t_textures			textures;
 };
-//CUBED.C
 
+//CUBED.C
 
 int	cubed(int argc, char **argv);
 

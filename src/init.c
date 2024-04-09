@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/19 16:59:07 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2024/03/19 16:59:07 by mde-cloe      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/19 16:59:07 by mde-cloe          #+#    #+#             */
+/*   Updated: 2024/04/09 21:14:44 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void init_raycast_data(t_raycast_data *raycast, t_cub3d *data)
 	data->player.pos.y = (double)raycast->map->player_y;
 	data->player.data = data;
 	data->raycast = raycast;
+	load_textures_in(data);
 }
 
 void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast)

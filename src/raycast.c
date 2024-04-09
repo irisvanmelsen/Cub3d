@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   raycast.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/01 18:06:51 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2024/03/01 18:06:51 by mde-cloe      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   raycast.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/01 18:06:51 by mde-cloe          #+#    #+#             */
+/*   Updated: 2024/04/09 22:09:43 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 static t_vector	calc_delta_dist(t_vector raydir);
 static void	calc_side_dist(t_raycast_data *raycast, t_player *player);
+
+void	coordinate_on_textures(t_cub3d *cub3d)
+{
+	cub3d->textures.texx = (int)(cub3d->textures.wallx * (double)cub3d->textures.used_tex.width); // this has to be the texture you are using right now
+	if (cub3d->textures.side == 0 && cub3d->raycast->raydir.x > 0)
+		cub3d->textures.texx = cub3d->textures.used_tex->width - cub3d->textures.texx - 1;
+	if (cub3d->textures.side == 1 && cub3d->raycast->raydir.y < 0)
+		cub3d->textures.texx = cub3d->textures.used_tex->width - cub3d->texture.texx - 1;
+}
 
 void	raycaster(void *param)
 {
@@ -38,9 +47,15 @@ void	raycaster(void *param)
 		calc_side_dist(raycast, player);
 		keep_lookin(raycast);
 		if (raycast->side_hit == HORIZONTAL)
+		{
 			raycast->perp_dist = (raycast->side_distX - raycast->delta_dist.x);
+			raycast->textures->wallx = (raycast->raydir.y * raycast->perp_dist) + raycast->player->pos.y; //calculate value of wallx
+		}
 		else
+		{	
 			raycast->perp_dist = (raycast->side_distY - raycast->delta_dist.y);
+			raycast->textures->wallx = (raycast->raydir.x * raycast->perp_dist) + raycast->player->pos.x; //calculat evalue of wallx
+		}
 		draw_line(raycast, x);
 		x++;
 	}
