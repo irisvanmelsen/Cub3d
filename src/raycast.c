@@ -110,6 +110,14 @@ static void	calc_side_dist(t_raycast_data *raycast, t_player *player) //take ray
 	}
 }
 
+static double	calc_side_new(double raydir, double *stepdir)
+{
+	if (raydir < 0)
+	{
+		*stepdir = NEGATIVE;
+		return ();
+	}
+}
 
 void	draw_line(t_raycast_data *raycast, int x) //take perpdist and wall object
 {
