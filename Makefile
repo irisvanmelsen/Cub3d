@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: ivan-mel <ivan-mel@student.42.fr>            +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
-#    Updated: 2024/03/19 18:05:49 by ivan-mel      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: iris <iris@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
+#    Updated: 2024/04/11 20:51:45 by iris             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX			:=	./MLX42
 LIBS_MLX	:=	$(MLX)/build/libmlx42.a
 
 RM 			:=	rm -rf
-FLAGS 		:=  -g #-fsanitize=address
+FLAGS 		:=  -g -fsanitize=address
 SRC			:=	main.c \
 				parser/characters.c \
 				parser/error.c \
@@ -32,7 +32,8 @@ SRC			:=	main.c \
 				movement.c \
 				raycast.c \
 				init.c \
-				minimap/minimap.c
+				minimap/minimap.c \
+				textures.c
 # SRCB		:=
 
 #OBJB_FILES	=	${SRCB:.c=.o}
@@ -74,8 +75,8 @@ $(LIBS_MLX):
 
 ${NAME}: $(LIBS_MLX) ${LIBFT_A} ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
-#	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -L "/usr/local/Cellar/glfw/3.4/lib" -framework Cocoa -framework OpenGL -framework IOKit -o ${NAME}
+#	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
+	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -L "/usr/local/Cellar/glfw/3.4/lib" -framework Cocoa -framework OpenGL -framework IOKit -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_off}
 
 ${LIBFT_A}:

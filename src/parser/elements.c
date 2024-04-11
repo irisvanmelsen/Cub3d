@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 00:37:23 by iris              #+#    #+#             */
-/*   Updated: 2024/04/09 22:02:21 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:50:54 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,17 @@ void	load_element(t_cub3d *cub3d, char *path, int id)
 	//damn actuallyyy if we make the textures an array we can index
 	//directly into the ID enum
 	if (id == NO)
-		load_wall_img(path, &cub3d->textures.north);
+		// load_wall_img(path, &cub3d->textures.north_text);
+		cub3d->textures.north = path;
 	else if (id == SO)
-		load_wall_img(path, &cub3d->textures.south);
+		cub3d->textures.south = path;
+		// load_wall_img(path, &cub3d->textures.south_text);
 	else if (id == WE)
-		load_wall_img(path, &cub3d->textures.west);
+		cub3d->textures.west = path;
+		// load_wall_img(path, &cub3d->textures.west_text);
 	else if (id == EA)
-		load_wall_img(path, &cub3d->textures.east);
+		cub3d->textures.east = path;
+		// load_wall_img(path, &cub3d->textures.east);
 	else if (id == F || id == C)
 		parse_colours(path, id, &cub3d->textures);
 }
@@ -59,6 +63,7 @@ bool	load_wall_img(char *path, mlx_texture_t **texture)
 	*texture = mlx_load_png(path); //leaks.. mlx or us?
 	if (!*texture)
 		error_exit("loading path error", 1);
+	
 	return (true);
 }
 

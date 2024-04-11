@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:06:51 by mde-cloe          #+#    #+#             */
-/*   Updated: 2024/04/09 22:09:43 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:05:20 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,44 @@
 static t_vector	calc_delta_dist(t_vector raydir);
 static void	calc_side_dist(t_raycast_data *raycast, t_player *player);
 
-void	coordinate_on_textures(t_cub3d *cub3d)
+void	get_side_texture(t_raycast_data *ray, t_textures *texture)
 {
-	cub3d->textures.texx = (int)(cub3d->textures.wallx * (double)cub3d->textures.used_tex.width); // this has to be the texture you are using right now
-	if (cub3d->textures.side == 0 && cub3d->raycast->raydir.x > 0)
-		cub3d->textures.texx = cub3d->textures.used_tex->width - cub3d->textures.texx - 1;
-	if (cub3d->textures.side == 1 && cub3d->raycast->raydir.y < 0)
-		cub3d->textures.texx = cub3d->textures.used_tex->width - cub3d->texture.texx - 1;
+	if (ray->side_hit == VERTICAL)
+	{
+		if (ray->raydir.y > 0)
+			texture->used_tex = texture->north_text;
+		else
+			texture->used_tex = texture->south_text;
+	}
+	else if (ray->side_hit == HORIZONTAL)
+	{
+		if (ray->raydir.x > 0)
+			texture->used_tex = texture->west_text;
+		else
+			texture->used_tex = texture->east_text;
+	}
+}
+
+void	coordinate_on_textures(t_raycast_data *ray, t_textures *texture)
+{
+	texture->texx = (int)(texture->wallx * (double)texture->used_tex->width); // this has to be the texture you are using right now
+	if (ray->side_hit == HORIZONTAL && ray->raydir.x > 0)
+		texture->texx = texture->used_tex->width - texture->texx - 1;
+	if (ray->side_hit == VERTICAL && ray->raydir.y < 0)
+		texture->texx = texture->used_tex->width - texture->texx - 1;
 }
 
 void	raycaster(void *param)
 {
 	t_raycast_data	*raycast; // remove
 	t_player		*player;
+	t_textures		*texture;
 	t_vector	raydir;
 	t_vector	delta_dist;
 
 	raycast = (t_raycast_data *)param; //rm
 	player = &raycast->data->player;
+	texture = &raycast->data->textures;
 	int	x;
 	double cameraX;
 	x = 0;
@@ -49,14 +69,17 @@ void	raycaster(void *param)
 		if (raycast->side_hit == HORIZONTAL)
 		{
 			raycast->perp_dist = (raycast->side_distX - raycast->delta_dist.x);
-			raycast->textures->wallx = (raycast->raydir.y * raycast->perp_dist) + raycast->player->pos.y; //calculate value of wallx
+			texture->wallx = (raycast->raydir.y * raycast->perp_dist) + player->pos.y; //calculate value of wallx
 		}
 		else
 		{	
 			raycast->perp_dist = (raycast->side_distY - raycast->delta_dist.y);
-			raycast->textures->wallx = (raycast->raydir.x * raycast->perp_dist) + raycast->player->pos.x; //calculat evalue of wallx
+			texture->wallx = (raycast->raydir.x * raycast->perp_dist) + player->pos.x; //calculate value of wallx
 		}
-		draw_line(raycast, x);
+		texture->wallx -= floor(texture->wallx);
+		get_side_texture(raycast, texture);
+		coordinate_on_textures(raycast, texture);
+		draw_line(raycast, x, texture);
 		x++;
 	}
 }
@@ -125,21 +148,26 @@ static void	calc_side_dist(t_raycast_data *raycast, t_player *player) //take ray
 	}
 }
 
-
-void	draw_line(t_raycast_data *raycast, int x) //take perpdist and wall object
+void	draw_line(t_raycast_data *raycast, int x, t_textures *texture) //take perpdist and wall object
 {
 	long	draw_start;
 	long	draw_end;
 	int	lineheight = (int)HEIGHT / raycast->perp_dist;
+	uint32_t colour;
 
 	draw_start = -lineheight / 2 + HEIGHT / 2;
 	if(draw_start < 0)
 		draw_start = 0;
 	draw_end = lineheight / 2 + HEIGHT / 2;
+	raycast->player->step = 1.0 * texture->used_tex->height / lineheight;
+	texture->tex_pos = (draw_start - HEIGHT / 2 + lineheight / 2) * raycast->player->step;
 	if(draw_end >= HEIGHT)
 	  	draw_end = HEIGHT - 1;
 	while (draw_start < draw_end)
 	{
+		texture->texture_y = (int)texture->tex_pos & (texture->used_tex->height - 1);
+		texture->tex_pos += raycast->player->step;
+		colour = texture_colours(texture, x, draw_start, colour);
 		mlx_put_pixel(raycast->data->wall, x, draw_start, get_rgba(0, 255, 0, 255));
 		draw_start++;
 	}

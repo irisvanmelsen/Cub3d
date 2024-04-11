@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_setup.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 15:04:45 by ivan-mel      #+#    #+#                 */
-/*   Updated: 2024/03/19 19:11:55 by ivan-mel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_setup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
+/*   Updated: 2024/04/11 21:26:57 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	game_setup(t_cub3d *cub3d)
 {
-
-
 	mlx_image_setup(cub3d);
 	init_raycast_data(cub3d->raycast, cub3d);
 	raycaster(cub3d->raycast);
