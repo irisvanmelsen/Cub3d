@@ -143,22 +143,15 @@ typedef struct s_raycast_data
 {
 	t_vector	raydir;
 	t_vector	delta_dist;
+	t_vector	side_dist;
 
-	double	eucli_distX;
-	double	eucli_distY;
 	double	perp_dist;
-
-	double	side_distX;
-	double	side_distY;
 
 	int		stepX;
 	int		stepY;
-
 	int		mapX;
 	int		mapY;
-
 	int		side_hit;
-	t_map	*map;
 	t_cub3d	*data;
 
 	double	wallhit_co_ord;
