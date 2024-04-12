@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:06:51 by mde-cloe          #+#    #+#             */
-/*   Updated: 2024/04/11 23:05:20 by iris             ###   ########.fr       */
+/*   Updated: 2024/04/12 22:15:15 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	raycaster(void *param)
 		cameraX = 2 * (x / (double)WIDTH) - 1;
 		raycast->mapX = player->pos.x;
 		raycast->mapY = player->pos.y;
+		printf("do I get here?\n");
 		raycast->raydir.x = player->dir.x + player->plane.x * cameraX;
 		raycast->raydir.y = player->dir.y + player->plane.y * cameraX;
 		raycast->delta_dist = calc_delta_dist(raycast->raydir);
@@ -154,21 +155,21 @@ void	draw_line(t_raycast_data *raycast, int x, t_textures *texture) //take perpd
 	long	draw_end;
 	int	lineheight = (int)HEIGHT / raycast->perp_dist;
 	uint32_t colour;
-
 	draw_start = -lineheight / 2 + HEIGHT / 2;
 	if(draw_start < 0)
 		draw_start = 0;
 	draw_end = lineheight / 2 + HEIGHT / 2;
-	raycast->player->step = 1.0 * texture->used_tex->height / lineheight;
-	texture->tex_pos = (draw_start - HEIGHT / 2 + lineheight / 2) * raycast->player->step;
+
+	raycast->step = 1.0 * texture->used_tex->height / lineheight;
+	texture->tex_pos = (draw_start - HEIGHT / 2 + lineheight / 2) * raycast->step;
 	if(draw_end >= HEIGHT)
 	  	draw_end = HEIGHT - 1;
 	while (draw_start < draw_end)
 	{
 		texture->texture_y = (int)texture->tex_pos & (texture->used_tex->height - 1);
-		texture->tex_pos += raycast->player->step;
-		colour = texture_colours(texture, x, draw_start, colour);
-		mlx_put_pixel(raycast->data->wall, x, draw_start, get_rgba(0, 255, 0, 255));
+		texture->tex_pos += raycast->step;
+		colour = texture_colours(texture, x, draw_start, 0);
+		mlx_put_pixel(raycast->data->wall, x, draw_start, colour);
 		draw_start++;
 	}
 }

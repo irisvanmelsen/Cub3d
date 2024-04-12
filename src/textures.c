@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:45:45 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/04/11 22:55:30 by iris             ###   ########.fr       */
+/*   Updated: 2024/04/12 22:13:17 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ uint32_t texture_colours(t_textures *texture, double x, double y, int colour)
 	int	index;
 	uint8_t *pixels;
 
-	x = (int)x + colour;
-	y = (int)y;
-    index = (int_y * texture->used_tex.width + int_x) * texture->used_tex.bytes_per_pixel;
-    pixels = texture->used_tex.pixels;
+	int_x = (int)x + colour;
+	int_y = (int)y;
+    index = (int_y * texture->used_tex->width + int_x) * texture->used_tex->bytes_per_pixel;
+    pixels = texture->used_tex->pixels;
 
     // Extract RGBA components directly
     texture->r = pixels[index];

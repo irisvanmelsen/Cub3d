@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/04/11 23:01:52 by iris             ###   ########.fr       */
+/*   Updated: 2024/04/12 22:03:40 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ typedef struct s_player
 	t_vector	pos;
 	t_cub3d	*data;
 
-	double		step;
 	t_vector	dir;
 	t_vector	plane;
 
@@ -177,6 +176,7 @@ typedef struct s_raycast_data
 	int		mapX;
 	int		mapY;
 
+	double	step;
 	int		side_hit;
 	t_map	*map;
 	t_cub3d	*data;
