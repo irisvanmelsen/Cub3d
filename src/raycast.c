@@ -78,7 +78,7 @@ void	raycaster(void *param)
 			texture->wallx = player->pos.x + raycast->raydir.x * raycast->perp_dist; //calculate value of wallx
 		}
 		texture->wallx -= floor(texture->wallx);
-		printf("WALL X = %d\n", texture->wallx); //calculate value of wallx
+		printf("WALL X = %f \n", texture->wallx); //calculate value of wallx
 		get_side_texture(raycast, texture);
 		coordinate_on_textures(raycast, texture);
 		draw_line(raycast, x, texture);
@@ -156,19 +156,17 @@ void	draw_line(t_raycast_data *raycast, int x, t_textures *texture) //take perpd
 	long	draw_end;
 	int	lineheight = (int)HEIGHT / raycast->perp_dist;
 	uint32_t colour;
-	draw_start = -lineheight / 2 + HEIGHT / 2;
+	draw_start = -lineheight / 2 + HALF_HEIGHT;
 	if(draw_start < 0)
 		draw_start = 0;
-	draw_end = lineheight / 2 + HEIGHT / 2;
-
-	raycast->step = (1.0 * texture->used_tex->height / lineheight);
-	texture->tex_pos = (draw_start - (HEIGHT / 2) + (lineheight / 2)) * raycast->step;
-	//texture->tex_pos = HEIGHT;
+	draw_end = lineheight / 2 + HALF_HEIGHT;
 	if(draw_end >= HEIGHT)
 	  	draw_end = HEIGHT - 1;
+
+	raycast->step = (1.0 * texture->used_tex->height / lineheight);
+	texture->tex_pos = (draw_start - (HALF_HEIGHT) + (lineheight / 2)) * raycast->step;
+	//texture->tex_pos = HEIGHT;
 	//&& (x > 0 && x < WIDTH) && (draw_start < HEIGHT && draw_start > 0)
-	if (draw_start < 0)
-		draw_start = 0;
 	while (draw_start < draw_end && draw_start < HEIGHT)
 	{
 		texture->texture_y = (int)texture->tex_pos & (texture->used_tex->height - 1); //?

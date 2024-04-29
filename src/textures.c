@@ -35,20 +35,20 @@ uint32_t texture_colours(t_textures *texture, double x, double y, int colour)
 	int	index;
 	uint8_t *pixels;
 
-	int_x = (int)x + colour;
+	int_x = (int)x;
 	int_y = (int)y;
     index = (int_y * texture->used_tex->width + int_x) * texture->used_tex->bytes_per_pixel;
     pixels = texture->used_tex->pixels;
 
     // Extract RGBA components directly
 	// if (index + 2 > sizeof(pi)
-    texture->r = pixels[index];
-    texture->g = pixels[index + 1];
-    texture->b = pixels[index + 2];
+    texture->r = texture->used_tex->pixels[index];
+    texture->g = texture->used_tex->pixels[index + 1];
+    texture->b = texture->used_tex->pixels[index + 2];
+    texture->a = pixels[index + 3];
     // texture->r = 255;
     // texture->g = 0;
     // texture->b = 255;
-    texture->a = 255;
 
     return get_rgba(texture->r, texture->g, texture->b, texture->a);
 }
