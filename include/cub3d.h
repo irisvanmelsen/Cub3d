@@ -163,27 +163,18 @@ typedef struct s_raycast_data
 {
 	t_vector	raydir;
 	t_vector	delta_dist;
-
-	double	eucli_distX;
-	double	eucli_distY;
-	double	perp_dist;
-
-	double	side_distX;
-	double	side_distY;
-
-	int		stepX;
-	int		stepY;
-
-	int		mapX;
-	int		mapY;
-
-	double	step;
-	int		side_hit;
-	t_map	*map;
-	t_cub3d	*data;
+	double		perp_dist;
+	double		side_distX;
+	double		side_distY;
+	int			map_stepdir_X;
+	int			map_stepdir_Y;
+	int			mapX;
+	int			mapY;
+	double		step;
+	int			side_hit;
+	t_map		*map;
+	t_cub3d		*data;
 	t_textures	*textures;
-
-	double	wallhit_co_ord;
 	t_textures	*texture;
 	t_player	*player;
 }	t_raycast_data;
@@ -281,17 +272,19 @@ void	*mouse_move(double xpos, double ypos, void	*param);
 void	*escape(mlx_key_data_t keydata, void *param);
 void	cub3d_loop(void	*param);
 
-// RAYCAST.c
+////////RAYCASTING///////////////////
 
-void	raycaster(void *param);
-void	keep_lookin(t_raycast_data *raycast);
-
-void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
+void		raycaster(void *param);
+void		keep_lookin(t_raycast_data *raycast);
+t_vector	calc_delta_dist(t_vector raydir);
+void		init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
+double		calc_perp_dist_and_wallX(t_raycast_data *raycast, t_player *player);
+void	calc_side_dist(t_raycast_data *raycast, t_player *player);
 
 //MINIMAP.C
 
-bool	start_minimap(t_cub3d *cub3d);
-char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
+bool		start_minimap(t_cub3d *cub3d);
+char		**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
 
 //TEXTURES.C
 

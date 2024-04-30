@@ -11,11 +11,18 @@
 # **************************************************************************** #
 
 NAME 		:= 	cub3d
-LIBFT_A		:=	./libft/libft.a
-HEADER		:=	-I libft/include -I include/ -I MLX42/include/MLX42
-#MLX
+HEADER		:=	-I libft/include -Iinclude/ -I MLX42/include/MLX42
 MLX			:=	./MLX42
-LIBS_MLX	:=	$(MLX)/build/libmlx42.a
+MLX_A	:=	$(MLX)/build/libmlx42.a
+LIBFT_A		:=	./libft/libft.a
+
+OS_NAME	:= $(shell uname -s)
+ifeq ($(OS_NAME), Darwin)
+LIB_FLAGS := -lglfw -L "/usr/local/Cellar/glfw/3.4/lib" -framework Cocoa \
+	-framework OpenGL -framework IOKit
+else
+LIB_FLAGS := -lglfw -ldl -pthread -lm
+endif
 
 RM 			:=	rm -rf
 FLAGS 		:=  -g -fsanitize=address
@@ -33,8 +40,8 @@ SRC			:=	main.c \
 				raycast.c \
 				init.c \
 				minimap/minimap.c \
-				textures.c
-# SRCB		:=
+				textures.c \
+				calculations.c \
 
 #OBJB_FILES	=	${SRCB:.c=.o}
 OBJ_DIR		:=	./obj
@@ -67,16 +74,15 @@ all: ${NAME}
 run: $(NAME)
 	./$(NAME) maps/map_test.cub
 
-$(LIBS_MLX):
+$(MLX_A):
 	@if [ -z "$$(ls -A MLX42)" ]; then \
 		git clone https://github.com/codam-coding-college/MLX42.git; \
 	fi
 	@cmake $(MLX) -B $(MLX)/build && make -C $(MLX)/build
 
-${NAME}: $(LIBS_MLX) ${LIBFT_A} ${OBJ}
+${NAME}: $(MLX_A) ${LIBFT_A} ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
-#  @${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -L "/usr/local/Cellar/glfw/3.4/lib" -framework Cocoa -framework OpenGL -framework IOKit -o ${NAME}
+	@${CC} $^ ${LIBFT_A} ${MLX_A} ${FLAGS} ${LIB_FLAGS} -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_off}
 
 ${LIBFT_A}:
