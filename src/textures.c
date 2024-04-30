@@ -42,9 +42,9 @@ uint32_t texture_colours(t_textures *texture, double x, double y, int colour)
 
     // Extract RGBA components directly
 	// if (index + 2 > sizeof(pi)
-    texture->r = texture->used_tex->pixels[index];
-    texture->g = texture->used_tex->pixels[index + 1];
-    texture->b = texture->used_tex->pixels[index + 2];
+    texture->r = pixels[index];
+    texture->g = pixels[index + 1];
+    texture->b = pixels[index + 2];
     texture->a = pixels[index + 3];
     // texture->r = 255;
     // texture->g = 0;

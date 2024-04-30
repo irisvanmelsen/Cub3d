@@ -35,8 +35,7 @@ void	get_side_texture(t_raycast_data *ray, t_textures *texture)
 
 void	coordinate_on_textures(t_raycast_data *ray, t_textures *texture)
 {
-	texture->texx = ((int)texture->wallx * (double)texture->used_tex->width); // this has to be the texture you are using right now
-	printf("texx : %d\n", texture->texx);
+	texture->texx = (int)(texture->wallx * (double)texture->used_tex->width); // this has to be the texture you are using right now
 	if (ray->side_hit == HORIZONTAL && ray->raydir.x > 0)
 		texture->texx = texture->used_tex->width - texture->texx - 1; //same??
 	if (ray->side_hit == VERTICAL && ray->raydir.y < 0)
@@ -45,7 +44,7 @@ void	coordinate_on_textures(t_raycast_data *ray, t_textures *texture)
 
 void	raycaster(void *param)
 {
-	t_raycast_data	*raycast; // remove
+	t_raycast_data	*raycast;
 	t_player		*player;
 	t_textures		*texture;
 	t_vector	raydir;
@@ -60,8 +59,8 @@ void	raycaster(void *param)
 	while (x < WIDTH)
 	{
 		cameraX = 2 * (x / (double)WIDTH) - 1;
-		raycast->mapX = player->pos.x;
-		raycast->mapY = player->pos.y;
+		raycast->mapX = (int)player->pos.x;
+		raycast->mapY = (int)player->pos.y;
 		raycast->raydir.x = player->dir.x + player->plane.x * cameraX;
 		raycast->raydir.y = player->dir.y + player->plane.y * cameraX;
 		raycast->delta_dist = calc_delta_dist(raycast->raydir);
@@ -70,15 +69,14 @@ void	raycaster(void *param)
 		if (raycast->side_hit == HORIZONTAL)
 		{
 			raycast->perp_dist = (raycast->side_distX - raycast->delta_dist.x);
-			texture->wallx = player->pos.y + raycast->raydir.y * raycast->perp_dist;
+			texture->wallx = player->pos.y + raycast->perp_dist * raycast->raydir.y;
 		}
 		else
 		{
 			raycast->perp_dist = (raycast->side_distY - raycast->delta_dist.y);
-			texture->wallx = player->pos.x + raycast->raydir.x * raycast->perp_dist; //calculate value of wallx
+			texture->wallx = player->pos.x + raycast->perp_dist * raycast->raydir.x; //calculate value of wallx
 		}
-		texture->wallx -= floor(texture->wallx);
-		printf("WALL X = %f \n", texture->wallx); //calculate value of wallx
+		texture->wallx -= floor(texture->wallx); //double check?
 		get_side_texture(raycast, texture);
 		coordinate_on_textures(raycast, texture);
 		draw_line(raycast, x, texture);
@@ -93,7 +91,7 @@ void	keep_lookin(t_raycast_data *raycast)
 		if (raycast->side_distX < raycast->side_distY)
 		{
 			raycast->side_distX += raycast->delta_dist.x;
-			raycast->mapX += raycast->stepX;
+			raycast->mapX += raycast->stepX; //rename step to mapdir?
 			raycast->side_hit = HORIZONTAL;
 		}
 		else
