@@ -80,13 +80,13 @@ void	keep_lookin(t_raycast_data *raycast)
 	{
 		if (raycast->side_dist.x < raycast->side_dist.y)
 		{
-			raycast->side_distX += raycast->delta_dist.x;
+			raycast->side_dist.x += raycast->delta_dist.x;
 			raycast->mapX += raycast->map_stepdir_X; //rename step to mapdir?
 			raycast->side_hit = HORIZONTAL;
 		}
 		else
 		{
-			raycast->side_distY += raycast->delta_dist.y;
+			raycast->side_dist.y += raycast->delta_dist.y;
 			raycast->mapY += raycast->map_stepdir_Y;
 			raycast->side_hit = VERTICAL;
 		}

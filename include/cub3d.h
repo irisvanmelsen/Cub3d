@@ -163,9 +163,8 @@ typedef struct s_raycast_data
 {
 	t_vector	raydir;
 	t_vector	delta_dist;
+	t_vector	side_dist;
 	double		perp_dist;
-	double		side_distX;
-	double		side_distY;
 	int			map_stepdir_X;
 	int			map_stepdir_Y;
 	int			mapX;

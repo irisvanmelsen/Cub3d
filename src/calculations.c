@@ -42,12 +42,12 @@ double	calc_perp_dist_and_wallX(t_raycast_data *raycast, t_player *player)
 
 	if (raycast->side_hit == HORIZONTAL)
 		{
-			raycast->perp_dist = (raycast->side_distX - raycast->delta_dist.x);
+			raycast->perp_dist = (raycast->side_dist.x - raycast->delta_dist.x);
 			wallx = player->pos.y + raycast->perp_dist * raycast->raydir.y;
 		}
 		else
 		{
-			raycast->perp_dist = (raycast->side_distY - raycast->delta_dist.y);
+			raycast->perp_dist = (raycast->side_dist.y - raycast->delta_dist.y);
 			wallx = player->pos.x + raycast->perp_dist * raycast->raydir.x;
 		}
 		return (wallx -= floor(wallx));
@@ -61,21 +61,21 @@ void	calc_side_dist(t_raycast_data *raycast, t_player *player) //take raydir
 	if (raycast->raydir.x < 0)
 	{
 		raycast->map_stepdir_X = NEGATIVE;
-		raycast->side_distX = (player->pos.x - raycast->mapX) * raycast->delta_dist.x;
+		raycast->side_dist.x = (player->pos.x - raycast->mapX) * raycast->delta_dist.x;
 	}
 	else
 	{
 		raycast->map_stepdir_X = POSITIVE;
-		raycast->side_distX =(raycast->mapX+ 1.0 - player->pos.x) * raycast->delta_dist.x;
+		raycast->side_dist.x =(raycast->mapX+ 1.0 - player->pos.x) * raycast->delta_dist.x;
 	}
 	if (raycast->raydir.y < 0)
 	{
 		raycast->map_stepdir_Y = NEGATIVE;
-		raycast->side_distY =(player->pos.y - raycast->mapY) * raycast->delta_dist.y;
+		raycast->side_dist.y =(player->pos.y - raycast->mapY) * raycast->delta_dist.y;
 	}
 	else
 	{
 		raycast->map_stepdir_Y = POSITIVE;
-		raycast->side_distY =(raycast->mapY + 1.0 -  player->pos.y) * raycast->delta_dist.y;
+		raycast->side_dist.y =(raycast->mapY + 1.0 -  player->pos.y) * raycast->delta_dist.y;
 	}
 }
