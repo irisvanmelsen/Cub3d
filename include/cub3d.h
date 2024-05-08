@@ -95,6 +95,12 @@ typedef	struct s_vector
 	double y;
 }	t_vector;
 
+typedef	struct s_int_vector
+{
+	int x;
+	int y;
+}	t_int_vector;
+
 typedef struct s_textures
 {
 	mlx_texture_t	*north_text; // these are here to load to png
@@ -164,11 +170,9 @@ typedef struct s_raycast_data
 	t_vector	raydir;
 	t_vector	delta_dist;
 	t_vector	side_dist;
+	t_int_vector	map_stepdir;
+	t_int_vector	maptile;
 	double		perp_dist;
-	int			map_stepdir_X;
-	int			map_stepdir_Y;
-	int			mapX;
-	int			mapY;
 	double		step;
 	int			side_hit;
 	t_map		*map;

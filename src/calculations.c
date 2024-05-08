@@ -60,22 +60,22 @@ void	calc_side_dist(t_raycast_data *raycast, t_player *player) //take raydir
 {
 	if (raycast->raydir.x < 0)
 	{
-		raycast->map_stepdir_X = NEGATIVE;
-		raycast->side_dist.x = (player->pos.x - raycast->mapX) * raycast->delta_dist.x;
+		raycast->map_stepdir.x = NEGATIVE;
+		raycast->side_dist.x = (player->pos.x - raycast->maptile.x) * raycast->delta_dist.x;
 	}
 	else
 	{
-		raycast->map_stepdir_X = POSITIVE;
-		raycast->side_dist.x =(raycast->mapX+ 1.0 - player->pos.x) * raycast->delta_dist.x;
+		raycast->map_stepdir.x = POSITIVE;
+		raycast->side_dist.x =(raycast->maptile.x+ 1.0 - player->pos.x) * raycast->delta_dist.x;
 	}
 	if (raycast->raydir.y < 0)
 	{
-		raycast->map_stepdir_Y = NEGATIVE;
-		raycast->side_dist.y =(player->pos.y - raycast->mapY) * raycast->delta_dist.y;
+		raycast->map_stepdir.y = NEGATIVE;
+		raycast->side_dist.y =(player->pos.y - raycast->maptile.y) * raycast->delta_dist.y;
 	}
 	else
 	{
-		raycast->map_stepdir_Y = POSITIVE;
-		raycast->side_dist.y =(raycast->mapY + 1.0 -  player->pos.y) * raycast->delta_dist.y;
+		raycast->map_stepdir.y = POSITIVE;
+		raycast->side_dist.y =(raycast->maptile.y + 1.0 -  player->pos.y) * raycast->delta_dist.y;
 	}
 }

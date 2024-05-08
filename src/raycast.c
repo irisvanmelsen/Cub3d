@@ -55,15 +55,15 @@ void	raycaster(void *param)
 	while (x < WIDTH)
 	{
 		cameraX = 2 * (x / (double)WIDTH) - 1;
-		raycast->mapX = (int)player->pos.x;
-		raycast->mapY = (int)player->pos.y;
+		raycast->maptile.x = (int)player->pos.x;
+		raycast->maptile.y = (int)player->pos.y;
 		raycast->raydir.x = player->dir.x + player->plane.x * cameraX;
 		raycast->raydir.y = player->dir.y + player->plane.y * cameraX;
 		raycast->delta_dist = calc_delta_dist(raycast->raydir);
 		// raycast->side_dist.x = calc_side_dist_new(raycast->raydir.x,\
-		// 				 player->pos.x, raycast->mapX, raycast->delta_dist.x);
+		// 				 player->pos.x, raycast->maptile.x, raycast->delta_dist.x);
 		// raycast->side_dist.y = calc_side_dist_new(raycast->raydir.y,\
-		// 				 player->pos.y, raycast->mapY, raycast->delta_dist.y);
+		// 				 player->pos.y, raycast->maptile.y, raycast->delta_dist.y);
 		calc_side_dist(raycast, player);
 		keep_lookin(raycast);
 		texture->wallx = calc_perp_dist_and_wallX(raycast, player);
@@ -81,16 +81,16 @@ void	keep_lookin(t_raycast_data *raycast)
 		if (raycast->side_dist.x < raycast->side_dist.y)
 		{
 			raycast->side_dist.x += raycast->delta_dist.x;
-			raycast->mapX += raycast->map_stepdir_X; //rename step to mapdir?
+			raycast->maptile.x += raycast->map_stepdir.x; //rename step to mapdir?
 			raycast->side_hit = HORIZONTAL;
 		}
 		else
 		{
 			raycast->side_dist.y += raycast->delta_dist.y;
-			raycast->mapY += raycast->map_stepdir_Y;
+			raycast->maptile.y += raycast->map_stepdir.y;
 			raycast->side_hit = VERTICAL;
 		}
-		if (raycast->data->map->content[raycast->mapY][raycast->mapX] == '1')
+		if (raycast->data->map->content[raycast->maptile.y][raycast->maptile.x] == '1')
 			break;
 	}
 }
