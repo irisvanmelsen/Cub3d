@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   player_setup.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 20:22:02 by iris          #+#    #+#                 */
-/*   Updated: 2024/02/02 21:26:14 by iris          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   player_setup.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 20:22:02 by iris              #+#    #+#             */
+/*   Updated: 2024/04/09 21:35:27 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 // the plane is the camera plane that represents the screen and it always runs
 // perpendicular to our dir
 void	set_initial_look_dirs(t_player *player, char dir_char)
-{
+{	
 	if (dir_char == 'N')
 	{
 		player->dir.x = 0;

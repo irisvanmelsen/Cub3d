@@ -3,22 +3,29 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: ivan-mel <ivan-mel@student.42.fr>            +#+                      #
+#    By: iris <iris@student.42.fr>                    +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
-#    Updated: 2024/03/19 18:05:49 by ivan-mel      ########   odam.nl          #
+#    Updated: 2024/04/11 20:51:45 by iris          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		:= 	cub3d
-LIBFT_A		:=	./libft/libft.a
-HEADER		:=	-I libft/include -I include/ -I MLX42/include/MLX42
-#MLX
+HEADER		:=	-I libft/include -Iinclude/ -I MLX42/include/MLX42
 MLX			:=	./MLX42
-LIBS_MLX	:=	$(MLX)/build/libmlx42.a
+MLX_A	:=	$(MLX)/build/libmlx42.a
+LIBFT_A		:=	./libft/libft.a
+
+OS_NAME	:= $(shell uname -s)
+ifeq ($(OS_NAME), Darwin)
+LIB_FLAGS := -lglfw -L "/usr/local/Cellar/glfw/3.4/lib" -framework Cocoa \
+	-framework OpenGL -framework IOKit
+else
+LIB_FLAGS := -lglfw -ldl -pthread -lm
+endif
 
 RM 			:=	rm -rf
-FLAGS 		:=  -g #-fsanitize=address
+FLAGS 		:=  -g -fsanitize=address
 SRC			:=	main.c \
 				parser/characters.c \
 				parser/error.c \
@@ -32,8 +39,9 @@ SRC			:=	main.c \
 				movement.c \
 				raycast.c \
 				init.c \
-				minimap/minimap.c
-# SRCB		:=
+				minimap/minimap.c \
+				textures.c \
+				calculations.c \
 
 #OBJB_FILES	=	${SRCB:.c=.o}
 OBJ_DIR		:=	./obj
@@ -66,16 +74,15 @@ all: ${NAME}
 run: $(NAME)
 	./$(NAME) maps/map_test.cub
 
-$(LIBS_MLX):
+$(MLX_A):
 	@if [ -z "$$(ls -A MLX42)" ]; then \
 		git clone https://github.com/codam-coding-college/MLX42.git; \
 	fi
 	@cmake $(MLX) -B $(MLX)/build && make -C $(MLX)/build
 
-${NAME}: $(LIBS_MLX) ${LIBFT_A} ${OBJ}
+${NAME}: $(MLX_A) ${LIBFT_A} ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -ldl -pthread -lm -o ${NAME}
-#	@${CC} $^ ${LIBFT_A} ${LIBS_MLX} ${FLAGS} -Iinclude -lglfw -L "/usr/local/Cellar/glfw/3.4/lib" -framework Cocoa -framework OpenGL -framework IOKit -o ${NAME}
+	@${CC} $^ ${LIBFT_A} ${MLX_A} ${FLAGS} ${LIB_FLAGS} -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_off}
 
 ${LIBFT_A}:

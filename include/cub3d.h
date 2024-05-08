@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cub3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/02/12 16:50:31 by ivan-mel      ########   odam.nl         */
+/*   Updated: 2024/04/12 22:03:40 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 // SCREEN
 # define HEIGHT 1200
+#define HALF_HEIGHT HEIGHT / 2
 # define WIDTH 1800
 
 // MINIMAP
@@ -61,6 +62,7 @@ typedef enum e_error
 	ERROR_MLX,
 	ERROR_IMAGE,
 	ERROR_ALLOCATION,
+	ERROR_LOAD,
 }	t_error;
 
 typedef enum e_identifier
@@ -95,12 +97,30 @@ typedef	struct s_vector
 
 typedef struct s_textures
 {
-	mlx_texture_t	*north;
-	mlx_texture_t	*south;
-	mlx_texture_t	*west;
-	mlx_texture_t	*east;
+	mlx_texture_t	*north_text; // these are here to load to png
+	mlx_texture_t	*south_text; // .
+	mlx_texture_t	*west_text; // .
+	mlx_texture_t	*east_text; // .
+	mlx_image_t		*north_text_img;
+	mlx_image_t		*south_text_img;
+	mlx_image_t		*east_text_img;
+	mlx_image_t		*west_text_img;
+	char			*north;
+	char			*south;
+	char			*west;
+	char			*east;
+	double			tex_pos;
+	double			wallx;
+	int				texx;
+	mlx_texture_t	*used_tex;
+	int				side;
 	uint32_t		floor_colour;
 	uint32_t		ceiling_colour;
+	int				texture_y;
+	uint8_t			r;
+	uint8_t			g;
+	uint8_t			b;
+	uint8_t			a;
 
 }	t_textures;
 
@@ -143,18 +163,20 @@ typedef struct s_raycast_data
 {
 	t_vector	raydir;
 	t_vector	delta_dist;
-	t_vector	side_dist;
-
-	double	perp_dist;
-
-	int		stepX;
-	int		stepY;
-	int		mapX;
-	int		mapY;
-	int		side_hit;
-	t_cub3d	*data;
-
-	double	wallhit_co_ord;
+	double		perp_dist;
+	double		side_distX;
+	double		side_distY;
+	int			map_stepdir_X;
+	int			map_stepdir_Y;
+	int			mapX;
+	int			mapY;
+	double		step;
+	int			side_hit;
+	t_map		*map;
+	t_cub3d		*data;
+	t_textures	*textures;
+	t_textures	*texture;
+	t_player	*player;
 }	t_raycast_data;
 
 struct s_cub3d
@@ -165,16 +187,16 @@ struct s_cub3d
 	t_raycast_data		*raycast;
 	mlx_image_t			*background; //should be with textures imo
 	mlx_image_t			*wall;
-	// mlx_image_t			*minimap;
 	t_minimap			*minimap;
 	t_textures			textures;
 };
-//CUBED.C
 
+//CUBED.C
 
 int	cubed(int argc, char **argv);
 
 //init.c
+void 	init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
 void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast);
 
 
@@ -237,7 +259,7 @@ int		background_setup(mlx_image_t *background);
 void	mlx_window_setup();
 int		mlx_image_setup(t_cub3d *cub3d);
 void	game_setup(t_cub3d *cub3d);
-void	draw_line(t_raycast_data *raycast, int x);
+void	draw_line(t_raycast_data *raycast, int x, t_textures *texture);
 
 //PLAYER_SETUP.C
 
@@ -250,16 +272,23 @@ void	*mouse_move(double xpos, double ypos, void	*param);
 void	*escape(mlx_key_data_t keydata, void *param);
 void	cub3d_loop(void	*param);
 
-// RAYCAST.c
+////////RAYCASTING///////////////////
 
-void	raycaster(void *param);
-void	keep_lookin(t_raycast_data *raycast);
-
-void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
+void		raycaster(void *param);
+void		keep_lookin(t_raycast_data *raycast);
+t_vector	calc_delta_dist(t_vector raydir);
+void		init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
+double		calc_perp_dist_and_wallX(t_raycast_data *raycast, t_player *player);
+void	calc_side_dist(t_raycast_data *raycast, t_player *player);
 
 //MINIMAP.C
 
-bool	start_minimap(t_cub3d *cub3d);
-char	**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
+bool		start_minimap(t_cub3d *cub3d);
+char		**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
+
+//TEXTURES.C
+
+void		load_textures_in(t_cub3d *cub3d);
+uint32_t	texture_colours(t_textures *texture, double x, double y, int colour);
 
 #endif
