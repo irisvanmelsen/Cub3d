@@ -12,6 +12,25 @@
 
 #include "../include/cub3d.h"
 
+void	free_all(t_cub3d *data)
+{
+	// if (data->map)
+	if (data->map->file_content)
+		free_array(data->map->file_content);
+	if (data->map->content)
+		free(data->map->content);
+	if (data->map->dup_content)
+		free_array(data->map->dup_content);
+	if (data->minimap->mm_array)
+		//should array not be saved to update map?
+	if (data->minimap)
+		free(data->minimap);
+	free(data->textures.north_text);
+	free(data->textures.east_text);
+	free(data->textures.south_text);
+	free(data->textures.west_text);
+}
+
 int	main(int argc, char **argv)
 {
 	if (!cubed(argc, argv))
@@ -31,5 +50,7 @@ int	cubed(int argc, char **argv)
 	game_setup(&cub3d);
 	// start_minimap(&cub3d);
 	// mlx_terminate(cub3d.mlx);
+	free_all(&cub3d);
+
 	return (1);
 }
