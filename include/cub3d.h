@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/04/12 22:03:40 by iris          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
+/*   Updated: 2024/05/09 14:02:43 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,10 @@ typedef struct s_minimap
 	mlx_t		*mlx;
 	char		**og_map;
 	int			scaler;
+	int			mm_height;
+	int			map_height;
 	t_cub3d		*cub3d;
+	uint32_t	colour;
 } t_minimap;
 
 typedef struct s_raycast_data
@@ -287,7 +290,7 @@ void	calc_side_dist(t_raycast_data *raycast, t_player *player);
 //MINIMAP.C
 
 bool		start_minimap(t_cub3d *cub3d);
-char		**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
+char		**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d);
 
 //TEXTURES.C
 
