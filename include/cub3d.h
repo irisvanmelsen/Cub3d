@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
-/*   Updated: 2024/05/09 14:02:43 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:09:30 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,9 +292,21 @@ void	calc_side_dist(t_raycast_data *raycast, t_player *player);
 bool		start_minimap(t_cub3d *cub3d);
 char		**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d);
 
+//MINIMAP_IMAGES.C
+
+void	fill_the_image(t_minimap *minimap, int x, int y);
+void	fill_colours(char **mm_array, t_minimap *minimap, int y, int x);
+void	fill_wall_backgr(char **mm_array, t_minimap *minimap);
+void	setup_border(t_minimap *minimap);
+void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
+		int y);
+
 //TEXTURES.C
 
-void		load_textures_in(t_cub3d *cub3d);
-uint32_t	texture_colours(t_textures *texture, double x, double y, int colour);
+void	init_minimap(t_cub3d *cub3d);
+int		calc_height_minimap(char **mini_map);
+char	**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d);
+void	load_textures_in(t_cub3d *cub3d);
+uint32_t texture_colours(t_textures *texture, double x, double y, int colour);
 
 #endif
