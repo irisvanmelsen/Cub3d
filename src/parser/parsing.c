@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parsing.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 14:58:27 by iris          #+#    #+#                 */
-/*   Updated: 2024/02/08 15:36:09 by ivan-mel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 14:58:27 by iris              #+#    #+#             */
+/*   Updated: 2024/05/09 16:45:46 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ static int	is_input_correct(int argc, char *map)
 	int	fd;
 
 	if (argc != 2)
-		return(print_error("Wrong Amount of Arguments! \
+		return (print_error("Wrong Amount of Arguments! \
 		Please enter: executable + map.\n"));
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-		return(print_error("No File Found! Please enter an existing file.\n"));
+		return (print_error("No File Found! Please enter an existing file.\n"));
 	if (ft_strncmp(map + ft_strlen(map) - 4, ".cub", 4))
-		return(print_error("Incorrect File! Please enter correct file type.\n"));
+		return (print_error("Incorrect File! \
+		Please enter correct file type.\n"));
 	return (fd);
 }
 
@@ -58,14 +59,13 @@ static char	**read_file(int fd)
 
 	line = NULL;
 	map_line = NULL;
-
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
 		if (free_line_if_empty(line))
-			continue;
+			continue ;
 		map_line = ft_strjoin_free(map_line, line);
 		if (!map_line)
 			return (NULL);
