@@ -95,3 +95,35 @@ void	take_step_x(t_player *player, t_map *map, int step, double del_time)
 	ft_bzero(player->data->wall->pixels, WIDTH * HEIGHT * 4);
 	raycaster(player->data->raycast);
 }
+
+void	make_textures_images(t_cub3d *cub3d)
+{
+	cub3d->textures.north_text_img = mlx_texture_to_image(cub3d->mlx, cub3d->textures.north);
+	if (!cub3d->textures.north_text_img)
+		print_error(get_error_name(ERROR_IMAGE));
+	cub3d->textures.south_text_img = mlx_texture_to_image(cub3d->mlx, cub3d->textures.south);
+	if (!cub3d->textures.south_text_img)
+		print_error(get_error_name(ERROR_IMAGE));
+	cub3d->textures.west_text_img = mlx_texture_to_image(cub3d->mlx, cub3d->textures.west);
+	if (!cub3d->textures.west_text_img)
+		print_error(get_error_name(ERROR_IMAGE));
+	cub3d->textures.east_text_img = mlx_texture_to_image(cub3d->mlx, cub3d->textures.east);
+	if (!cub3d->textures.east_text_img)
+		print_error(get_error_name(ERROR_IMAGE));
+}
+
+void	load_textures_in(t_cub3d *cub3d)
+{
+	cub3d->textures.north = mlx_load_png(cub3d->textures.north);
+	if (!cub3d->textures.north)
+		print_error(get_error_name(ERROR_LOAD));
+	cub3d->textures.south = mlx_load_png(cub3d->textures.south);
+	if (!cub3d->textures.south)
+		print_error(get_error_name(ERROR_LOAD));
+	cub3d->textures.west = mlx_load_png(cub3d->textures.west);
+	if (!cub3d->textures.west)
+		print_error(get_error_name(ERROR_LOAD));
+	cub3d->textures.east = mlx_load_png(cub3d->textures.east);
+	if (!cub3d->textures.east)
+		print_error(get_error_name(ERROR_LOAD));
+}

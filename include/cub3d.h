@@ -103,25 +103,17 @@ typedef	struct s_int_vector
 
 typedef struct s_textures
 {
-	mlx_texture_t	*north_text; // these are here to load to png
-	mlx_texture_t	*south_text; // .
-	mlx_texture_t	*west_text; // .
-	mlx_texture_t	*east_text; // .
-	mlx_image_t		*north_text_img;
-	mlx_image_t		*south_text_img;
-	mlx_image_t		*east_text_img;
-	mlx_image_t		*west_text_img;
-	char			*north;
-	char			*south;
-	char			*west;
-	char			*east;
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
+	mlx_texture_t	*west;
+	mlx_texture_t	*east;
+	uint32_t		floor_colour;
+	uint32_t		ceiling_colour;
 	double			tex_pos;
 	double			wallx;
 	int				texx;
 	mlx_texture_t	*used_tex;
 	int				side;
-	uint32_t		floor_colour;
-	uint32_t		ceiling_colour;
 	int				texture_y;
 	uint8_t			r;
 	uint8_t			g;
@@ -132,14 +124,10 @@ typedef struct s_textures
 
 typedef struct s_player
 {
-	// float	direction;
-	// float	view;
 	t_vector	pos;
 	t_cub3d	*data;
-
 	t_vector	dir;
 	t_vector	plane;
-
 }	t_player;
 
 typedef struct s_map
@@ -228,9 +216,9 @@ bool		free_line_if_empty(char *line);
 //ELEMENTS.C
 
 bool		check_elements_in_map(char **map);
-void		load_element(t_cub3d *cub3d, char *path, int id);
+bool		load_element(t_cub3d *cub3d, char *path, int id);
 int			parse_and_load_textures(t_cub3d *cub3d, char **map);
-bool		load_wall_img(char *path, mlx_texture_t **texture);
+// bool		load_wall_img(char *path, mlx_texture_t **texture);
 
 
 //ELEMENTS_UTILS.C
@@ -291,7 +279,7 @@ char		**compare_maps(char **mm_array, char **mini_map, int player_x, int player_
 
 //TEXTURES.C
 
-void		load_textures_in(t_cub3d *cub3d);
+// void		load_textures_in(t_cub3d *cub3d);
 uint32_t	texture_colours(t_textures *texture, double x, double y, int colour);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 16:59:07 by mde-cloe          #+#    #+#             */
-/*   Updated: 2024/04/12 21:59:02 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/19 16:59:07 by mde-cloe      #+#    #+#                 */
+/*   Updated: 2024/04/12 21:59:02 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void init_raycast_data(t_raycast_data *raycast, t_cub3d *data)
 	data->player.data = data;
 	data->raycast = raycast;
 	// printf("data->pos.y: %f\n", data->player.pos.y);
-	load_textures_in(data);
+	// load_textures_in(data);
 }
 
 void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast)

@@ -12,23 +12,26 @@
 
 #include "../include/cub3d.h"
 
-void	free_all(t_cub3d *data)
+void	free_all(t_cub3d *data) //put in utils?
 {
-	// if (data->map)
 	if (data->map->file_content)
 		free_array(data->map->file_content);
 	if (data->map->content)
 		free(data->map->content);
 	if (data->map->dup_content)
 		free_array(data->map->dup_content);
-	if (data->minimap->mm_array)
+	// if (data->minimap->mm_array)
 		//should array not be saved to update map?
 	if (data->minimap)
 		free(data->minimap);
-	free(data->textures.north_text);
-	free(data->textures.east_text);
-	free(data->textures.south_text);
-	free(data->textures.west_text);
+	if (data->textures.north)
+		free(data->textures.north);
+	if (data->textures.east)
+		free(data->textures.east);
+	if (data->textures.south)
+		free(data->textures.south);
+	if (data->textures.west)
+		free(data->textures.west);
 }
 
 int	main(int argc, char **argv)
@@ -48,9 +51,6 @@ int	cubed(int argc, char **argv)
 		return (print_error("PARSING ERROR\n"));
 	init_cub3d_data(&cub3d, &map, &raycast);
 	game_setup(&cub3d);
-	// start_minimap(&cub3d);
-	// mlx_terminate(cub3d.mlx);
 	free_all(&cub3d);
-
 	return (1);
 }

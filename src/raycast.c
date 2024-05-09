@@ -18,16 +18,16 @@ void	get_side_texture(t_raycast_data *ray, t_textures *texture)
 	if (ray->side_hit == VERTICAL)
 	{
 		if (ray->raydir.y > 0)
-			texture->used_tex = texture->north_text;
+			texture->used_tex = texture->north;
 		else
-			texture->used_tex = texture->south_text;
+			texture->used_tex = texture->south;
 	}
 	else if (ray->side_hit == HORIZONTAL)
 	{
 		if (ray->raydir.x > 0)
-			texture->used_tex = texture->west_text;
+			texture->used_tex = texture->west;
 		else
-			texture->used_tex = texture->east_text;
+			texture->used_tex = texture->east;
 	}
 }
 

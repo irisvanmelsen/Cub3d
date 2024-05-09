@@ -21,7 +21,7 @@ bool	map_init(t_cub3d *cub3d, t_map *map, int map_start_index)
 {
 	 if (!create_map(map, map_start_index) || !create_dup_map(map))
 	 	return (print_error(MAP_ALLOC_FAIL));
-	find_max_lengths(map->content, &map->length_x, &map->length_y);
+	// find_max_lengths(map->content, &map->length_x, &map->length_y);
 	if (!only_one_player_symbol(map))
 		return (print_error(get_error_name(ERROR_CHARACTER)));
 	print_2d_charray(map->content);

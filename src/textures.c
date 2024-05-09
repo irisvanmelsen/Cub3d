@@ -12,21 +12,7 @@
 
 #include "cub3d.h"
 
-// void	make_textures_images(t_cub3d *cub3d)
-// {
-// 	cub3d->textures.north_text_img = mlx_texture_to_image(cub3d->mlx, cub3d->textures.north);
-// 	if (!cub3d->textures.north_text_img)
-// 		print_error(get_error_name(ERROR_IMAGE));
-// 	cub3d->textures.south_text_img = mlx_texture_to_image(cub3d->mlx, cub3d->textures.south);
-// 	if (!cub3d->textures.south_text_img)
-// 		print_error(get_error_name(ERROR_IMAGE));
-// 	cub3d->textures.west_text_img = mlx_texture_to_image(cub3d->mlx, cub3d->textures.west);
-// 	if (!cub3d->textures.west_text_img)
-// 		print_error(get_error_name(ERROR_IMAGE));
-// 	cub3d->textures.east_text_img = mlx_texture_to_image(cub3d->mlx, cub3d->textures.east);
-// 	if (!cub3d->textures.east_text_img)
-// 		print_error(get_error_name(ERROR_IMAGE));
-// }
+
 
 uint32_t texture_colours(t_textures *texture, double x, double y, int colour)
 {
@@ -46,20 +32,4 @@ uint32_t texture_colours(t_textures *texture, double x, double y, int colour)
     texture->a = pixels[index + 3];
 
     return get_rgba(texture->r, texture->g, texture->b, texture->a);
-}
-
-void	load_textures_in(t_cub3d *cub3d)
-{
-	cub3d->textures.north_text = mlx_load_png(cub3d->textures.north);
-	if (!cub3d->textures.north_text)
-		print_error(get_error_name(ERROR_LOAD));
-	cub3d->textures.south_text = mlx_load_png(cub3d->textures.south);
-	if (!cub3d->textures.south_text)
-		print_error(get_error_name(ERROR_LOAD));
-	cub3d->textures.west_text = mlx_load_png(cub3d->textures.west);
-	if (!cub3d->textures.west_text)
-		print_error(get_error_name(ERROR_LOAD));
-	cub3d->textures.east_text = mlx_load_png(cub3d->textures.east);
-	if (!cub3d->textures.east_text)
-		print_error(get_error_name(ERROR_LOAD));
 }

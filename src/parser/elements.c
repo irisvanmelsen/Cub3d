@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   elements.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/31 00:37:23 by iris              #+#    #+#             */
-/*   Updated: 2024/04/11 20:50:54 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   elements.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/31 00:37:23 by iris          #+#    #+#                 */
+/*   Updated: 2024/04/11 20:50:54 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,44 +28,45 @@ int	parse_and_load_textures(t_cub3d *cub3d, char **file)
 		if (!id)
 			break;
 		str = skip_path_prefix(str, id);
-		load_element(cub3d, str, id);
+		if (!load_element(cub3d, str, id))
+			return (0);
 		i++;
 	}
-	if (all_elements_loaded(&cub3d->textures))
-		return (i);
-	return (0); //print invalid line or not all elements?
+	// if (all_elements_loaded(&cub3d->textures))
+	return (i);
+	return (0);
 }
 
-void	load_element(t_cub3d *cub3d, char *path, int id)
+bool	load_element(t_cub3d *cub3d, char *path, int id)
 {
-	//damn actuallyyy if we make the textures an array we can index
-	//directly into the ID enum
+	mlx_texture_t *texture;
+
+	if (id == F || id == C)
+		return (parse_colours(path, id, &cub3d->textures));
+	texture = mlx_load_png(path);
+	if (!texture)
+		return (print_error(get_error_name(ERROR_LOAD)));
 	if (id == NO)
-		// load_wall_img(path, &cub3d->textures.north_text);
-		cub3d->textures.north = path;
+		cub3d->textures.north = texture;
 	else if (id == SO)
-		cub3d->textures.south = path;
-		// load_wall_img(path, &cub3d->textures.south_text);
+		cub3d->textures.south = texture;
 	else if (id == WE)
-		cub3d->textures.west = path;
-		// load_wall_img(path, &cub3d->textures.west_text);
+		cub3d->textures.west = texture;
 	else if (id == EA)
-		cub3d->textures.east = path;
-		// load_wall_img(path, &cub3d->textures.east);
-	else if (id == F || id == C)
-		parse_colours(path, id, &cub3d->textures);
-}
-
-bool	load_wall_img(char *path, mlx_texture_t **texture)
-{
-	if (*texture)
-		error_exit(DOUBLE_ELEMENT, 1); //make this a clean free and exit program?
-	*texture = mlx_load_png(path); //leaks.. mlx or us?
-	if (!*texture)
-		error_exit("loading path error", 1);
-	
+		cub3d->textures.east = texture;
 	return (true);
 }
+
+// bool	load_wall_img(char *path, mlx_texture_t **texture)
+// {
+// 	if (*texture)
+// 		error_exit(DOUBLE_ELEMENT, 1); //make this a clean free and exit program?
+// 	*texture = mlx_load_png(path); //leaks.. mlx or us?
+// 	if (!*texture)
+// 		error_exit("loading path error", 1);
+
+// 	return (true);
+// }
 
 bool	parse_colours(char *path, int id, t_textures *textures)
 {
