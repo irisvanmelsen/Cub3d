@@ -24,9 +24,10 @@
 # include "libft.h"
 
 // SCREEN
-# define HEIGHT 1200
-#define HALF_HEIGHT HEIGHT / 2
-# define WIDTH 1800
+# define HEIGHT 2160
+# define HALF_HEIGHT HEIGHT / 2
+# define WIDTH 2800
+# define HALF_WIDTH WIDTH / 2
 
 // MINIMAP
 # define MINI_HEIGHT HEIGHT / 5
@@ -151,6 +152,7 @@ typedef struct s_minimap
 	char		**og_map;
 	int			scaler;
 	t_cub3d		*cub3d;
+	char		**mm_array;
 } t_minimap;
 
 typedef struct s_raycast_data

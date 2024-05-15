@@ -15,13 +15,14 @@
 void	free_all(t_cub3d *data) //put in utils?
 {
 	if (data->map->file_content)
-		free_array(data->map->file_content);
+		free_array((void *)data->map->file_content);
 	if (data->map->content)
 		free(data->map->content);
 	if (data->map->dup_content)
-		free_array(data->map->dup_content);
-	// if (data->minimap->mm_array)
-		//should array not be saved to update map?
+		free_array((void *)data->map->dup_content);
+	if (data->minimap->mm_array)
+		free_array(data->minimap->mm_array);
+		// should array not be saved to update map?
 	if (data->minimap)
 		free(data->minimap);
 	if (data->textures.north)

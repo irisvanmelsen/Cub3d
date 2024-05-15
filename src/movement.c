@@ -17,6 +17,8 @@ void	rotate_vector(t_vector *vector, double angle);
 t_vector	rotate_vector_return(t_vector vector, double angle);
 void	move(t_player *player, t_vector dir, bool	subtract, t_vector *newpos);
 void	change_dir(t_player	*player, bool looking_right);
+void	mouse_rotation(t_cub3d *m);
+void	mm_update(t_cub3d *cub3d);
 
 void	cub3d_loop(void	*param)
 {
@@ -47,8 +49,32 @@ void	cub3d_loop(void	*param)
 		m->player.pos.x = newpos.x;
 		m->player.pos.y = newpos.y;
 	}
+	// mouse_rotation(m);
+	mm_update(m);
 	ft_bzero(m->wall->pixels, WIDTH * HEIGHT * 4);
 	raycaster(m->raycast);
+}
+
+void	mouse_rotation(t_cub3d *m)
+{
+	t_vector	mouse_pos;
+
+	//set curseor to hidden in setup
+	mlx_get_mouse_pos(m->mlx, &mouse_pos.x, &mouse_pos.y);
+	if (mouse_pos.x == HALF_WIDTH || mouse_pos.y == HALF_HEIGHT)
+		return ;
+	mlx_set_mouse_pos(m->mlx, HALF_WIDTH, HALF_HEIGHT);
+	if (mouse_pos.x < HALF_WIDTH - 10)
+		change_dir(&m->player, false);
+	else if (mouse_pos.x > HALF_WIDTH)
+		change_dir(&m->player, true);
+}
+
+void	mm_update(t_cub3d *cub3d)
+{
+	cub3d->minimap->mm_array = compare_maps(cub3d->minimap->mm_array, \
+		cub3d->minimap->og_map, (int)cub3d->player.pos.x, (int)cub3d->player.pos.y);
+		fill_wall_backgr(cub3d->minimap->mm_array, cub3d->minimap);
 }
 
 void	move(t_player *player, t_vector dir, bool	subtract, t_vector *newpos)
