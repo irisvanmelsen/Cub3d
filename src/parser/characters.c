@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   characters.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 23:59:29 by iris          #+#    #+#                 */
-/*   Updated: 2024/03/20 21:59:40 by iris          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   characters.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 23:59:29 by iris              #+#    #+#             */
+/*   Updated: 2024/05/09 16:42:30 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,17 @@ int	only_one_player_symbol(t_map *map)
 {
 	int	x;
 	int	y;
-	int	player_count;
 
 	y = 0;
-	y = 0;
 	x = 0;
-	player_count = 0;
+	map->player_count = 0;
 	while (map->content[y])
 	{
 		while (map->content[y][x])
 		{
 			if (is_player_char(map->content[y][x]))
 			{
-				player_count++;
+				map->player_count++;
 				map->player_x = x;
 				map->player_y = y;
 				map->dir_char = map->content[y][x];
@@ -38,10 +36,8 @@ int	only_one_player_symbol(t_map *map)
 		y++;
 		x = 0;
 	}
-	if (player_count != 1)
-	{
+	if (map->player_count != 1)
 		return (0);
-	}
 	return (1);
 }
 

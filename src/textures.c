@@ -3,23 +3,21 @@
 /*                                                        ::::::::            */
 /*   textures.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/09 20:45:45 by ivan-mel      #+#    #+#                 */
-/*   Updated: 2024/04/12 22:13:17 by iris          ########   odam.nl         */
+/*   Updated: 2024/05/09 16:32:15 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-
-uint32_t texture_colours(t_textures *texture, double x, double y, int colour)
+uint32_t	texture_colours(t_textures *texture, double x, double y, int colour)
 {
-	int	int_x;
-	int	int_y;
-	int	index;
-	uint8_t *pixels;
+	int		int_x;
+	int		int_y;
+	int		index;
+	uint8_t	*pixels;
 
 	int_x = (int)x;
 	int_y = (int)y;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parsing_utils.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 21:53:03 by iris          #+#    #+#                 */
-/*   Updated: 2024/01/01 23:21:50 by iris          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 21:53:03 by iris              #+#    #+#             */
+/*   Updated: 2024/05/09 16:46:07 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 
 bool	free_line_if_empty(char *line)
 {
-	int i;
+	int	i;
 
 	i = skip_whitespace(line, 0);
 	if (!line[i])

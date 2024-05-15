@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/30 22:37:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/02/07 19:08:28 by ivan-mel      ########   odam.nl         */
+/*   Updated: 2024/05/09 16:44:12 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static bool	valid_char(char c);
 
 bool	map_init(t_cub3d *cub3d, t_map *map, int map_start_index)
 {
-	 if (!create_map(map, map_start_index) || !create_dup_map(map))
-	 	return (print_error(MAP_ALLOC_FAIL));
-	// find_max_lengths(map->content, &map->length_x, &map->length_y);
+	if (!create_map(map, map_start_index) || !create_dup_map(map))
+		return (print_error(MAP_ALLOC_FAIL));
+	find_max_lengths(map->content, &map->length_x, &map->length_y);
 	if (!only_one_player_symbol(map))
 		return (print_error(get_error_name(ERROR_CHARACTER)));
 	print_2d_charray(map->content);
@@ -42,7 +42,7 @@ static bool	create_map(t_map *map, int i)
 		return (false);
 	while (map->file_content[i])
 	{
-		map->content[j] = map->file_content[i]; //beware that this
+		map->content[j] = map->file_content[i];
 		i++;
 		j++;
 	}
@@ -72,7 +72,6 @@ static bool	create_dup_map(t_map *map)
 
 static bool	floodfill(char **dup_map, int y, int x)
 {
-	//write check for if player is outside the walls
 	if (y < 0 || x < 0)
 		return (true);
 	if (!dup_map[y] || x >= (int)ft_strlen(dup_map[y]))

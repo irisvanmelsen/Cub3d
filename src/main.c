@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/30 14:46:06 by iris          #+#    #+#                 */
-/*   Updated: 2024/03/15 18:28:39 by iris          ########   odam.nl         */
+/*   Updated: 2024/05/09 14:16:14 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	main(int argc, char **argv)
 
 int	cubed(int argc, char **argv)
 {
-	t_cub3d	cub3d;
-	t_map	map;
-	t_raycast_data raycast;
+	t_cub3d			cub3d;
+	t_map			map;
+	t_raycast_data	raycast;
 
 	if (!parsing(argc, argv, &cub3d, &map))
 		return (print_error("PARSING ERROR\n"));

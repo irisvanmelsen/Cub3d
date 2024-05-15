@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cub3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/04/12 22:03:40 by iris          ########   odam.nl         */
+/*   Updated: 2024/05/09 17:10:31 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ typedef struct s_minimap
 	mlx_t		*mlx;
 	char		**og_map;
 	int			scaler;
+	int			mm_height;
+	int			map_height;
 	t_cub3d		*cub3d;
 	char		**mm_array;
 } t_minimap;
@@ -241,6 +243,19 @@ bool		print_error(char *str);
 
 void		free_map_2d(char **map_copy);
 
+//MOVEMENT.C
+
+void		cub3d_loop(void	*param);
+void		move(t_player *player, t_vector dir, bool	subtract, t_vector \
+			*newpos);
+void		change_dir(t_player	*player, bool looking_right);
+void		rotate_vector(t_vector *vector, double angle);
+t_vector	rotate_vec_return(t_vector vector, double angle);
+
+//MOVEMENT_UTILS.C
+
+void		if_newpos_is_zero(t_cub3d *m, t_vector newpos);
+
 /////////////////////////////SETUP////////////////////////////////////
 
 //PIXEL_SETUP.C
@@ -271,17 +286,33 @@ void		raycaster(void *param);
 void		keep_lookin(t_raycast_data *raycast);
 t_vector	calc_delta_dist(t_vector raydir);
 void		init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
-double		calc_perp_dist_and_wallX(t_raycast_data *raycast, t_player *player);
-void	calc_side_dist(t_raycast_data *raycast, t_player *player);
+double		calc_perp_dist_and_wallx(t_raycast_data *raycast, t_player *player);
+void		calc_side_dist(t_raycast_data *raycast, t_player *player);
+
+//RAYCASTING_UTILS
+
+void		coordinate_on_textures(t_raycast_data *ray, t_textures *texture);
 
 //MINIMAP.C
 
 bool		start_minimap(t_cub3d *cub3d);
-char		**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
+char		**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d);
+
+//MINIMAP_IMAGES.C
+
+void	fill_the_image(t_minimap *minimap, int x, int y);
+void	fill_colours(char **mm_array, t_minimap *minimap, int y, int x);
+void	fill_wall_backgr(char **mm_array, t_minimap *minimap);
+void	setup_border(t_minimap *minimap);
+void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
+		int y);
 
 //TEXTURES.C
 
-// void		load_textures_in(t_cub3d *cub3d);
-uint32_t	texture_colours(t_textures *texture, double x, double y, int colour);
+void	init_minimap(t_cub3d *cub3d);
+int		calc_height_minimap(char **mini_map);
+char	**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d);
+void	load_textures_in(t_cub3d *cub3d);
+uint32_t texture_colours(t_textures *texture, double x, double y, int colour);
 
 #endif

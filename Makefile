@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: iris <iris@student.42.fr>                    +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
-#    Updated: 2024/04/11 20:51:45 by iris          ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
+#    Updated: 2024/05/09 17:10:51 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,12 @@ SRC			:=	main.c \
 				setup/mlx_setup.c \
 				setup/player_setup.c \
 				movement.c \
+				movement_utils.c \
 				raycast.c \
+				raycast_utils.c \
 				init.c \
 				minimap/minimap.c \
+				minimap/minimap_image.c \
 				textures.c \
 				calculations.c \
 

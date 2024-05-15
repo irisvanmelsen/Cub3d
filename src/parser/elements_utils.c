@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   elements_utils.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/07 00:21:03 by iris          #+#    #+#                 */
-/*   Updated: 2024/03/17 12:58:43 by iris          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   elements_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 00:21:03 by iris              #+#    #+#             */
+/*   Updated: 2024/05/09 16:43:43 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ bool	all_elements_loaded(t_textures *checkme)
 	return (true);
 }
 
-int	which_element(char *line) //can be merged with load element
+int	which_element(char *line)
 {
-	//make jumptable?
-	if (ft_strncmp(line, "NO", 2) == 0) //does it always have a space after?
+	if (ft_strncmp(line, "NO", 2) == 0)
 		return (NO);
 	else if (ft_strncmp(line, "SO", 2) == 0)
 		return (SO);
