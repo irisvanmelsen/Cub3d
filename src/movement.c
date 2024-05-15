@@ -19,57 +19,45 @@ void		move(t_player *player, t_vector dir, bool	subtract, \
 			t_vector *newpos);
 void		change_dir(t_player	*player, bool looking_right);
 void		mouse_rotation(t_cub3d *m);
-void		mm_update(t_cub3d *cub3d);
 
-void	cub3d_loop(void	*param)
+
+int	keypress_check(t_cub3d	*m, t_vector *player_pos)
 {
-	t_cub3d		*m;
-	t_vector	newpos;
 
-	m = param;
-	newpos.x = m->player.pos.x;
-	newpos.y = m->player.pos.y;
 	if (mlx_is_key_down(m->mlx, MLX_KEY_ESCAPE))
+	{
 		mlx_close_window(m->mlx);
+		return (false);
+	}
 	if (mlx_is_key_down(m->mlx, MLX_KEY_W))
-		move(&m->player, m->player.dir, false, &newpos);
+		move(&m->player, m->player.dir, false, player_pos);
 	if (mlx_is_key_down(m->mlx, MLX_KEY_S))
-		move(&m->player, m->player.dir, true, &newpos);
+		move(&m->player, m->player.dir, true, player_pos);
 	if (mlx_is_key_down(m->mlx, MLX_KEY_D))
-		move(&m->player, rotate_vec_return(m->player.dir, M_PI_2), 1, &newpos);
+		move(&m->player, rotate_vec_return(m->player.dir, M_PI_2), 1, player_pos);
 	if (mlx_is_key_down(m->mlx, MLX_KEY_A))
-		move(&m->player, rotate_vec_return(m->player.dir, M_PI_2), 0, &newpos);
+		move(&m->player, rotate_vec_return(m->player.dir, M_PI_2), 0, player_pos);
 	if (mlx_is_key_down(m->mlx, MLX_KEY_LEFT))
 		change_dir(&m->player, false);
 	if (mlx_is_key_down(m->mlx, MLX_KEY_RIGHT))
 		change_dir(&m->player, true);
-	if (m->map->content[(int)newpos.y][(int)newpos.x] == '0')
-		if_newpos_is_zero(m, newpos);
-	ft_bzero(m->wall->pixels, WIDTH * HEIGHT * 4);
-	raycaster(m->raycast);
+	return (true);
+
 }
 
-//set curseor to hidden in setup
 void	mouse_rotation(t_cub3d *m)
 {
-	t_vector	mouse_pos;
+	int32_t	mouse_X;
+	int32_t	mouse_Y;
 
-	mlx_get_mouse_pos(m->mlx, &mouse_pos.x, &mouse_pos.y);
-	if (mouse_pos.x == HALF_WIDTH || mouse_pos.y == HALF_HEIGHT)
+	mlx_get_mouse_pos(m->mlx, &mouse_X, &mouse_Y);
+	if (mouse_X == HALF_WIDTH && mouse_Y == HALF_HEIGHT)
 		return ;
 	mlx_set_mouse_pos(m->mlx, HALF_WIDTH, HALF_HEIGHT);
-	if (mouse_pos.x < HALF_WIDTH - 10)
+	if (mouse_X < HALF_WIDTH - 10)
 		change_dir(&m->player, false);
-	else if (mouse_pos.x > HALF_WIDTH)
+	else if (mouse_X > HALF_WIDTH)
 		change_dir(&m->player, true);
-}
-
-void	mm_update(t_cub3d *cub3d)
-{
-	cub3d->minimap->mm_array = compare_maps(cub3d->minimap->mm_array, \
-		cub3d->minimap->og_map, (int)cub3d->player.pos.x, \
-		(int)cub3d->player.pos.y);
-	fill_wall_backgr(cub3d->minimap->mm_array, cub3d->minimap);
 }
 
 void	move(t_player *player, t_vector dir, bool	subtract, t_vector *newpos)

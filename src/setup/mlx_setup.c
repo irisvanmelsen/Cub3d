@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mlx_setup.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/05/09 16:48:33 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   mlx_setup.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 15:04:45 by ivan-mel      #+#    #+#                 */
+/*   Updated: 2024/05/09 16:48:33 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	game_setup(t_cub3d *cub3d)
 	init_raycast_data(cub3d->raycast, cub3d);
 	raycaster(cub3d->raycast);
 	start_minimap(cub3d);
-	mlx_loop_hook(cub3d->mlx, cub3d_loop, (void *)cub3d);
+	mlx_set_cursor_mode(cub3d->mlx, MLX_MOUSE_HIDDEN);
+	mlx_loop_hook(cub3d->mlx, main_game_loop, (void *)cub3d);
 	mlx_loop(cub3d->mlx);
-	mlx_terminate(cub3d->mlx);
 }
 
 int	mlx_image_setup(t_cub3d *cub3d)

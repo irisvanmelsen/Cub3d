@@ -32,10 +32,10 @@ int	parse_and_load_textures(t_cub3d *cub3d, char **file)
 			return (0);
 		i++;
 	}
-	return (i);
+	if (all_elements_loaded(&cub3d->textures))
+		return (i);
 	return (0);
 }
-	// if (all_elements_loaded(&cub3d->textures))
 
 bool	load_element(t_cub3d *cub3d, char *path, int id)
 {
@@ -53,20 +53,7 @@ bool	load_element(t_cub3d *cub3d, char *path, int id)
 	else if (id == WE)
 		cub3d->textures.west = texture;
 	else if (id == EA)
-		cub3d->textures.east = path;
-		// load_wall_img(path, &cub3d->textures.east);
-	else if (id == F || id == C)
-		parse_colours(path, id, &cub3d->textures);
-}
-
-bool	load_wall_img(char *path, mlx_texture_t **texture)
-{
-	if (*texture)
-		error_exit(DOUBLE_ELEMENT, 1);
-	//make this a clean free and exit program?
-	*texture = mlx_load_png(path); //leaks.. mlx or us?
-	if (!*texture)
-		error_exit("loading path error", 1);
+		cub3d->textures.east = texture;
 	return (true);
 }
 

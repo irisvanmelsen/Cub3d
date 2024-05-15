@@ -23,8 +23,6 @@ void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data)
 	data->player.pos.y = (double)raycast->data->map->player_y;
 	data->player.data = data;
 	data->raycast = raycast;
-	// printf("data->pos.y: %f\n", data->player.pos.y);
-	// load_textures_in(data); //not needed w new elements
 }
 
 void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast)

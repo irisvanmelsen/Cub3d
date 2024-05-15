@@ -155,6 +155,7 @@ typedef struct s_minimap
 	int			map_height;
 	t_cub3d		*cub3d;
 	char		**mm_array;
+	uint32_t	colour;
 } t_minimap;
 
 typedef struct s_raycast_data
@@ -188,7 +189,8 @@ struct s_cub3d
 
 //CUBED.C
 
-int	cubed(int argc, char **argv);
+int		cubed(int argc, char **argv);
+void	main_game_loop(void *param);
 
 //init.c
 void 	init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
@@ -251,6 +253,8 @@ void		move(t_player *player, t_vector dir, bool	subtract, t_vector \
 void		change_dir(t_player	*player, bool looking_right);
 void		rotate_vector(t_vector *vector, double angle);
 t_vector	rotate_vec_return(t_vector vector, double angle);
+int		keypress_check(t_cub3d	*m, t_vector *player_pos);
+void	mouse_rotation(t_cub3d *m);
 
 //MOVEMENT_UTILS.C
 

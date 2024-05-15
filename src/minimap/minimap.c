@@ -83,8 +83,6 @@ char	**setup_minimap_arr(void)
 
 bool	start_minimap(t_cub3d *cub3d)
 {
-	char	**mm_array;
-
 	cub3d->minimap = ft_calloc(1, sizeof(t_minimap));
 	if (!cub3d->minimap)
 		print_error(get_error_name(ERROR_ALLOCATION));
@@ -98,9 +96,8 @@ bool	start_minimap(t_cub3d *cub3d)
 	}
 	if (!cub3d->minimap->border)
 		setup_border(cub3d->minimap);
-	mm_array = setup_minimap_arr();
-	mm_array = compare_maps(cub3d->minimap, mm_array, cub3d);
-	fill_wall_backgr(mm_array, cub3d->minimap);
-	free_map_2d(mm_array);
+	cub3d->minimap->mm_array = setup_minimap_arr();
+	cub3d->minimap->mm_array = compare_maps(cub3d->minimap, cub3d->minimap->mm_array, cub3d);
+	fill_wall_backgr(cub3d->minimap->mm_array, cub3d->minimap);
 	return (true);
 }
