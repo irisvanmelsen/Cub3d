@@ -12,6 +12,8 @@
 
 #include "cub3d.h"
 
+#include "cub3d.h"
+
 void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data)
 {
 	ft_bzero((void *)raycast, sizeof(*raycast));
@@ -22,7 +24,7 @@ void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data)
 	data->player.data = data;
 	data->raycast = raycast;
 	// printf("data->pos.y: %f\n", data->player.pos.y);
-	// load_textures_in(data);
+	// load_textures_in(data); //not needed w new elements
 }
 
 void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast)
