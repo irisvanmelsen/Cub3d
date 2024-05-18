@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/05/09 17:10:31 by ivan-mel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
+/*   Updated: 2024/05/18 18:59:03 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # include "libft.h"
 
 // SCREEN
-# define HEIGHT 2160
+# define HEIGHT 1200
 # define HALF_HEIGHT HEIGHT / 2
-# define WIDTH 2800
+# define WIDTH 1800
 # define HALF_WIDTH WIDTH / 2
 
 // MINIMAP
@@ -34,10 +34,10 @@
 # define MINI_WIDTH WIDTH / 5
 
 // COLOURS
-# define LIGHTCORAL 240, 128, 128, 255
-# define LAVENDER 230, 230, 250, 255
-# define LIGHTPINK 255, 182, 193, 255
-# define MISTYROSE 225, 228, 225, 225
+# define LIGHTGREEN 175, 225, 175, 255
+# define EUCALYPTUS 95, 133,117, 255
+# define MINT 152, 251, 152, 255
+# define PISTACHIO 147, 197, 114, 225
 
 // MATH
 # define PI 3.1415926

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_image.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:03:01 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/05/09 14:06:59 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2024/05/18 19:13:53 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	fill_colours(char **mm_array, t_minimap *minimap, int y, int x)
 	if (mm_array[y][x] == '#')
 		minimap->colour = get_rgba(0, 0, 0, 0);
 	else if (mm_array[y][x] == '0')
-		minimap->colour = get_rgba(LAVENDER);
+		minimap->colour = get_rgba(EUCALYPTUS);
 	else if (mm_array[y][x] == '1')
-		minimap->colour = get_rgba(LIGHTPINK);
+		minimap->colour = get_rgba(MINT);
 	else if (mm_array[y][x] == 'P')
-		minimap->colour = get_rgba(LIGHTCORAL);
+		minimap->colour = get_rgba(PISTACHIO);
 }
 
 void	fill_wall_backgr(char **mm_array, t_minimap *minimap)
@@ -73,6 +73,10 @@ void	fill_wall_backgr(char **mm_array, t_minimap *minimap)
 		minimap->scaler / 2) == -1)
 		print_error(get_error_name(ERROR_IMAGE));
 	mlx_put_string(minimap->mlx, " P ", 120, 125);
+	mlx_put_string(minimap->mlx, "N", 125, 30);
+	mlx_put_string(minimap->mlx, "S", 125, 220);
+	mlx_put_string(minimap->mlx, "E", 230, 130);
+	mlx_put_string(minimap->mlx, "W", 30, 130);
 }
 
 void	setup_border(t_minimap *minimap)
@@ -91,7 +95,7 @@ void	setup_border(t_minimap *minimap)
 		x = 0;
 		while (x <= border_length)
 		{
-			mlx_put_pixel(minimap->border, x, y, get_rgba(MISTYROSE));
+			mlx_put_pixel(minimap->border, x, y, get_rgba(PISTACHIO));
 			x++;
 		}
 		y++;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_setup.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 15:04:45 by ivan-mel      #+#    #+#                 */
-/*   Updated: 2024/05/09 16:48:33 by ivan-mel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_setup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
+/*   Updated: 2024/05/18 18:52:43 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	mlx_image_setup(t_cub3d *cub3d)
 		print_error(get_error_name(ERROR_IMAGE));
 	if (mlx_image_to_window(cub3d->mlx, cub3d->wall, 0, 0) == -1)
 		print_error(get_error_name(ERROR_IMAGE));
-	cub3d_memset(cub3d->background->pixels, 0xffff0000, HALF_SCREENSIZE);
+	cub3d_memset(cub3d->background->pixels, 0xD5A6BD00, HALF_SCREENSIZE);
 	cub3d_memset(&cub3d->background->pixels[HALF_SCREENSIZE * 4], \
-	0xff0000ff, HALF_SCREENSIZE);
+	0x8E7CC300, HALF_SCREENSIZE);
 	return (1);
 }
 
