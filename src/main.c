@@ -12,31 +12,8 @@
 
 #include "../include/cub3d.h"
 
-void	mm_update(t_cub3d *cub3d);
+void	mm_update(t_cub3d *cub3d, t_minimap *minimap);
 
-
-//move free all and mm update to utils
-void	free_all(t_cub3d *data)
-{
-	if (data->map->file_content)
-		free_array((void *)data->map->file_content);
-	if (data->map->content)
-		free(data->map->content);
-	if (data->map->dup_content)
-		free_array((void *)data->map->dup_content);
-	if (data->minimap->mm_array)
-		free_array((void *)data->minimap->mm_array);
-	if (data->minimap)
-		free(data->minimap);
-	if (data->textures.north)
-		free(data->textures.north);
-	if (data->textures.east)
-		free(data->textures.east);
-	if (data->textures.south)
-		free(data->textures.south);
-	if (data->textures.west)
-		free(data->textures.west);
-}
 
 int	main(int argc, char **argv)
 {
@@ -75,15 +52,15 @@ void	main_game_loop(void *param)
 		m->player.pos.x = newpos.x;
 		m->player.pos.y = newpos.y;
 	}
-	mm_update(m);
+	mm_update(m, m->minimap);
 	mouse_rotation(m);
 	ft_bzero(m->wall->pixels, WIDTH * HEIGHT * 4);
 	raycaster(m->raycast);
 }
 
-void	mm_update(t_cub3d *cub3d)
+void	mm_update(t_cub3d *cub3d, t_minimap *minimap)
 {
-	cub3d->minimap->mm_array = compare_maps(cub3d->minimap, \
-		cub3d->minimap->mm_array, cub3d);
-	fill_wall_backgr(cub3d->minimap->mm_array, cub3d->minimap);
+	minimap->mm_array = compare_maps(minimap, \
+		minimap->mm_array, cub3d);
+	fill_wall_backgr(minimap->mm_array, minimap);
 }

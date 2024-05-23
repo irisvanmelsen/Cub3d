@@ -31,3 +31,31 @@ void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast)
 	cub3d->map = map;
 	cub3d->raycast = raycast;
 }
+
+void	free_all(t_cub3d *data)
+{
+	if (data->map->file_content)
+		free_array((void *)data->map->file_content);
+	if (data->map->content)
+		free(data->map->content);
+	if (data->map->dup_content)
+		free_array((void *)data->map->dup_content);
+	if (data->minimap->mm_array)
+		free_array((void *)data->minimap->mm_array);
+	if (data->minimap->image)
+		mlx_delete_image(data->mlx, data->minimap->image);
+	if (data->minimap)
+		free(data->minimap);
+	if (data->textures.north)
+		mlx_delete_texture(data->textures.north);
+	if (data->textures.east)
+		mlx_delete_texture(data->textures.east);
+	if (data->textures.south)
+		mlx_delete_texture(data->textures.south);
+	if (data->textures.west)
+		mlx_delete_texture(data->textures.west);
+	if (data->background)
+		mlx_delete_image(data->mlx, data->background);
+	if (data->wall)
+		mlx_delete_image(data->mlx, data->wall);
+}

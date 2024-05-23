@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minimap_image.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 14:03:01 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/05/18 19:13:53 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minimap_image.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/05/09 14:03:01 by ivan-mel      #+#    #+#                 */
+/*   Updated: 2024/05/18 19:13:53 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
 			< MINI_HEIGHT && cub3d->map->player_x - 2 + x >= 0 && \
 			cub3d->map->player_x - 2 + x < MINI_WIDTH)
 		{
-			if (cub3d->minimap->og_map[cub3d->map->player_y - 2 + y] \
-				[cub3d->map->player_x - 2 + x] == '1')
+			if (cub3d->minimap->og_map[cub3d->map->player_y - 2 + y] [cub3d->map->player_x - 2 + x] == '1')
 				mm_array[y][x] = '1';
 			else if (cub3d->minimap->og_map[cub3d->map->player_y - 2 + y] \
 				[cub3d->map->player_x - 2 + x] == 'P')
@@ -131,3 +130,30 @@ void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
 		x++;
 	}
 }
+
+
+// void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
+// 		int y)
+// {
+// 	int	x;
+
+// 	x = 0;
+// 	while (x < 5)
+// 	{
+// 		if (cub3d->map->player_y - 2 + y >= 0 && cub3d->map->player_y - 2 + y \
+// 			< MINI_HEIGHT && cub3d->map->player_x - 2 + x >= 0 && \
+// 			cub3d->map->player_x - 2 + x < MINI_WIDTH)
+// 		{
+// 			if (cub3d->minimap->og_map[cub3d->map->player_y - 2 + y] \
+// 				[cub3d->map->player_x - 2 + x] == '1')
+// 				mm_array[y][x] = '1';
+// 			else if (cub3d->minimap->og_map[cub3d->map->player_y - 2 + y] \
+// 				[cub3d->map->player_x - 2 + x] == 'P')
+// 				mm_array[y][x] = 'P';
+// 			else
+// 				mm_array[y][x] = '0';
+// 		}
+// 		else
+// 			mm_array[y][x] = '#';
+// 		x++;
+// 	}

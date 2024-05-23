@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mlx_setup.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 15:04:45 by ivan-mel          #+#    #+#             */
-/*   Updated: 2024/05/18 18:52:43 by iris             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   mlx_setup.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iris <iris@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 15:04:45 by ivan-mel      #+#    #+#                 */
+/*   Updated: 2024/05/18 18:52:43 by iris          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ int	mlx_image_setup(t_cub3d *cub3d)
 	if (!cub3d->mlx)
 		print_error(get_error_name(ERROR_MLX));
 	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-	if (!cub3d->background)
-		return (print_error(get_error_name(ERROR_IMAGE)));
 	cub3d->wall = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-	if (!cub3d->wall)
+	if (!cub3d->wall || !cub3d->background)
 		return (print_error(get_error_name(ERROR_IMAGE)));
 	if (mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0) == -1)
 		print_error(get_error_name(ERROR_IMAGE));
