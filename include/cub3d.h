@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iris <iris@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/30 14:50:01 by iris          #+#    #+#                 */
-/*   Updated: 2024/05/18 18:59:03 by iris          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/30 14:50:01 by iris              #+#    #+#             */
+/*   Updated: 2024/06/06 18:06:44 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,8 @@ void	mouse_rotation(t_cub3d *m);
 
 //MOVEMENT_UTILS.C
 
+void		rotate_vector(t_vector *vector, double angle);
+t_vector	rotate_vec_return(t_vector vector, double angle);
 void		if_newpos_is_zero(t_cub3d *m, t_vector newpos);
 
 /////////////////////////////SETUP////////////////////////////////////
