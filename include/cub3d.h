@@ -200,7 +200,7 @@ void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast);
 /////////////////////////////PARSER////////////////////////////////////
 //MAP.C
 
-bool		map_init(t_cub3d *cub3d, t_map *map, int map_start_index);
+bool		map_init(t_map *map, int map_start_index);
 
 //CHARACTERS.C
 
@@ -302,6 +302,8 @@ void		coordinate_on_textures(t_raycast_data *ray, t_textures *texture);
 
 bool		start_minimap(t_cub3d *cub3d);
 char		**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d);
+// char		**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
+
 
 //MINIMAP_IMAGES.C
 
@@ -309,15 +311,14 @@ void	fill_the_image(t_minimap *minimap, int x, int y);
 void	fill_colours(char **mm_array, t_minimap *minimap, int y, int x);
 void	fill_wall_backgr(char **mm_array, t_minimap *minimap);
 void	setup_border(t_minimap *minimap);
-void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
+void	check_char_mm(char **mm_array, t_cub3d *cub3d, \
 		int y);
 
 //TEXTURES.C
 
 void	init_minimap(t_cub3d *cub3d);
 int		calc_height_minimap(char **mini_map);
-char	**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d);
 void	load_textures_in(t_cub3d *cub3d);
-uint32_t texture_colours(t_textures *texture, double x, double y, int colour);
+uint32_t texture_colours(t_textures *texture, double x, double y);
 
 #endif

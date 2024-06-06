@@ -32,7 +32,6 @@ int	calc_height_minimap(char **mini_map)
 
 char	**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d)
 {
-	int	x;
 	int	y;
 
 	y = 0;
@@ -48,12 +47,15 @@ char	**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d)
 		minimap->mm_height = 5;
 	while (y < minimap->mm_height)
 	{
-		check_char_mm(cub3d->minimap, mm_array, cub3d, y);
+		check_char_mm(mm_array, cub3d, y);
 		y++;
 	}
 	mm_array[2][2] = 'P';
 	return (mm_array);
 }
+
+
+
 
 char	**setup_minimap_arr(void)
 {
@@ -99,5 +101,7 @@ bool	start_minimap(t_cub3d *cub3d)
 	cub3d->minimap->mm_array = setup_minimap_arr();
 	cub3d->minimap->mm_array = compare_maps(cub3d->minimap, cub3d->minimap->mm_array, cub3d);
 	fill_wall_backgr(cub3d->minimap->mm_array, cub3d->minimap);
+	// cub3d->minimap->mm_array = compare_maps(cub3d->minimap->mm_array, \
+	// 	cub3d->minimap->og_map, cub3d->map->player_x, cub3d->map->player_y);
 	return (true);
 }

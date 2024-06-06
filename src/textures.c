@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-uint32_t	texture_colours(t_textures *texture, double x, double y, int colour)
+uint32_t	texture_colours(t_textures *texture, double x, double y)
 {
 	int		int_x;
 	int		int_y;

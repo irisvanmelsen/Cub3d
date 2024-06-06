@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   characters.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 23:59:29 by iris              #+#    #+#             */
-/*   Updated: 2024/05/09 16:42:30 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   characters.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 23:59:29 by iris          #+#    #+#                 */
+/*   Updated: 2024/05/09 16:42:30 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,24 @@ int	only_one_player_symbol(t_map *map)
 	return (1);
 }
 
-// void	find_max_lengths(char **map, int *length_x, int *length_y)
-// {
-// 	int	i;
-// 	int	max_length;
-// 	int	current_len;
+void	find_max_lengths(char **map, int *length_x, int *length_y)
+{
+	int	i;
+	int	max_length;
+	int	current_len;
 
-// 	i = 0;
-// 	max_length = 0;
-// 	while (map[i])
-// 	{
-// 		current_len = ft_strlen(map[i]);
-// 		if (max_length < current_len)
-// 			max_length = current_len;
-// 		i++;
-// 	}
-// 	*length_x = max_length;
-// 	*length_y = i;
-// }
+	i = 0;
+	max_length = 0;
+	while (map[i])
+	{
+		current_len = ft_strlen(map[i]);
+		if (max_length < current_len)
+			max_length = current_len;
+		i++;
+	}
+	*length_x = max_length;
+	*length_y = i;
+}
 
 bool	is_player_char(char c)
 {

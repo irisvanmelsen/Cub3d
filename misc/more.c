@@ -1,4 +1,6 @@
 
+
+
 int	is_game_key_pressed(mlx_t *mlx)
 {
 	int	i;

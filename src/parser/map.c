@@ -17,7 +17,7 @@ static bool	create_dup_map(t_map *map);
 static bool	floodfill(char **dup_map, int y, int x);
 static bool	valid_char(char c);
 
-bool	map_init(t_cub3d *cub3d, t_map *map, int map_start_index)
+bool	map_init(t_map *map, int map_start_index)
 {
 	if (!create_map(map, map_start_index) || !create_dup_map(map))
 		return (print_error(MAP_ALLOC_FAIL));
@@ -26,9 +26,9 @@ bool	map_init(t_cub3d *cub3d, t_map *map, int map_start_index)
 	print_2d_charray(map->content);
 	if (!floodfill(map->dup_content, map->player_y, map->player_x))
 		return (print_error(FLOOD_FAIL));
+	find_max_lengths(map->content, &map->length_x, &map->length_y);
 	return (true);
 }
-	// find_max_lengths(map->content, &map->length_x, &map->length_y);
 
 static bool	create_map(t_map *map, int i)
 {

@@ -1,6 +1,6 @@
-NO ./textures/wall_bricks1.png
-SO ./textures/wall.png
-WE ./textures/checker-map_tho.png
+NO ./textures/greenwall.png
+SO ./textures/greenwall2.png
+WE ./textures/greenwall3.png
 EA ./textures/mr_frog.png
 
 

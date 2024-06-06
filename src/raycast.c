@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   raycast.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 18:06:51 by mde-cloe          #+#    #+#             */
-/*   Updated: 2024/05/09 16:27:53 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   raycast.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 18:06:51 by mde-cloe      #+#    #+#                 */
+/*   Updated: 2024/05/09 16:27:53 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	draw_line(t_raycast_data *raycast, int x, t_textures *texture)
 		texture->texture_y = (int)texture->tex_pos & \
 		(texture->used_tex->height - 1);
 		texture->tex_pos += raycast->step;
-		colour = texture_colours(texture, texture->texx, texture->texture_y, 0);
+		colour = texture_colours(texture, texture->texx, texture->texture_y);
 		mlx_put_pixel(raycast->data->wall, x, draw_start, colour);
 		draw_start++;
 	}

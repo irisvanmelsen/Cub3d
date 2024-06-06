@@ -14,7 +14,6 @@
 
 void	mm_update(t_cub3d *cub3d, t_minimap *minimap);
 
-
 int	main(int argc, char **argv)
 {
 	if (!cubed(argc, argv))

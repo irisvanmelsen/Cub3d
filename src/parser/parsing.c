@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 14:58:27 by iris              #+#    #+#             */
-/*   Updated: 2024/05/09 16:45:46 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parsing.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 14:58:27 by iris          #+#    #+#                 */
+/*   Updated: 2024/05/09 16:45:46 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
 	map_start_index = parse_and_load_textures(cub3d, map->file_content);
 	if (!map_start_index)
 		return (false);
-	if (!map_init(cub3d, map, map_start_index))
+	if (!map_init(map, map_start_index))
 		return (false);
 	return (true);
 }

@@ -105,7 +105,7 @@ void	setup_border(t_minimap *minimap)
 			print_error(get_error_name(ERROR_IMAGE));
 }
 
-void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
+void	check_char_mm(char **mm_array, t_cub3d *cub3d, \
 		int y)
 {
 	int	x;
@@ -113,14 +113,15 @@ void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
 	x = 0;
 	while (x < 5)
 	{
-		if (cub3d->map->player_y - 2 + y >= 0 && cub3d->map->player_y - 2 + y \
-			< MINI_HEIGHT && cub3d->map->player_x - 2 + x >= 0 && \
-			cub3d->map->player_x - 2 + x < MINI_WIDTH)
+		if ((int)cub3d->player.pos.y - 2 + y >= 0 && (int)cub3d->player.pos.y - 2 + y \
+			< cub3d->map->length_y && (int)cub3d->player.pos.x - 2 + x >= 0 && \
+			(int)cub3d->player.pos.x - 2 + x < (int)ft_strlen(cub3d->map->content[(int)cub3d->player.pos.y]))
 		{
-			if (cub3d->minimap->og_map[cub3d->map->player_y - 2 + y] [cub3d->map->player_x - 2 + x] == '1')
+			if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y]\
+			[(int)cub3d->player.pos.x - 2 + x] == '1')
 				mm_array[y][x] = '1';
-			else if (cub3d->minimap->og_map[cub3d->map->player_y - 2 + y] \
-				[cub3d->map->player_x - 2 + x] == 'P')
+			else if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y] \
+				[(int)cub3d->player.pos.x - 2 + x] == 'P')
 				mm_array[y][x] = 'P';
 			else
 				mm_array[y][x] = '0';
@@ -130,30 +131,3 @@ void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
 		x++;
 	}
 }
-
-
-// void	check_char_mm(t_minimap *minimap, char **mm_array, t_cub3d *cub3d, \
-// 		int y)
-// {
-// 	int	x;
-
-// 	x = 0;
-// 	while (x < 5)
-// 	{
-// 		if (cub3d->map->player_y - 2 + y >= 0 && cub3d->map->player_y - 2 + y \
-// 			< MINI_HEIGHT && cub3d->map->player_x - 2 + x >= 0 && \
-// 			cub3d->map->player_x - 2 + x < MINI_WIDTH)
-// 		{
-// 			if (cub3d->minimap->og_map[cub3d->map->player_y - 2 + y] \
-// 				[cub3d->map->player_x - 2 + x] == '1')
-// 				mm_array[y][x] = '1';
-// 			else if (cub3d->minimap->og_map[cub3d->map->player_y - 2 + y] \
-// 				[cub3d->map->player_x - 2 + x] == 'P')
-// 				mm_array[y][x] = 'P';
-// 			else
-// 				mm_array[y][x] = '0';
-// 		}
-// 		else
-// 			mm_array[y][x] = '#';
-// 		x++;
-// 	}

@@ -25,7 +25,8 @@ LIB_FLAGS := -lglfw -ldl -pthread -lm
 endif
 
 RM 			:=	rm -rf
-FLAGS 		:=  -g -fsanitize=address
+FLAGS 		:= -Werror -Wextra -Wall -Ofast
+# -Ofast
 SRC			:=	main.c \
 				parser/characters.c \
 				parser/error.c \
