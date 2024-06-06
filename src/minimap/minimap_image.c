@@ -98,11 +98,13 @@ void	check_char_mm(char **mm_array, t_cub3d *cub3d, \
 	x = 0;
 	while (x < 5)
 	{
-		if ((int)cub3d->player.pos.y - 2 + y >= 0 && (int)cub3d->player.pos.y - 2 + y \
-			< cub3d->map->length_y && (int)cub3d->player.pos.x - 2 + x >= 0 && \
-			(int)cub3d->player.pos.x - 2 + x < (int)ft_strlen(cub3d->map->content[(int)cub3d->player.pos.y]))
+		if ((int)cub3d->player.pos.y - 2 + y >= 0 && \
+		(int)cub3d->player.pos.y - 2 + y < cub3d->map->length_y && \
+		(int)cub3d->player.pos.x - 2 + x >= 0 && \
+		(int)cub3d->player.pos.x - 2 + x < \
+		(int)ft_strlen(cub3d->map->content[(int)cub3d->player.pos.y]))
 		{
-			if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y]\
+			if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y] \
 			[(int)cub3d->player.pos.x - 2 + x] == '1')
 				mm_array[y][x] = '1';
 			else if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y] \

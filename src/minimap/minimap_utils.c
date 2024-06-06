@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-
 void	draw_mm(char **mm_array, t_minimap *minimap)
 {
 	int			x;

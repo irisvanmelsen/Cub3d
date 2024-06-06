@@ -54,9 +54,6 @@ char	**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d)
 	return (mm_array);
 }
 
-
-
-
 char	**setup_minimap_arr(void)
 {
 	int		i;
@@ -99,9 +96,8 @@ bool	start_minimap(t_cub3d *cub3d)
 	if (!cub3d->minimap->border)
 		setup_border(cub3d->minimap);
 	cub3d->minimap->mm_array = setup_minimap_arr();
-	cub3d->minimap->mm_array = compare_maps(cub3d->minimap, cub3d->minimap->mm_array, cub3d);
+	cub3d->minimap->mm_array = compare_maps(cub3d->minimap, \
+	cub3d->minimap->mm_array, cub3d);
 	fill_wall_backgr(cub3d->minimap->mm_array, cub3d->minimap);
-	// cub3d->minimap->mm_array = compare_maps(cub3d->minimap->mm_array, \
-	// 	cub3d->minimap->og_map, cub3d->map->player_x, cub3d->map->player_y);
 	return (true);
 }
