@@ -44,6 +44,7 @@ SRC			:=	main.c \
 				init_and_free.c \
 				minimap/minimap.c \
 				minimap/minimap_image.c \
+				minimap/minimap_utils.c \
 				textures.c \
 				calculations.c \
 

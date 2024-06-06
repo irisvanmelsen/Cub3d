@@ -61,5 +61,5 @@ void	mm_update(t_cub3d *cub3d, t_minimap *minimap)
 {
 	minimap->mm_array = compare_maps(minimap, \
 		minimap->mm_array, cub3d);
-	fill_wall_backgr(minimap->mm_array, minimap);
+	draw_mm(minimap->mm_array, minimap);
 }

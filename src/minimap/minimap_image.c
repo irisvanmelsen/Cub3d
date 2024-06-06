@@ -52,22 +52,7 @@ void	fill_colours(char **mm_array, t_minimap *minimap, int y, int x)
 
 void	fill_wall_backgr(char **mm_array, t_minimap *minimap)
 {
-	int			x;
-	int			y;
-
-	y = 0;
-	while (mm_array[y])
-	{
-		x = 0;
-		while (mm_array[y][x])
-		{
-			minimap->colour = 0;
-			fill_colours(mm_array, minimap, y, x);
-			fill_the_image(minimap, x, y);
-			x++;
-		}
-		y++;
-	}
+	draw_mm(mm_array, minimap);
 	mlx_put_string(minimap->mlx, "      M I N I M A P : ", 1, 2);
 	if (mlx_image_to_window(minimap->mlx, minimap->image, minimap->scaler / 2, \
 		minimap->scaler / 2) == -1)

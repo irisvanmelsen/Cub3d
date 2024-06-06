@@ -302,7 +302,7 @@ void		coordinate_on_textures(t_raycast_data *ray, t_textures *texture);
 
 bool		start_minimap(t_cub3d *cub3d);
 char		**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d);
-// char		**compare_maps(char **mm_array, char **mini_map, int player_x, int player_y);
+void		draw_mm(char **mm_array, t_minimap *minimap);
 
 
 //MINIMAP_IMAGES.C
