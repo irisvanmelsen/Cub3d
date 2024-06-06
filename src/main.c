@@ -56,10 +56,3 @@ void	main_game_loop(void *param)
 	ft_bzero(m->wall->pixels, WIDTH * HEIGHT * 4);
 	raycaster(m->raycast);
 }
-
-void	mm_update(t_cub3d *cub3d, t_minimap *minimap)
-{
-	minimap->mm_array = compare_maps(minimap, \
-		minimap->mm_array, cub3d);
-	draw_mm(minimap->mm_array, minimap);
-}

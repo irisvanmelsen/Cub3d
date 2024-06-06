@@ -90,31 +90,23 @@ void	setup_border(t_minimap *minimap)
 			print_error(get_error_name(ERROR_IMAGE));
 }
 
-void	check_char_mm(char **mm_array, t_cub3d *cub3d, \
-		int y)
-{
-	int	x;
 
-	x = 0;
-	while (x < 5)
+void	draw_mm(char **mm_array, t_minimap *minimap)
+{
+	int			x;
+	int			y;
+
+	y = 0;
+	while (mm_array[y])
 	{
-		if ((int)cub3d->player.pos.y - 2 + y >= 0 && \
-		(int)cub3d->player.pos.y - 2 + y < cub3d->map->length_y && \
-		(int)cub3d->player.pos.x - 2 + x >= 0 && \
-		(int)cub3d->player.pos.x - 2 + x < \
-		(int)ft_strlen(cub3d->map->content[(int)cub3d->player.pos.y]))
+		x = 0;
+		while (mm_array[y][x])
 		{
-			if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y] \
-			[(int)cub3d->player.pos.x - 2 + x] == '1')
-				mm_array[y][x] = '1';
-			else if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y] \
-				[(int)cub3d->player.pos.x - 2 + x] == 'P')
-				mm_array[y][x] = 'P';
-			else
-				mm_array[y][x] = '0';
+			minimap->colour = 0;
+			fill_colours(mm_array, minimap, y, x);
+			fill_the_image(minimap, x, y);
+			x++;
 		}
-		else
-			mm_array[y][x] = '#';
-		x++;
+		y++;
 	}
 }

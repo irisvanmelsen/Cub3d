@@ -20,16 +20,6 @@ void	init_minimap(t_cub3d *cub3d)
 	cub3d->minimap->og_map = cub3d->map->content;
 }
 
-int	calc_height_minimap(char **mini_map)
-{
-	int	y;
-
-	y = 0;
-	while (mini_map[y])
-		y++;
-	return (y);
-}
-
 char	**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d)
 {
 	int	y;
@@ -54,30 +44,11 @@ char	**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d)
 	return (mm_array);
 }
 
-char	**setup_minimap_arr(void)
+void	mm_update(t_cub3d *cub3d, t_minimap *minimap)
 {
-	int		i;
-	char	**mm_array;
-
-	i = 0;
-	mm_array = ft_calloc(6, sizeof(char *));
-	if (!mm_array)
-	{
-		print_error(get_error_name(ERROR_ALLOCATION));
-		return (NULL);
-	}
-	while (i < 5)
-	{
-		mm_array[i] = ft_calloc(6, sizeof(char));
-		if (!mm_array[i])
-		{
-			print_error(get_error_name(ERROR_ALLOCATION));
-			return (NULL);
-		}
-		i++;
-	}
-	mm_array[5] = NULL;
-	return (mm_array);
+	minimap->mm_array = compare_maps(minimap, \
+		minimap->mm_array, cub3d);
+	draw_mm(minimap->mm_array, minimap);
 }
 
 bool	start_minimap(t_cub3d *cub3d)
