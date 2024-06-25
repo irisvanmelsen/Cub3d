@@ -63,7 +63,7 @@ void	move(t_player *player, t_vector dir, bool	subtract, t_vector *newpos)
 {
 	double		speed;
 
-	speed = 1.5 * player->data->mlx->delta_time;
+	speed = 2.0 * player->data->mlx->delta_time;
 	if (mlx_is_key_down(player->data->mlx, MLX_KEY_LEFT_SHIFT))
 		speed *= 2.5;
 	if (subtract)

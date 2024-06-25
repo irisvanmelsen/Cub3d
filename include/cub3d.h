@@ -185,7 +185,7 @@ struct s_cub3d
 	t_player			player;
 	mlx_t				*mlx;
 	t_raycast_data		*raycast;
-	mlx_image_t			*background; //should be with textures imo
+	mlx_image_t			*background;
 	mlx_image_t			*wall;
 	t_minimap			*minimap;
 	t_textures			textures;
@@ -210,6 +210,8 @@ bool		parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map);
 bool		map_init(t_map *map, int map_start_index);
 bool		is_map_walled(char **map, size_t mapheight);
 bool		valid_char(char c);
+bool		outer_walls_check(char **map);
+bool		top_bottom_check(char *map);
 
 //CHARACTERS.C
 

@@ -60,8 +60,6 @@ void		str_reverse(char *str);
 bool		ft_strrcmp(char *str1, char *str2, size_t n);
 int			ft_printf(const char *str, ...);
 char		*get_next_line(int fd);
-
-
 void		print_2d_charray(char **map);
 void		free_map(char **map);
 int			ptrarr_len(void **arr);

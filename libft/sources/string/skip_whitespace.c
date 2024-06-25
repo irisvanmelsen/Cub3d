@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 /*
  * @brief returns amount to add to your index to jump over a strings space chars
  *
@@ -20,7 +19,7 @@
  * @param i
  * @return int
  */
-int skip_space(char *str, int i)
+int	skip_space(char *str, int i)
 {
 	int	ret;
 
@@ -32,16 +31,14 @@ int skip_space(char *str, int i)
 	return (ret);
 }
 
-int skip_whitespace(char *str, int i)
+int	skip_whitespace(char *str, int i)
 {
 	int	ret;
 
 	ret = 0;
 	if (!str || !str[i])
 		return (0);
-	while (str[i + ret] == ' ' && str[i + ret] == '\n')
+	while (ft_strchr("\t\n\v\f\r ", str[i + ret]))
 		ret++;
 	return (ret);
 }
-
-// while (ft_strchr("\t\n\v\f\r ", str[i + ret]))

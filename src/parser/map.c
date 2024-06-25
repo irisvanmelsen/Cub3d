@@ -22,12 +22,13 @@ bool	map_init(t_map *map, int map_start_index)
 		return (print_error(MAP_ALLOC_FAIL));
 	if (!only_one_player_symbol(map))
 		return (print_error(get_error_name(ERROR_CHARACTER)));
-	print_2d_charray(map->content);
 	if (!floodfill(map->dup_content, map->player_y, map->player_x))
 		return (print_error(FLOOD_FAIL));
 	find_max_lengths(map->content, &map->length_x, &map->length_y);
-	if (!is_map_walled(map->content, (size_t)map->length_y))
+	if (!is_map_walled(map->content, (size_t)map->length_y) || \
+		!outer_walls_check(map->content))
 		return (print_error(MAP_WALL_FAIL));
+	print_2d_charray(map->content);
 	return (true);
 }
 
@@ -72,6 +73,7 @@ bool	is_map_walled(char **map, size_t mapheight)
 			x++;
 		}
 		y++;
+		x = 0;
 	}
 	return (true);
 }

@@ -84,7 +84,7 @@ char	**splittime(char const *s, char **out, char c, size_t wordcount)
 char	**ft_split(char const *s, char c)
 {
 	char	**out;
-	int	wordcount;
+	int		wordcount;
 
 	if (!s)
 		return (NULL);

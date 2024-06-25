@@ -26,11 +26,11 @@ endif
 
 RM 			:=	rm -rf
 FLAGS 		:= -Werror -Wextra -Wall -Ofast
-# -Ofast
 SRC			:=	main.c \
 				parser/characters.c \
 				parser/error.c \
 				parser/map.c \
+				parser/map_utils.c \
 				parser/parsing.c \
 				parser/parsing_utils.c \
 				parser/elements.c \
@@ -62,14 +62,7 @@ Blue		=	"\033[0;34m"		# Blue
 Purple		=	"\033[0;35m"		# Purple
 Cyan		=	"\033[0;36m"		# Cyan
 White		=	"\033[0;37m"		# White
-# Avoid relinking in bonus
-# ifdef WITH_BONUS
-# 	NAME	:=	checker
-# 	OBJ		:=	$(addprefix $(OBJ_DIR)/,$(SRCB:.c=.o))
-# else
-# 	OBJ		:=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
-# endif
-# Add obj directory to obj path
+
 OBJ			:= 	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 OBJ_DIRS	:=	$(dir $(OBJ))
 SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
@@ -77,7 +70,11 @@ SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
 all: ${NAME}
 
 run: $(NAME)
+	./$(NAME) maps/map_test.cub
+	./$(NAME) maps/map_huge.cub
+	./$(NAME) maps/map_corridor.cub
 	./$(NAME) maps/map_small.cub
+	./$(NAME) maps/map_error.cub
 
 $(MLX_A):
 	@if [ -z "$$(ls -A MLX42)" ]; then \
@@ -97,10 +94,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	@mkdir -p $(OBJ_DIRS)
 	@${CC} ${FLAGS} ${HEADER} -c $< -o $@
 	@echo $(Purple) $(notdir $@) $(Green) DONE ${Color_off}
-
-# Set 'WITH_BONUS' option to make with bonus
-# bonus:
-# 	@${MAKE} WITH_BONUS=1 all
 
 clean:
 	@echo ${Yellow} Deleting ${OBJ_DIR} ${Color_off}

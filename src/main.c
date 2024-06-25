@@ -38,15 +38,15 @@ int	cubed(int argc, char **argv)
 
 void	main_game_loop(void *param)
 {
-	t_cub3d		*m;
-	t_vector	newpos;
+	t_cub3d			*m;
+	static t_vector	newpos;
 
 	m = param;
 	newpos.x = m->player.pos.x;
 	newpos.y = m->player.pos.y;
 	if (!keypress_check(m, &newpos))
 		return ;
-	if (m->map->content[(int)newpos.y][(int)newpos.x] == '0')
+	if (m->map->content[(int)newpos.y][(int)newpos.x] != '1')
 	{
 		m->player.pos.x = newpos.x;
 		m->player.pos.y = newpos.y;

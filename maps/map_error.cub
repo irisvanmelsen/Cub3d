@@ -1,0 +1,13 @@
+NO ./textures/greenwall.png
+SO ./textures/greenwall2.png
+WE ./textures/greenwall3.png
+    EA    ./textures/mr_frog.png
+
+F 220,100,0
+C 225,30,0
+
+1111111111111111111
+1000000000000000001
+100000000N00000000001
+1000000000000000001
+1111111111111111111
