@@ -43,11 +43,11 @@ void	fill_colours(char **mm_array, t_minimap *minimap, int y, int x)
 	if (mm_array[y][x] == '#')
 		minimap->colour = get_rgba(0, 0, 0, 0);
 	else if (mm_array[y][x] == '0')
-		minimap->colour = get_rgba(EUCALYPTUS);
+		minimap->colour = (uint32_t)EUCALYPTUS;
 	else if (mm_array[y][x] == '1')
-		minimap->colour = get_rgba(MINT);
+		minimap->colour = (uint32_t)MINT;
 	else if (mm_array[y][x] == 'P')
-		minimap->colour = get_rgba(PISTACHIO);
+		minimap->colour = (uint32_t)PISTACHIO;
 }
 
 void	fill_wall_backgr(char **mm_array, t_minimap *minimap)
@@ -80,7 +80,7 @@ void	setup_border(t_minimap *minimap)
 		x = 0;
 		while (x <= border_length)
 		{
-			mlx_put_pixel(minimap->border, x, y, get_rgba(PISTACHIO));
+			mlx_put_pixel(minimap->border, x, y, (uint32_t)PISTACHIO);
 			x++;
 		}
 		y++;
@@ -89,7 +89,6 @@ void	setup_border(t_minimap *minimap)
 		if (!minimap->border)
 			print_error(get_error_name(ERROR_IMAGE));
 }
-
 
 void	draw_mm(char **mm_array, t_minimap *minimap)
 {

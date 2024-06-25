@@ -15,7 +15,6 @@
 static bool	create_map(t_map *map, int i);
 static bool	create_dup_map(t_map *map);
 static bool	floodfill(char **dup_map, int y, int x);
-static bool	valid_char(char c);
 
 bool	map_init(t_map *map, int map_start_index)
 {
@@ -27,6 +26,8 @@ bool	map_init(t_map *map, int map_start_index)
 	if (!floodfill(map->dup_content, map->player_y, map->player_x))
 		return (print_error(FLOOD_FAIL));
 	find_max_lengths(map->content, &map->length_x, &map->length_y);
+	if (!is_map_walled(map->content, (size_t)map->length_y))
+		return (print_error(MAP_WALL_FAIL));
 	return (true);
 }
 
@@ -47,6 +48,31 @@ static bool	create_map(t_map *map, int i)
 		j++;
 	}
 	map->content[j] = NULL;
+	return (true);
+}
+
+bool	is_map_walled(char **map, size_t mapheight)
+{
+	size_t	y;
+	size_t	x;
+
+	y = 0;
+	x = 0;
+	while (map[y])
+	{
+		while (map[y][x])
+		{
+			if (map[y][x] != ' ' && map[y][x] != '1')
+			{
+				if (y > 0 && x >= ft_strlen(map[y - 1]))
+					return (false);
+				if (y < mapheight && x >= ft_strlen(map[y + 1]))
+					return (false);
+			}
+			x++;
+		}
+		y++;
+	}
 	return (true);
 }
 
@@ -90,18 +116,4 @@ static bool	floodfill(char **dup_map, int y, int x)
 	if (!floodfill(dup_map, y, x - 1))
 		return (false);
 	return (true);
-}
-
-static bool	valid_char(char c)
-{
-	int	i;
-
-	i = 0;
-	while (VALID_CHARS[i])
-	{
-		if (c == VALID_CHARS[i])
-			return (true);
-		i++;
-	}
-	return (false);
 }

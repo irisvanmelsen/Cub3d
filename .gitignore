@@ -17,3 +17,4 @@ obj/parser/parsing_utils.o
 obj/parser/parsing.o
 obj/setup/mlx_setup.o
 obj/setup/player_setup.o
+*.o

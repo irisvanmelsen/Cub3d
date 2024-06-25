@@ -66,3 +66,17 @@ bool	is_player_char(char c)
 		return (true);
 	return (false);
 }
+
+bool	valid_char(char c)
+{
+	int	i;
+
+	i = 0;
+	while (VALID_CHARS[i])
+	{
+		if (c == VALID_CHARS[i])
+			return (true);
+		i++;
+	}
+	return (false);
+}

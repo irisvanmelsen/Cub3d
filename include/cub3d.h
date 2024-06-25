@@ -25,26 +25,26 @@
 
 // SCREEN
 # define HEIGHT 1200
-# define HALF_HEIGHT HEIGHT / 2
-// # define HALF_HEIGHT 450
+// # define HALF_HEIGHT HEIGHT / 2
+# define HALF_HEIGHT 600
 # define WIDTH 1800
-# define HALF_WIDTH WIDTH / 2
+// # define HALF_WIDTH WIDTH / 2
+# define HALF_WIDTH 900
 
-// # define HALF_WIDTH 800
-# define HALF_SCREENSIZE HEIGHT / 2 * WIDTH
-// # define HALF_SCREENSIZE 3600000
+// # define HALF_SCREENSIZE HEIGHT / 2 * WIDTH
+# define HALF_SCREENSIZE 1080000
 
 // MINIMAP
-# define MINI_HEIGHT HEIGHT / 5
-// # define MINI_HEIGHT 240
-# define MINI_WIDTH WIDTH / 5
-// # define MINI_WIDTH 480
+// # define MINI_HEIGHT HEIGHT / 5
+# define MINI_HEIGHT 240
+// # define MINI_WIDTH WIDTH / 5
+# define MINI_WIDTH 360
 
 // COLOURS
-# define LIGHTGREEN 175, 225, 175, 255
-# define EUCALYPTUS 951, 331, 172, 55
-# define MINT 152, 251, 152, 255
-# define PISTACHIO 147, 197, 114, 225
+# define LIGHTGREEN 175225175255
+# define EUCALYPTUS 95133117255
+# define MINT 152251152255
+# define PISTACHIO 147197114225
 
 // MATH
 # define PI 3.1415926
@@ -56,8 +56,9 @@
 //ERROR MSGS
 # define VALID_CHARS "10NSEW2"
 # define DOUBLE_ELEMENT "ERROR Double element! encountered.\n"
-# define FLOOD_FAIL "Invalid char in map OR unwalled floor detected"
-# define MAP_ALLOC_FAIL "Error allocating the map"
+# define FLOOD_FAIL "Invalid char in map OR unwalled floor detected\n"
+# define MAP_ALLOC_FAIL "Error allocating the map\n"
+# define MAP_WALL_FAIL	"map is not properly walled off :(\n"
 
 typedef struct s_cub3d	t_cub3d;
 
@@ -207,6 +208,8 @@ bool		parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map);
 //MAP.C
 
 bool		map_init(t_map *map, int map_start_index);
+bool		is_map_walled(char **map, size_t mapheight);
+bool		valid_char(char c);
 
 //CHARACTERS.C
 

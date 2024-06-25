@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   movement.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 16:58:17 by mde-cloe          #+#    #+#             */
-/*   Updated: 2024/06/06 18:06:16 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   movement.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 16:58:17 by mde-cloe      #+#    #+#                 */
+/*   Updated: 2024/06/06 18:06:16 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	move(t_player *player, t_vector dir, bool	subtract, t_vector *newpos)
 {
 	double		speed;
 
-	speed = 2.5 * player->data->mlx->delta_time;
+	speed = 1.5 * player->data->mlx->delta_time;
 	if (mlx_is_key_down(player->data->mlx, MLX_KEY_LEFT_SHIFT))
 		speed *= 2.5;
 	if (subtract)

@@ -12,7 +12,8 @@
 		"math.h": "c",
 		"features-time64.h": "c",
 		"cmath": "c",
-		"array": "c"
+		"array": "c",
+		"mlx42.h": "c"
 	},
 	"cmake.sourceDirectory": "/home/mde-cloe/Desktop/PROJECTS/CUB3D/new clone after Iris render/MLX42"
 }

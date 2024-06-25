@@ -77,7 +77,7 @@ SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
 all: ${NAME}
 
 run: $(NAME)
-	./$(NAME) maps/map_test.cub
+	./$(NAME) maps/map_small.cub
 
 $(MLX_A):
 	@if [ -z "$$(ls -A MLX42)" ]; then \
