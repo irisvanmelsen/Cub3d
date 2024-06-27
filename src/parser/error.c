@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 22:12:03 by iris              #+#    #+#             */
-/*   Updated: 2024/04/09 21:00:23 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   error.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/30 22:12:03 by iris          #+#    #+#                 */
+/*   Updated: 2024/04/09 21:00:23 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ char	*get_error_name(t_error error)
 
 bool	print_error(char *str)
 {
-	write (STDERR_FILENO, str, ft_strlen(str));
+	printf(C_RED"%s\n"C_RESET);
 	return (false);
 }

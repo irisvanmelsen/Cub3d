@@ -36,9 +36,11 @@ int	skip_whitespace(char *str, int i)
 	int	ret;
 
 	ret = 0;
+	if (!str)
+		return (0);
 	if (!str || !str[i])
 		return (0);
-	while (ft_strchr("\t\n\v\f\r ", str[i + ret]))
+	while (str[i + ret] && ft_strchr("\t\n\v\f\r ", str[i + ret]))
 		ret++;
 	return (ret);
 }

@@ -27,25 +27,32 @@ void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data)
 
 void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast)
 {
-	ft_bzero(cub3d, sizeof(cub3d));
+	ft_bzero(cub3d, sizeof(t_cub3d));
+	ft_bzero(map, sizeof(t_map));
 	cub3d->map = map;
 	cub3d->raycast = raycast;
 }
 
+//you can safely free NULL so the if statements not needed?
 void	free_all(t_cub3d *data)
 {
-	if (data->map->file_content)
-		free_array((void *)data->map->file_content);
-	if (data->map->content)
-		free(data->map->content);
-	if (data->map->dup_content)
-		free_array((void *)data->map->dup_content);
-	if (data->minimap->mm_array)
-		free_array((void *)data->minimap->mm_array);
-	if (data->minimap->image)
-		mlx_delete_image(data->mlx, data->minimap->image);
+	if (data->map)
+	{
+		if (data->map->file_content)
+			free_array((void *)data->map->file_content);
+		if (data->map->content)
+			free(data->map->content);
+		if (data->map->dup_content)
+			free_array((void *)data->map->dup_content);
+	}
 	if (data->minimap)
+	{
+		if (data->minimap->mm_array)
+			free_array((void *)data->minimap->mm_array);
+		if (data->minimap->image)
+			mlx_delete_image(data->mlx, data->minimap->image);
 		free(data->minimap);
+	}
 	if (data->textures.north)
 		mlx_delete_texture(data->textures.north);
 	if (data->textures.east)

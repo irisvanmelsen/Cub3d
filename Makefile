@@ -6,16 +6,18 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
-#    Updated: 2024/05/09 17:10:51 by ivan-mel      ########   odam.nl          #
+#    Updated: 2024/06/25 17:19:32 by mde-cloe      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		:= 	cub3d
+NAME 		:= 	cub3D
 HEADER		:=	-I libft/include -Iinclude/ -I MLX42/include/MLX42
 MLX			:=	./MLX42
 MLX_A	:=	$(MLX)/build/libmlx42.a
 LIBFT_A		:=	./libft/libft.a
 
+FLAGS 		:= -Werror -Wextra -Wall -fsanitize=address -g
+RM 			:=	rm -rf
 OS_NAME	:= $(shell uname -s)
 ifeq ($(OS_NAME), Darwin)
 LIB_FLAGS := -lglfw -L "/usr/local/Cellar/glfw/3.4/lib" -framework Cocoa \
@@ -24,8 +26,6 @@ else
 LIB_FLAGS := -lglfw -ldl -pthread -lm
 endif
 
-RM 			:=	rm -rf
-FLAGS 		:= -Werror -Wextra -Wall -Ofast
 SRC			:=	main.c \
 				parser/characters.c \
 				parser/error.c \

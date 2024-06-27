@@ -27,13 +27,16 @@ int	cubed(int argc, char **argv)
 	t_map			map;
 	t_raycast_data	raycast;
 
-	if (!parsing(argc, argv, &cub3d, &map))
-		return (print_error("PARSING ERROR\n"));
 	init_cub3d_data(&cub3d, &map, &raycast);
+	if (!parsing(argc, argv, &cub3d, &map))
+	{
+		free_all(&cub3d);
+		return (print_error("PARSING ERROR\n"));
+	}
 	game_setup(&cub3d);
 	mlx_terminate(cub3d.mlx);
 	free_all(&cub3d);
-	return (1);
+	return (0);
 }
 
 void	main_game_loop(void *param)
