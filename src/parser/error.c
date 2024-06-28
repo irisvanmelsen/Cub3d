@@ -26,6 +26,6 @@ char	*get_error_name(t_error error)
 
 bool	print_error(char *str)
 {
-	printf(C_RED"%s\n"C_RESET);
+	printf(C_RED"%s\n"C_RESET, str);
 	return (false);
 }

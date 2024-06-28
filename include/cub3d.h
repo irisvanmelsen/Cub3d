@@ -210,8 +210,7 @@ void		main_game_loop(void *param);
 
 //init.c
 void		init_raycast_data(t_raycast_data *raycast, t_cub3d *data);
-void		init_cub3d_data(t_cub3d *cub3d, t_map *map, \
-							t_raycast_data *raycast);
+t_cub3d		*init_cub3d_data(void);
 
 /////////////////////////////PARSER////////////////////////////////////
 //PARSING.C
@@ -309,6 +308,7 @@ void		coordinate_on_textures(t_raycast_data *ray, t_textures *texture);
 bool		start_minimap(t_cub3d *cub3d);
 char		**compare_maps(t_minimap *minimap, char **mm_array, t_cub3d *cub3d);
 void		draw_mm(char **mm_array, t_minimap *minimap);
+void		mm_update(t_cub3d *cub3d, t_minimap *minimap);
 
 //MINIMAP_IMAGES.C
 void		fill_the_image(t_minimap *minimap, int x, int y);

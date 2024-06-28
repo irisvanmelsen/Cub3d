@@ -25,12 +25,23 @@ void	init_raycast_data(t_raycast_data *raycast, t_cub3d *data)
 	data->raycast = raycast;
 }
 
-void	init_cub3d_data(t_cub3d *cub3d, t_map *map, t_raycast_data *raycast)
+t_cub3d	*init_cub3d_data(void)
 {
-	ft_bzero(cub3d, sizeof(t_cub3d));
-	ft_bzero(map, sizeof(t_map));
-	cub3d->map = map;
-	cub3d->raycast = raycast;
+	t_cub3d	*cub3d;
+
+	cub3d = ft_calloc(1, sizeof(t_cub3d));
+	if (!cub3d)
+		return (NULL);
+	cub3d->map = ft_calloc(1, sizeof(t_map));
+	cub3d->raycast = ft_calloc(1, sizeof(t_raycast_data));
+	if (!cub3d->map || !cub3d->raycast)
+	{
+		free(cub3d->map);
+		free(cub3d->raycast);
+		free(cub3d);
+		return (NULL);
+	}
+	return (cub3d);
 }
 
 //you can safely free NULL so the if statements not needed?
@@ -65,4 +76,7 @@ void	free_all(t_cub3d *data)
 		mlx_delete_image(data->mlx, data->background);
 	if (data->wall)
 		mlx_delete_image(data->mlx, data->wall);
+	free(data->raycast);
+	free(data->map);
+	free(data);
 }

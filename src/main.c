@@ -12,8 +12,6 @@
 
 #include "../include/cub3d.h"
 
-void	mm_update(t_cub3d *cub3d, t_minimap *minimap);
-
 int	main(int argc, char **argv)
 {
 	if (!cubed(argc, argv))
@@ -23,19 +21,17 @@ int	main(int argc, char **argv)
 
 int	cubed(int argc, char **argv)
 {
-	t_cub3d			cub3d;
-	t_map			map;
-	t_raycast_data	raycast;
+	t_cub3d	*cub3d;
 
-	init_cub3d_data(&cub3d, &map, &raycast);
-	if (!parsing(argc, argv, &cub3d, &map))
+	cub3d = init_cub3d_data();
+	if (!parsing(argc, argv, cub3d, cub3d->map))
 	{
-		free_all(&cub3d);
+		free_all(cub3d);
 		return (print_error("PARSING ERROR\n"));
 	}
-	game_setup(&cub3d);
-	mlx_terminate(cub3d.mlx);
-	free_all(&cub3d);
+	game_setup(cub3d);
+	mlx_terminate(cub3d->mlx);
+	free_all(cub3d);
 	return (0);
 }
 

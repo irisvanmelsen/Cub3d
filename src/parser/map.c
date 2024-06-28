@@ -20,6 +20,7 @@ bool	map_init(t_map *map, int map_start_index)
 {
 	if (!create_map(map, map_start_index) || !create_dup_map(map))
 		return (print_error(MAP_ALLOC_FAIL));
+	print_2d_charray(map->content);
 	if (!only_one_player_symbol(map))
 		return (print_error(get_error_name(ERROR_CHARACTER)));
 	if (!floodfill(map->dup_content, map->player_y, map->player_x))
@@ -28,7 +29,6 @@ bool	map_init(t_map *map, int map_start_index)
 	if (!is_map_walled(map->content, (size_t)map->length_y) || \
 		!outer_walls_check(map->content))
 		return (print_error(MAP_WALL_FAIL));
-	print_2d_charray(map->content);
 	return (true);
 }
 
