@@ -23,15 +23,15 @@ bool	parsing(int argc, char **argv, t_cub3d *cub3d, t_map *map)
 	ft_bzero((void *)map, sizeof(t_map));
 	fd = is_input_correct(argc, argv[1]);
 	if (!fd)
-		return (false);
+		return (print_error("\nOpen failed"));
 	map->file_content = read_file(fd);
 	if (!map->file_content)
-		return (false);
+		return (print_error("\nconversion from file to array failed"));
 	map_start_index = parse_and_load_textures(cub3d, map->file_content);
 	if (!map_start_index)
-		return (false);
+		return (print_error("\nCan't load elements\n"));
 	if (!map_init(map, map_start_index))
-		return (false);
+		return (print_error("\nMap error"));
 	return (true);
 }
 

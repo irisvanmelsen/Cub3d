@@ -39,7 +39,7 @@ static bool	create_map(t_map *map, int i)
 
 	j = 0;
 	size = ptrarr_len((void **)&map->file_content[i]);
-	if (!top_bottom_check(map->file_content[size - 1]))
+	if (!top_bottom_check(map->file_content[i + size - 1]))
 		return (false);
 	map->content = ft_calloc(size + 1, sizeof(char *));
 	if (!map->content)

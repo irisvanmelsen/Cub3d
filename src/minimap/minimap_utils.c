@@ -36,6 +36,7 @@ void	check_char_mm(char **mm_array, t_cub3d *cub3d, \
 		(int)cub3d->player.pos.x - 2 + x < \
 		(int)ft_strlen(cub3d->map->content[(int)cub3d->player.pos.y]))
 		{
+			//check of we op die -2 mogen indexen
 			if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y] \
 			[(int)cub3d->player.pos.x - 2 + x] == '1')
 				mm_array[y][x] = '1';

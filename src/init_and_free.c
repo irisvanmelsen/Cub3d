@@ -44,26 +44,8 @@ t_cub3d	*init_cub3d_data(void)
 	return (cub3d);
 }
 
-//you can safely free NULL so the if statements not needed?
-void	free_all(t_cub3d *data)
+static void	free_mlx_objects(t_cub3d *data)
 {
-	if (data->map)
-	{
-		if (data->map->file_content)
-			free_array((void *)data->map->file_content);
-		if (data->map->content)
-			free(data->map->content);
-		if (data->map->dup_content)
-			free_array((void *)data->map->dup_content);
-	}
-	if (data->minimap)
-	{
-		if (data->minimap->mm_array)
-			free_array((void *)data->minimap->mm_array);
-		if (data->minimap->image)
-			mlx_delete_image(data->mlx, data->minimap->image);
-		free(data->minimap);
-	}
 	if (data->textures.north)
 		mlx_delete_texture(data->textures.north);
 	if (data->textures.east)
@@ -76,7 +58,26 @@ void	free_all(t_cub3d *data)
 		mlx_delete_image(data->mlx, data->background);
 	if (data->wall)
 		mlx_delete_image(data->mlx, data->wall);
-	free(data->raycast);
+}
+
+//you can safely free NULL so the if statements not needed?
+void	free_all(t_cub3d *data)
+{
+	if (data->map)
+	{
+		free_array((void *)data->map->file_content);
+		free(data->map->content);
+		free_array((void *)data->map->dup_content);
+	}
 	free(data->map);
+	if (data->minimap)
+	{
+		free_array((void *)data->minimap->mm_array);
+		if (data->minimap->image)
+			mlx_delete_image(data->mlx, data->minimap->image);
+		free(data->minimap);
+	}
+	free_mlx_objects(data);
+	free(data->raycast);
 	free(data);
 }
