@@ -26,8 +26,8 @@ bool	map_init(t_map *map, int map_start_index)
 	if (!floodfill(map->dup_content, map->player_y, map->player_x))
 		return (print_error(FLOOD_FAIL));
 	find_max_lengths(map->content, &map->length_x, &map->length_y);
-	if (!is_map_walled(map->content, (size_t)map->length_y) || \
-		!outer_walls_check(map->content))
+	if (!outer_walls_check(map->content) || \
+		!is_map_walled(map->content, (size_t)map->length_y))
 		return (print_error(MAP_WALL_FAIL));
 	return (true);
 }
@@ -39,6 +39,8 @@ static bool	create_map(t_map *map, int i)
 
 	j = 0;
 	size = ptrarr_len((void **)&map->file_content[i]);
+	if (!top_bottom_check(map->file_content[size - 1]))
+		return (false);
 	map->content = ft_calloc(size + 1, sizeof(char *));
 	if (!map->content)
 		return (false);

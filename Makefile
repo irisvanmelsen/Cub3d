@@ -10,13 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		:= 	cub3D
-HEADER		:=	-I libft/include -Iinclude/ -I MLX42/include/MLX42
-MLX			:=	./MLX42
-MLX_A	:=	$(MLX)/build/libmlx42.a
-LIBFT_A		:=	./libft/libft.a
+NAME 			:= 	cub3D
+WARNING_FLAGS 			:= -Werror -Wextra -Wall -fsanitize=address -g
+INCLUDE_FLAG	:=	-I libft/include -Iinclude/ -I MLX42/include/MLX42
 
-FLAGS 		:= -Werror -Wextra -Wall -fsanitize=address -g
+HEADER			:= include/cub3d.h
+MLX				:=	./MLX42
+MLX_A			:=	$(MLX)/build/libmlx42.a
+LIBFT_A			:=	./libft/libft.a
+
 RM 			:=	rm -rf
 OS_NAME	:= $(shell uname -s)
 ifeq ($(OS_NAME), Darwin)
@@ -48,9 +50,13 @@ SRC			:=	main.c \
 				textures.c \
 				calculations.c \
 
-#OBJB_FILES	=	${SRCB:.c=.o}
+#OBJB_FILES	=	$(SRCB:.c=.o)
 OBJ_DIR		:=	./obj
 SRC_DIR 	:= 	./src
+
+
+
+
 # Reset
 Color_Off	=	"\033[0m"			# Text Reset
 # Regular Colors
@@ -67,7 +73,7 @@ OBJ			:= 	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 OBJ_DIRS	:=	$(dir $(OBJ))
 SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
 
-all: ${NAME}
+all: $(NAME)
 
 run: $(NAME)
 	./$(NAME) maps/map_test.cub
@@ -82,34 +88,34 @@ $(MLX_A):
 	fi
 	@cmake $(MLX) -B $(MLX)/build && make -C $(MLX)/build
 
-${NAME}: $(MLX_A) ${LIBFT_A} ${OBJ}
-	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@${CC} $^ ${LIBFT_A} ${MLX_A} ${FLAGS} ${LIB_FLAGS} -o ${NAME}
-	@echo ${Green} Complete 😊 ${Color_off}
+$(NAME): $(MLX_A) $(LIBFT_A) $(OBJ)
+	@echo $(Blue) Building $(NAME) $(Color_Off)
+	@$(CC) $^ $(LIBFT_A) $(MLX_A) $(WARNING_FLAGS) $(LIB_FLAGS) -o $(NAME)
+	@echo $(Green) Complete 😊 $(Color_off)
 
-${LIBFT_A}:
-	@${MAKE} -C libft
+$(LIBFT_A):
+	@$(MAKE) -C libft
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 	@mkdir -p $(OBJ_DIRS)
-	@${CC} ${FLAGS} ${HEADER} -c $< -o $@
-	@echo $(Purple) $(notdir $@) $(Green) DONE ${Color_off}
+	@$(CC) $(WARNING_FLAGS) $(INCLUDE_FLAG) -c $< -o $@
+	@echo $(Purple) $(notdir $@) $(Green) DONE $(Color_off)
 
 clean:
-	@echo ${Yellow} Deleting ${OBJ_DIR} ${Color_off}
-	@${RM} ${OBJ_DIR}
+	@echo $(Yellow) Deleting $(OBJ_DIR) $(Color_off)
+	@$(RM) $(OBJ_DIR)
 
 
 libclean:
-	@${MAKE} -C libft clean
-	@${MAKE} -C ${MLX}/build clean
+	@$(MAKE) -C libft clean
+	@$(MAKE) -C $(MLX)/build clean
 
 libfclean: libclean
-	@${MAKE} -C libft fclean
-	@${RM} ${MLX}/build
+	@$(MAKE) -C libft fclean
+	@$(RM) $(MLX)/build
 
 fclean: clean
-	@echo ${Yellow} Deleting ${NAME} ${Color_off}
-	@${RM} ${NAME}
+	@echo $(Yellow) Deleting $(NAME) $(Color_off)
+	@$(RM) $(NAME)
 
 re: fclean all

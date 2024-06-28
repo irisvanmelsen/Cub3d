@@ -69,7 +69,8 @@
 # define VALID_CHARS "10NSEW2"
 # define DOUBLE_ELEMENT "ERROR Double element! encountered.\n"
 # define FLOOD_FAIL "Invalid char in map OR unwalled floor detected\n"
-# define MAP_ALLOC_FAIL "Error allocating the map\n"
+# define MAP_ALLOC_FAIL "Error allocating the map array either a malloc fail\n\
+or more likeley extra text/tokens below the map\n"
 # define MAP_WALL_FAIL	"map is not properly walled off :(\n"
 
 typedef struct s_cub3d	t_cub3d;
