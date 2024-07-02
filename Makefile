@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/30 14:14:43 by iris              #+#    #+#              #
-#    Updated: 2024/07/02 17:10:43 by ivan-mel         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: ivan-mel <ivan-mel@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/30 14:14:43 by iris          #+#    #+#                  #
+#    Updated: 2024/07/02 17:10:43 by ivan-mel      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,10 +76,10 @@ SRC			:=	$(addprefix $(SRC_DIR)/,$(SRC))
 all: $(NAME)
 
 run: $(NAME)
+	./$(NAME) maps/map_small.cub
 	./$(NAME) maps/map_test.cub
 	./$(NAME) maps/map_huge.cub
 	./$(NAME) maps/map_corridor.cub
-	./$(NAME) maps/map_small.cub
 	./$(NAME) maps/map_error.cub
 
 $(MLX_A):

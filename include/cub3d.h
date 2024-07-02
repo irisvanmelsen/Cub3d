@@ -66,13 +66,20 @@
 
 //ERROR MSGS
 # define VALID_CHARS "10NSEW2"
-# define DOUBLE_ELEMENT "ERROR Double element! encountered.\n"
+# define DOUBLE_ELEMENT "ERROR too many elements! encountered.\n"
 # define FLOOD_FAIL "Invalid char in map OR unwalled floor detected\n"
 # define MAP_ALLOC_FAIL "Error allocating the map array either a malloc fail\n\
 or more likeley extra text/tokens below the map\n"
 # define MAP_WALL_FAIL	"map is not properly walled off :(\n"
 
 typedef struct s_cub3d	t_cub3d;
+
+typedef enum e_rgb
+{
+	R,
+	G,
+	B,
+}	t_rgb;
 
 typedef enum e_error
 {
@@ -205,7 +212,6 @@ struct s_cub3d
 
 //CUBED.C
 
-int			cubed(int argc, char **argv);
 void		main_game_loop(void *param);
 
 //init.c
@@ -225,6 +231,7 @@ bool		outer_walls_check(char **map);
 bool		top_bottom_check(char *map);
 bool		is_str_in_bounds(char *str, int i);
 bool		is_map_in_bounds(char **map, int y, int x);
+size_t		end_of_mapline(char *str);
 
 //CHARACTERS.C
 

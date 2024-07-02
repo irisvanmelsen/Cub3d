@@ -67,9 +67,9 @@ bool	is_map_walled(char **map, size_t mapheight)
 		{
 			if (map[y][x] != ' ' && map[y][x] != '1')
 			{
-				if (y > 0 && x + 1 >= ft_strlen(map[y - 1]))
+				if (y > 0 && x >= end_of_mapline(map[y - 1]))
 					return (false);
-				if (y < mapheight && x + 1 >= ft_strlen(map[y + 1]))
+				if (y < mapheight && x >= end_of_mapline(map[y + 1]))
 					return (false);
 			}
 			x++;

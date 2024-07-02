@@ -14,13 +14,6 @@
 
 int	main(int argc, char **argv)
 {
-	if (!cubed(argc, argv))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-int	cubed(int argc, char **argv)
-{
 	t_cub3d	*cub3d;
 
 	cub3d = init_cub3d_data();

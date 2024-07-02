@@ -42,7 +42,7 @@ bool	outer_walls_check(char **map)
 	while (map[y])
 	{
 		x = skip_whitespace(map[y], x);
-		if (map[y][x] != '1' || map[y][ft_strlen(map[y]) - 1] != '1') //need while isnt whitespace length
+		if (map[y][x] != '1' || map[y][end_of_mapline(map[y])] != '1')
 			return (false);
 		y++;
 		x = 0;
@@ -51,6 +51,18 @@ bool	outer_walls_check(char **map)
 	if (!top_bottom_check(map[y]))
 		return (false);
 	return (true);
+}
+
+size_t	end_of_mapline(char *str)
+{
+	size_t	ret;
+
+	if (!str)
+		return (0);
+	ret = ft_strlen(str) - 1;
+	while (str[ret] && str[ret] == ' ')
+		ret--;
+	return (ret);
 }
 
 bool	is_str_in_bounds(char *str, int i)

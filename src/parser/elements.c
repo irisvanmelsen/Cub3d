@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   elements.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/31 00:37:23 by iris              #+#    #+#             */
-/*   Updated: 2024/07/02 17:15:10 by ivan-mel         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   elements.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ivan-mel <ivan-mel@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/31 00:37:23 by iris          #+#    #+#                 */
+/*   Updated: 2024/07/02 17:15:10 by ivan-mel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ bool	load_element(t_cub3d *cub3d, char *path, int id)
 bool	parse_colours(char *path, int id, t_textures *textures)
 {
 	char		**components;
-	uint32_t	colour;
-	int 		r;
-	int			g;
-	int			b;
+	int			rgb[3];
 
 	components = ft_split(path, ',');
 	if (!components || ptrarr_len((void **)components) != 3)
@@ -71,22 +68,19 @@ bool	parse_colours(char *path, int id, t_textures *textures)
 		free_map_2d(components);
 		return (false);
 	}
-	r = ft_atoi(components[0]);
-	g = ft_atoi(components[1]);
-	b = ft_atoi(components[2]);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-	{
-		free_map_2d(components);
+	rgb[R] = ft_atoi(components[0]);
+	rgb[G] = ft_atoi(components[1]);
+	rgb[B] = ft_atoi(components[2]);
+	free_map_2d(components);
+	if (rgb[R] < 0 || rgb[R] > 255 || rgb[G] < 0 || rgb[G] > 255 \
+		|| rgb[B] < 0 || rgb[B] > 255)
 		return (false);
-	}
-	colour = get_rgba(r, g, b, 255);
 	if ((id == C && textures->ceiling_colour) || \
 		(id == F && textures->floor_colour))
 		error_exit(DOUBLE_ELEMENT, 1);
 	if (id == F)
-		textures->floor_colour = colour;	
-	else if (id == C)
-		textures->ceiling_colour = colour;
-	free_map_2d(components);
+		textures->floor_colour = get_rgba(rgb[R], rgb[G], rgb[B], 255);
+	else
+		textures->ceiling_colour = get_rgba(rgb[R], rgb[G], rgb[B], 255);
 	return (true);
 }
