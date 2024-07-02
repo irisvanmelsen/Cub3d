@@ -57,7 +57,7 @@ bool	is_str_in_bounds(char *str, int i)
 {
 	if (!str)
 		return (false);
-	if (i < 0 || i > ft_strlen(i))
+	if (i < 0 || i > (int)ft_strlen(str))
 		return (false);
 	return (true);
 }
@@ -68,7 +68,7 @@ bool	is_map_in_bounds(char **map, int y, int x)
 		return (false);
 	if (y < 0 || y > ptrarr_len((void **)map))
 		return (false);
-	if (x < 0 || x > ft_strlen(map[y]))
+	if (x < 0 || x > (int)ft_strlen(map[y]))
 		return (false);
 	return (true);
 }
