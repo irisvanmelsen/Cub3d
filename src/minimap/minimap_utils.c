@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minimap_utils.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/06/06 17:52:33 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2024/06/06 17:52:33 by mde-cloe      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minimap_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/06 17:52:33 by mde-cloe          #+#    #+#             */
+/*   Updated: 2024/07/02 17:07:36 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,32 @@ int	calc_height_minimap(char **mini_map)
 	return (y);
 }
 
-void	check_char_mm(char **mm_array, t_cub3d *cub3d, \
-		int y)
+void	check_char_mm(char **mm_array, t_cub3d *cub3d, int y)
 {
 	int	x;
 
 	x = 0;
 	while (x < 5)
 	{
-		if ((int)cub3d->player.pos.y - 2 + y >= 0 && \
-		(int)cub3d->player.pos.y - 2 + y < cub3d->map->length_y && \
-		(int)cub3d->player.pos.x - 2 + x >= 0 && \
-		(int)cub3d->player.pos.x - 2 + x < \
-		(int)ft_strlen(cub3d->map->content[(int)cub3d->player.pos.y]))
+		int new_y;
+		int new_x;
+		
+		new_y = (int)cub3d->player.pos.y - 2 + y;
+		new_x = (int)cub3d->player.pos.x - 2 + x;
+		if (new_y >= 0 && new_y < cub3d->map->length_y && new_x >= 0 && new_x \
+			< (int)ft_strlen(cub3d->map->content[new_y]))
 		{
-			//check of we op die -2 mogen indexen
-			if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y] \
-			[(int)cub3d->player.pos.x - 2 + x] == '1')
+			if (cub3d->minimap->og_map[new_y][new_x] == '1')
 				mm_array[y][x] = '1';
-			else if (cub3d->minimap->og_map[(int)cub3d->player.pos.y - 2 + y] \
-				[(int)cub3d->player.pos.x - 2 + x] == 'P')
+			else if (cub3d->minimap->og_map[new_y][new_x] == 'P')
 				mm_array[y][x] = 'P';
 			else
 				mm_array[y][x] = '0';
 		}
 		else
+		{
 			mm_array[y][x] = '#';
+		}
 		x++;
 	}
 }
